@@ -13,7 +13,6 @@
 	// import MovieGenres from '../components/movies/MovieGenres.svelte';
 	// import TVGenres from "../components/tv/TVGenres.svelte";
 	import SearchAll from "../components/SearchAll.svelte";
-	import IconMenu from "../components/design/IconMenu.svelte";
 	import PageContainer from "../components/design/PageContainer.svelte";
 </script> 
 
@@ -29,7 +28,7 @@
 <!-- <MovieGenres /> -->
 <!-- <TVGenres /> -->
 <PageContainer><SearchAll/></PageContainer>
-<IconMenu />
+
 <!-- <PageContainer><SearchTvShows/></PageContainer> -->
 <!-- <PageContainer><SearchMovies/></PageContainer> -->
 <!-- <PageContainer><SearchPeople/></PageContainer> -->

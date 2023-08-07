@@ -36,12 +36,12 @@
 		align-items: center;
 		gap: 30px;
 		position: fixed;
-		top: 40%;
+		top: 200px;
 		right: -20px;
 		z-index: 200;
 	}
 	.icon-menu-item {
-		padding: 10px 25px 10px 10px;
+		padding: 10px 22px 10px 8px;
 		background-color: var(--cyan);
 		border-top-left-radius: 20px;
 		border-bottom-left-radius: 20px;

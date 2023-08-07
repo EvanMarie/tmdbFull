@@ -4,6 +4,8 @@ import "../app.css";
 	import Navigation from "../components/design/Navigation.svelte";
 </script>
 
-<Navigation />
-<IconMenu />
-<slot/>
+<div style="position: relative">
+	<Navigation />
+	<IconMenu />
+	<slot/>
+</div>
