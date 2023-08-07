@@ -1,30 +1,46 @@
+<!-- MovieGenres.svelte -->
+
 <script>
 	import MovieGenreSelector from './MovieGenreSelector.svelte';
 	import { getMoviesByGenre } from '$lib/api/movies.js';
 
 	let moviesByGenre = [];
+	let genreId = null;
+	let page = 1;
+	let showButton = false;
+	let moreMovies = true;
 
-	const handleGenreSelect = async (event) => {
-		moviesByGenre = await getMoviesByGenre(event.detail.genreId);
+	const handleGenreSelect = (event) => {
+		// Reset movies and page count when a new genre is selected
+		moviesByGenre = [];
+		page = 1;
+		genreId = event.detail.genreId;
+		showButton = false;
+		moreMovies = true;
+		loadMoviesByGenre();
 	};
 
-     const loadMoreMovies = () => {
-    getMoviesByGenre(genre, true);
-  };
+	const loadMoviesByGenre = async () => {
+		const newMovies = await getMoviesByGenre(genreId, page);
+		moviesByGenre = [...moviesByGenre, ...newMovies];
+		showButton = true;
+		if (newMovies.length < 60) {
+			// Adjust this number based on your expectation from the API
+			moreMovies = false;
+		}
+		page += 3;
+	};
 </script>
 
 <MovieGenreSelector on:genreselect={handleGenreSelect} />
 
-<!-- Display the movies from the selected genre -->
-{#each moviesByGenre as movie}
-	<div>{movie.title}</div>
-	<div>{movie.release_date}</div>
-	<div>{movie.popularity}</div>
-	<img
-		src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-		alt={movie.title}
-		style="width: 300px;"
-	/>
+{#each moviesByGenre as movie (movie.id)}
+    <div>{movie.title}</div>
+    <div>{movie.release_date}</div>
+    <div>{movie.popularity}</div>
+    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} style="width: 300px;" />
 {/each}
 
-
+{#if showButton && moreMovies}
+	<button on:click={loadMoviesByGenre}>Load More</button>
+{/if}
