@@ -58,15 +58,15 @@
 <style>
 	.menu-bar {
 		width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 	}
 
-    .menu-bar li {
-        width: 100%;
-    }
+	.menu-bar li {
+		width: 100%;
+	}
 
 	.menu-section {
 		width: 100%;
@@ -81,9 +81,9 @@
 		text-shadow: 2px -4px 4px rgba(0, 0, 0, 0.9);
 	}
 
-    .menu-section {
-        width: 100%;
-    }
+	.menu-section {
+		width: 100%;
+	}
 
 	.menu-section .divider {
 		width: 100%;
@@ -113,13 +113,14 @@
 		.drawer-menu {
 			bottom: 0;
 			transform: translateY(100%);
-			background-color: var(--mediumBlue09);
+			background-color: var(--mediumBlue08);
 			padding: 80px 20px;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 			text-align: center;
+			z-index: 800;
 		}
 
 		.drawer-menu.open {
@@ -144,12 +145,13 @@
 			background-color: var(--mediumBlue09);
 			box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 			padding: 20px;
-            width: 100%;
+			width: 100%;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 			text-align: center;
+			z-index: 800;
 		}
 
 		.drawer-menu.open {

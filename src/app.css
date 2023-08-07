@@ -2,131 +2,134 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
-    /* vars for dracula theme */
-    --darkestGray: #282a36;
-    --darkestGray08: rgba(40, 42, 54, 0.8);
-    --darkGray: #44475a;
-    --darkGray08: rgba(68, 71, 90, 0.8);
-    --lightest: #f8f8f2;
-    --lightest08: rgba(248, 248, 242, 0.8);
-    --mediumBlue: #008b8b;
-    --mediumBlue09: rgba(98, 114, 164, 0.9);
-    --cyan: cyan;
-    --cyan08: rgba(0, 255, 255, 0.8);
-    --purple: #6c48ff;
-    --purple08: rgba(108, 72, 255, 0.8);
-    --pink: #bd27ff;
-    --pink08: rgba(189, 39, 255, 0.8);
-
-
+	/* vars for dracula theme */
+	--darkestGray: #282a36;
+	--darkestGray08: rgba(40, 42, 54, 0.8);
+	--darkGray: #44475a;
+	--darkGray08: rgba(68, 71, 90, 0.8);
+	--lightest: #f8f8f2;
+	--lightest08: rgba(248, 248, 242, 0.8);
+	--mediumBlue: #008b8b;
+    --mediumBlue08: rgba(0, 139, 139, 0.9);
+	--cyan: cyan;
+	--cyan08: rgba(0, 255, 255, 0.8);
+    --lightCyan: #78ffef;
+    --lightCyan08: rgba(120, 255, 239, 0.8);
+	--purple: #6c48ff;
+	--purple08: rgba(108, 72, 255, 0.8);
+	--pink: #bd27ff;
+	--pink08: rgba(189, 39, 255, 0.8);
+	--lightPink: #cfb0ff;
+	--lightPink08: rgba(207, 176, 255, 0.8);
 }
 
 html {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 1rem;
+	font-family: 'Quicksand', sans-serif;
+	font-size: 1rem;
 }
 
 h1 {
-    font-size: 2rem;
+	font-size: 2rem;
 }
 
 h2 {
-    font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 
 h3 {
-    font-size: 1.25rem;
+	font-size: 1.25rem;
 }
 
 select,
-input {
-    padding: 0.1rem 0.6rem;
-    width: 250px;
-    border-radius: 0.5rem;
-    border: 1px solid cyan;
-    background-color: #222429 !important;
-    color: #fff;
-    font-weight: bold;
+input[type="text"] {
+	padding: 0.1rem 0.6rem;
+	width: 250px;
+	border-radius: 0.5rem;
+	border: 1px solid cyan;
+	background-color: #222429 !important;
+	color: #fff;
+	font-weight: bold;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--mediumBlue);
+    box-shadow: 1px 1px 1px var(--mediumBlue);
 }
 
 /* Styling for the arrow on the selection element */
 select {
-    -webkit-appearance: none;
-    /* Safari and Chrome */
-    -moz-appearance: none;
-    /* Firefox */
-    appearance: none;
-    padding-right: 30px !important;
-    /* Add some padding to make space for a custom arrow icon */
-    background: url('arrowdown.png') no-repeat right center;
-    /* Replace 'custom-arrow.png' with your custom arrow icon */
+	-webkit-appearance: none;
+	/* Safari and Chrome */
+	-moz-appearance: none;
+	/* Firefox */
+	appearance: none;
+	padding-right: 30px !important;
+	/* Add some padding to make space for a custom arrow icon */
+	background: url('arrowdown.png') no-repeat right center;
+	/* Replace 'custom-arrow.png' with your custom arrow icon */
 }
-
 
 .select-container,
 .input-container {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	font-size: 1rem;
+	justify-content: center;
 }
 
-
 @media (min-width: 1080px) {
-
-    select,
-    input {
-        padding: 0.3rem 0.6rem;
-    }
+	select,
+	input {
+		padding: 0.3rem 0.6rem;
+	}
 }
 
 /* For Chrome and Safari */
 ::-webkit-scrollbar {
-    width: 4px;
-    /* You can adjust the width */
+	width: 4px;
+	/* You can adjust the width */
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
-    /* You can set the track background */
+	background: transparent;
+	/* You can set the track background */
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    /* You can set the thumb color and opacity */
+	background: rgba(0, 0, 0, 0.2);
+	/* You can set the thumb color and opacity */
 }
 
 /* For Firefox */
 body {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-    /* You can set the thumb color and opacity, and track color */
+	scrollbar-width: thin;
+	scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+	/* You can set the thumb color and opacity, and track color */
 }
 
 /* For Internet Explorer */
 body {
-    -ms-overflow-style: none;
-    /* This disables the default scrollbar styling */
+	-ms-overflow-style: none;
+	/* This disables the default scrollbar styling */
 }
 
 body::-webkit-scrollbar {
-    width: 4px;
-    /* You can adjust the width */
+	width: 4px;
+	/* You can adjust the width */
 }
 
 .button-styles {
-    background-color: var(--lightPink);
+	background-color: var(--cyan);
     color: var(--darkestGray);
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-weight: bold;
-    border: 1px solid;
+	border-radius: 0.5rem;
+	padding: 0.5rem 1rem;
+	font-weight: bold;
+	border: 1px solid;
 }
 
 .button-styles:hover {
-    background-color: var(--mediumBlue);
-    color: var(--lightest);
-    transition: all 0.3s ease-in-out;
+	background-color: var(--lightCyan);
+	transition: all 0.3s ease-in-out;
 }
