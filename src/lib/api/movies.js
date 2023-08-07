@@ -66,7 +66,7 @@ export const getMoviesByGenre = async (genreId, page = 1) => {
 			method: 'GET',
 			url: `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&language=en-US&page=${
 				page + i
-			}`,
+			}&with_original_language=en`,
 			headers: {
 				accept: 'application/json',
 				Authorization: `Bearer ${ACCESS_TOKEN}`

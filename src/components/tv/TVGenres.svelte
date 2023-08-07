@@ -27,11 +27,21 @@
 		}
 		page += 3;
 	};
+
+      const prioritizeImages = (a, b) => {
+    if (a.poster_path && !b.poster_path) {
+      return -1;
+    } else if (!a.poster_path && b.poster_path) {
+      return 1;
+    } else {
+      return 0;
+    }
+  };
 </script>
 
 <TVGenreSelector on:genreselect={handleGenreSelect} />
 
-{#each showsByGenre as show (show.id)}
+{#each showsByGenre.sort(prioritizeImages) as show (show.id)}
     <div>{show.name}</div>
     <div>{show.first_air_date}</div>
     <div>{show.popularity}</div>

@@ -30,15 +30,29 @@
 		}
 		page += 3;
 	};
+
+	const prioritizeImages = (a, b) => {
+		if (a.poster_path && !b.poster_path) {
+			return -1;
+		} else if (!a.poster_path && b.poster_path) {
+			return 1;
+		} else {
+			return 0;
+		}
+	};
 </script>
 
 <MovieGenreSelector on:genreselect={handleGenreSelect} />
 
-{#each moviesByGenre as movie (movie.id)}
-    <div>{movie.title}</div>
-    <div>{movie.release_date}</div>
-    <div>{movie.popularity}</div>
-    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} style="width: 300px;" />
+{#each moviesByGenre.sort(prioritizeImages) as movie (movie.id)}
+	<div>{movie.title}</div>
+	<div>{movie.release_date}</div>
+	<div>{movie.popularity}</div>
+	<img
+		src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+		alt={movie.title}
+		style="width: 300px;"
+	/>
 {/each}
 
 {#if showButton && moreMovies}
