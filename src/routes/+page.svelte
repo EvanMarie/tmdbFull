@@ -26,3 +26,6 @@
 <!-- <LoadMovies /> -->
 <MovieGenres />
 <!-- <TVGenres /> -->
+
+
+<div>Test</div>
