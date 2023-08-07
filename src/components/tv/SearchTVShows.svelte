@@ -2,6 +2,7 @@
 <script>
   import { getTVShows, tvShows, loadMoreTVShows } from '$lib/api/tvShows.js';
   import { onMount } from 'svelte';
+	import { prioritizeImages } from '../../lib/api/prioritizeImages';
       // Other imports and code...
 
   let tvShowData = [];
@@ -26,16 +27,7 @@
     }
   };
 
-  // Custom sorting function to prioritize shows with images first
-  const prioritizeImages = (a, b) => {
-    if (a.poster_path && !b.poster_path) {
-      return -1;
-    } else if (!a.poster_path && b.poster_path) {
-      return 1;
-    } else {
-      return 0;
-    }
-  };
+
 </script>
 
 <input

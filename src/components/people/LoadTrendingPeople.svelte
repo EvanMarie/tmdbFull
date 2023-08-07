@@ -2,6 +2,7 @@
 <script>
   import { getTrendingPeople, trendingPeople, trendingPageNumber } from "$lib/api/trendingPeople.js";
   import { onMount } from 'svelte';
+	import { prioritizeImages } from "../../lib/api/prioritizeImages";
 
 
   let trendingPeopleData = [];
@@ -23,7 +24,7 @@
 </script>
 
 <!-- Display the trending people -->
-{#each trendingPeopleData as person}
+{#each trendingPeopleData.sort(prioritizeImages) as person}
   <div>{person.name}</div>
   <div>{person.known_for_department}</div>
   <div>{person.popularity}</div>

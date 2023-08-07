@@ -3,6 +3,7 @@
 <script>
   import { getMovies, movies } from '$lib/api/movies.js'; // Verify the import path is correct
   import { onMount } from 'svelte';
+	import { prioritizeImages } from '../../lib/api/prioritizeImages';
 
   let movieData = [];
 
@@ -23,7 +24,7 @@
 <button on:click={handleLoadMovies}>More Movies</button>
 
 <!-- Display the movies -->
-{#each movieData as movie}
+{#each movieData.sort(prioritizeImages) as movie}
   <div>{movie.title}</div>
   <div>{movie.release_date}</div>
   <div>{movie.popularity}</div>

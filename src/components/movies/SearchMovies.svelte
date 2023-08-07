@@ -1,5 +1,6 @@
 <script>
   import { searchMovies, movieResults, searchMoviePageStore, totalMoviePagesStore } from '$lib/api/movies.js';
+	import { prioritizeImages } from '../../lib/api/prioritizeImages';
   
   let movieSearchData = [];
   let searchQuery = '';
@@ -21,16 +22,6 @@
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       handleSearch();
-    }
-  };
-
-  const prioritizeImages = (a, b) => {
-    if (a.poster_path && !b.poster_path) {
-      return -1;
-    } else if (!a.poster_path && b.poster_path) {
-      return 1;
-    } else {
-      return 0;
     }
   };
 

@@ -3,6 +3,7 @@
 <script>
     import { searchPeople, searchResults } from "$lib/api/popularPeople.js"
     import { onMount } from 'svelte';
+	import { prioritizeImages } from "../../lib/api/prioritizeImages";
 
     let searchQuery = '';
     let searchPageNumber = 1;
@@ -24,16 +25,6 @@
         // Initially, do not load any search results until the user submits the form
     });
 
-    // Custom sorting function to prioritize items with images first
-    const prioritizeImages = (a, b) => {
-        if ((a.profile_path || a.poster_path) && !(b.profile_path || b.poster_path)) {
-            return -1;
-        } else if (!(a.profile_path || a.poster_path) && (b.profile_path || b.poster_path)) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
 </script>
 
 <form on:submit|preventDefault={handleSearch}>

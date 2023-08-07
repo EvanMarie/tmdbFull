@@ -3,6 +3,7 @@
 <script>
     import { getPeople, people } from "$lib/api/popularPeople.js"
     import { onMount } from 'svelte';
+	import { prioritizeImages } from "../../lib/api/prioritizeImages";
 
     let peopleData = [];
 
@@ -20,7 +21,7 @@
 <button on:click={getPeople}>Load Next Page</button>
 
 <!-- Display the popular people -->
-{#each peopleData as person}
+{#each peopleData.sort(prioritizeImages) as person}
     <div>{person.name}</div>
     <div>{person.known_for_department}</div>
     <div>{person.popularity}</div>

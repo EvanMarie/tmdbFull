@@ -1,5 +1,6 @@
 <script>
 	import { getTVShowsByGenre } from '$lib/api/tvshows.js';
+	import { prioritizeImages } from '../../lib/api/prioritizeImages';
     import TVGenreSelector from './TVGenreSelector.svelte';
 	
 
@@ -27,16 +28,6 @@
 		}
 		page += 3;
 	};
-
-      const prioritizeImages = (a, b) => {
-    if (a.poster_path && !b.poster_path) {
-      return -1;
-    } else if (!a.poster_path && b.poster_path) {
-      return 1;
-    } else {
-      return 0;
-    }
-  };
 </script>
 
 <TVGenreSelector on:genreselect={handleGenreSelect} />

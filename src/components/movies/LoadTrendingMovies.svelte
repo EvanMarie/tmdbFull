@@ -7,6 +7,7 @@
     trendingMoviePageNumber
   } from '$lib/api/trendingMovies.js';
   import { onMount, afterUpdate } from 'svelte';
+	import { prioritizeImages } from '../../lib/api/prioritizeImages';
 
   let trendingMovieData = [];
   let trendingTimeWindow = 'day'; // Initialize the trendingTimeWindow variable with 'day'
@@ -68,7 +69,7 @@
 <button on:click={handleLoadTrending}>Load Trending Movies</button>
 
 <!-- Display the trending movies -->
-{#each trendingMovieData as movie}
+{#each trendingMovieData.sort(prioritizeImages) as movie}
 	<div>{movie.title}</div>
 	<div>{movie.release_date}</div>
 	<div>{movie.popularity}</div>
