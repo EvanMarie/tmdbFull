@@ -1,0 +1,83 @@
+{
+  "hash": "a4d5d53d",
+  "browserHash": "83ee6860",
+  "optimized": {
+    "svelte/animate": {
+      "src": "../../node_modules/svelte/src/runtime/animate/index.js",
+      "file": "svelte_animate.js",
+      "fileHash": "f6545219",
+      "needsInterop": false
+    },
+    "svelte/easing": {
+      "src": "../../node_modules/svelte/src/runtime/easing/index.js",
+      "file": "svelte_easing.js",
+      "fileHash": "a2b12f47",
+      "needsInterop": false
+    },
+    "svelte/internal": {
+      "src": "../../node_modules/svelte/src/runtime/internal/index.js",
+      "file": "svelte_internal.js",
+      "fileHash": "5183b836",
+      "needsInterop": false
+    },
+    "svelte/motion": {
+      "src": "../../node_modules/svelte/src/runtime/motion/index.js",
+      "file": "svelte_motion.js",
+      "fileHash": "805d7613",
+      "needsInterop": false
+    },
+    "svelte/store": {
+      "src": "../../node_modules/svelte/src/runtime/store/index.js",
+      "file": "svelte_store.js",
+      "fileHash": "30a6bcac",
+      "needsInterop": false
+    },
+    "svelte/transition": {
+      "src": "../../node_modules/svelte/src/runtime/transition/index.js",
+      "file": "svelte_transition.js",
+      "fileHash": "9b017c2b",
+      "needsInterop": false
+    },
+    "svelte": {
+      "src": "../../node_modules/svelte/src/runtime/index.js",
+      "file": "svelte.js",
+      "fileHash": "b4a93f54",
+      "needsInterop": false
+    },
+    "svelte/internal/disclose-version": {
+      "src": "../../node_modules/svelte/src/runtime/internal/disclose-version/index.js",
+      "file": "svelte_internal_disclose-version.js",
+      "fileHash": "fd2d0d7d",
+      "needsInterop": false
+    },
+    "devalue": {
+      "src": "../../node_modules/devalue/index.js",
+      "file": "devalue.js",
+      "fileHash": "170a454e",
+      "needsInterop": false
+    },
+    "esm-env": {
+      "src": "../../node_modules/esm-env/dev-browser.js",
+      "file": "esm-env.js",
+      "fileHash": "b9066e37",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-3IOTKFJW": {
+      "file": "chunk-3IOTKFJW.js"
+    },
+    "chunk-DQISIYQF": {
+      "file": "chunk-DQISIYQF.js"
+    },
+    "chunk-VRS3VY5L": {
+      "file": "chunk-VRS3VY5L.js"
+    },
+    "chunk-CUD5VZ46": {
+      "file": "chunk-CUD5VZ46.js"
+    },
+    "chunk-2B2CG5KL": {
+      "file": "chunk-2B2CG5KL.js"
+    }
+  }
+}
