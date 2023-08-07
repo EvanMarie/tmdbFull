@@ -1,4 +1,4 @@
-<!-- MovieGenreSelector.svelte -->
+<!--TVGenreSelector.svelte -->
 <script>
     import { onMount, createEventDispatcher } from 'svelte';
     import axios from 'axios';
@@ -13,7 +13,7 @@
         const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
         const options = {
             method: 'GET',
-            url: 'https://api.themoviedb.org/3/genre/movie/list?language=en-US',
+            url: 'https://api.themoviedb.org/3/genre/tv/list?language=en-US',
             headers: {
                 accept: 'application/json',
                 Authorization: `Bearer ${ACCESS_TOKEN}`

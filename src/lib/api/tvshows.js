@@ -75,3 +75,32 @@ export const getTVGenres = async () => {
 		return [];
 	}
 };
+
+export const getTVShowsByGenre = async (genreId, page = 1) => {
+	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	const requests = [];
+
+	// Create three requests
+	for (let i = 0; i < 3; i++) {
+		requests.push({
+			method: 'GET',
+			url: `https://api.themoviedb.org/3/discover/tv?with_genres=${genreId}&language=en-US&page=${
+				page + i
+			}`,
+			headers: {
+				accept: 'application/json',
+				Authorization: `Bearer ${ACCESS_TOKEN}`
+			}
+		});
+	}
+
+	try {
+		// Use axios.all to send all requests concurrently
+		const responses = await axios.all(requests.map((request) => axios.request(request)));
+		// Combine the results from all responses
+		return responses.reduce((results, response) => results.concat(response.data.results), []);
+	} catch (error) {
+		console.error(error);
+		return [];
+	}
+};
