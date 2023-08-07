@@ -55,3 +55,22 @@ export const searchMovies = async (searchQuery, append = false) => {
 		console.error(error);
 	}
 };
+
+export const getMoviesByGenre = async (genreId) => {
+	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	const options = {
+		method: 'GET',
+		url: `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&language=en-US`,
+		headers: {
+			accept: 'application/json',
+			Authorization: `Bearer ${ACCESS_TOKEN}`
+		}
+	};
+	try {
+		const response = await axios.request(options);
+		return response.data.results;
+	} catch (error) {
+		console.error(error);
+		return [];
+	}
+};

@@ -9,6 +9,9 @@
 	// import LoadTrendingMovies from "../components/movies/LoadTrendingMovies.svelte";
 	// import LoadTvShows from "../components/tv/LoadTvShows.svelte";
 	// import SearchTvShows from "../components/tv/SearchTVShows.svelte";
+    // import LoadMovies from "../components/movies/LoadMovies.svelte";
+
+	import MovieGenres from "../components/movies/MovieGenres.svelte";
 
 
 
@@ -23,3 +26,6 @@
 <!-- <LoadTvShows /> -->
 <!-- <SearchTvShows /> -->
 <!-- <LoadTrendingTvShows/> -->
+<!-- <LoadMovies /> -->
+<MovieGenres    />
+
