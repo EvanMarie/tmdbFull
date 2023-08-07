@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import SearchAll from '../SearchAll.svelte';
 
 	let isOpen = false;
 
@@ -27,7 +28,7 @@
 <button on:click={toggleMenu} class="toggle-button">Open/Close</button>
 
 <div
-	class={`drawer-menu fixed w-full h-screen bg-gray-100 transition-transform duration-300 ease-in-out ${
+	class={`drawer-menu fixed w-full h-screen bg-gray-100 transition-transform duration-400 ease-in-out ${
 		isOpen ? 'open' : ''
 	}`}
 >
@@ -41,11 +42,13 @@
 		<li>
 			<div class="menu-section">
 				<h1>TV</h1>
+				<div class="divider" />
 			</div>
 		</li>
 		<li>
 			<div class="menu-section">
 				<h1>People</h1>
+				<div class="divider" />
 			</div>
 		</li>
 		<!-- Add more links as needed -->
@@ -55,7 +58,15 @@
 <style>
 	.menu-bar {
 		width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
 	}
+
+    .menu-bar li {
+        width: 100%;
+    }
 
 	.menu-section {
 		width: 100%;
@@ -69,6 +80,10 @@
 		color: var(--white);
 		text-shadow: 2px -4px 4px rgba(0, 0, 0, 0.9);
 	}
+
+    .menu-section {
+        width: 100%;
+    }
 
 	.menu-section .divider {
 		width: 100%;
@@ -84,7 +99,7 @@
 			bottom: 0;
 			left: 0;
 			text-align: center;
-			padding: 10px;
+			padding: 5px 10px;
 			cursor: pointer;
 			z-index: 1001;
 			background-color: var(--cyan08);
@@ -92,13 +107,13 @@
 			font-weight: bold;
 			font-size: 1.25rem;
 			box-shadow: 2px -5px 11px rgba(0, 0, 0, 0.4);
-            text-shadow: 2px -5px 11px rgba(255, 255, 255, 0.8);
+			text-shadow: 2px -5px 11px rgba(255, 255, 255, 0.8);
 		}
 
 		.drawer-menu {
 			bottom: 0;
 			transform: translateY(100%);
-			background-color: var(--mediumBlue08);
+			background-color: var(--mediumBlue09);
 			padding: 80px 20px;
 			display: flex;
 			flex-direction: column;
@@ -126,9 +141,10 @@
 			top: 0;
 			transform: translateY(-100%);
 			height: fit-content;
-			background-color: var(--mediumBlue08);
+			background-color: var(--mediumBlue09);
 			box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
 			padding: 20px;
+            width: 100%;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;

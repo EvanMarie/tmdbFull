@@ -4,56 +4,61 @@ import axios from 'axios';
 import { writable } from 'svelte/store';
 
 export const tvShows = writable([]);
-export let tvShowPageNumber = 1;
+export const tvShowPageStore = writable(1); // Current page number
+export const totalTVShowPagesStore = writable(1); // Total pages available
 
 export const getTVShows = async (searchQuery = '', append = false) => {
 	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
-	const MIN_SHOWS = 20; // Minimum number of shows to fetch
+	let fetchedShows = [];
+	let page;
 
-	let fetchedShows = []; // array to keep track of fetched English shows
+	// Get the current page number from the store
+	tvShowPageStore.subscribe((value) => {
+		page = value;
+	});
 
 	try {
-		while (fetchedShows.length < MIN_SHOWS) {
-			let url = '';
-			if (searchQuery) {
-				url = `https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(
-					searchQuery
-				)}&page=${tvShowPageNumber}&language=en-US`;
-			} else {
-				url = `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${tvShowPageNumber}`;
-			}
-			const options = {
-				method: 'GET',
-				url,
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${ACCESS_TOKEN}`
-				}
-			};
-
-			const response = await axios.request(options);
-			// Filter the TV shows to only include those with 'en' as the original language
-			const englishShows = response.data.results.filter((show) => show.original_language === 'en');
-
-			// Sort the English TV shows by rating in descending order (highest first)
-			const sortedShows = englishShows.sort((a, b) => b.vote_average - a.vote_average);
-			fetchedShows = [...fetchedShows, ...sortedShows];
-
-			console.log(response.data.results);
-			tvShowPageNumber++;
+		let url;
+		if (searchQuery) {
+			url = `https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(
+				searchQuery
+			)}&page=${page}&language=en-US`;
+		} else {
+			url = `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${page}`;
 		}
+
+		const options = {
+			method: 'GET',
+			url,
+			headers: {
+				accept: 'application/json',
+				Authorization: `Bearer ${ACCESS_TOKEN}`
+			}
+		};
+
+		const response = await axios.request(options);
+		// Updating the total pages available
+		totalTVShowPagesStore.set(response.data.total_pages);
+		// Filtering and sorting as needed
+		const englishShows = response.data.results.filter((show) => show.original_language === 'en');
+		const sortedShows = englishShows.sort((a, b) => b.vote_average - a.vote_average);
+
+		fetchedShows = sortedShows;
+
 		if (append) {
 			tvShows.update((existingShows) => [...existingShows, ...fetchedShows]);
 		} else {
-			tvShows.set(fetchedShows); // update the tvShows store
+			tvShows.set(fetchedShows);
 		}
+		// Incrementing the page number for the next fetch
+		tvShowPageStore.update((n) => n + 1);
 	} catch (error) {
 		console.error(error);
 	}
 };
 
-export const loadMoreTVShows = (searchQuery) => async () => {
-	// Here, we pass 'true' for the 'append' parameter so that the results get appended to the existing ones
+export const loadMoreTVShows = (searchQuery) => () => {
+	// Pass 'true' for the 'append' parameter to append the results
 	getTVShows(searchQuery, true);
 };
 
@@ -76,7 +81,6 @@ export const getTVGenres = async () => {
 	}
 };
 
-// api.js
 export const getTVShowsByGenre = async (genreId, page = 1) => {
 	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const requests = [];

@@ -1,20 +1,17 @@
 <!-- SearchTVShows.svelte -->
 <script>
-  import { getTVShows, tvShows, loadMoreTVShows } from '$lib/api/tvShows.js';
+  import { getTVShows, tvShows, loadMoreTVShows, tvShowPageStore, totalTVShowPagesStore} from '$lib/api/tvShows.js';
   import { onMount } from 'svelte';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
-      // Other imports and code...
 
   let tvShowData = [];
-    tvShows.subscribe(value => {
-        tvShowData = value;
-    });
   let searchQuery = '';
+  let currentPage = 1;
+  let totalTVShowPages = 1;
 
-  // Subscribe to the search results store
-  tvShows.subscribe(value => {
-    tvShowData = value;
-  });
+  tvShows.subscribe(value => tvShowData = value);
+  tvShowPageStore.subscribe(value => currentPage = value);
+  totalTVShowPagesStore.subscribe(value => totalTVShowPages = value);
 
   const handleSearch = () => {
     getTVShows(searchQuery); // You might need to modify getTVShows function to accept query as a parameter
@@ -52,5 +49,5 @@
 {/if}
 
 {#if tvShowData.length > 0}
-    <button on:click={loadMoreTVShows(searchQuery)}>Load More</button>
+    <button on:click={loadMoreTVShows(searchQuery)} class="button-styles">Load More</button>
 {/if}

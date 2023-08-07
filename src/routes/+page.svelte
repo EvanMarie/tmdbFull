@@ -12,11 +12,11 @@
 	// import LoadMovies from "../components/movies/LoadMovies.svelte";
 	// import MovieGenres from '../components/movies/MovieGenres.svelte';
 	// import TVGenres from "../components/tv/TVGenres.svelte";
-	// import SearchAll from "../components/SearchAll.svelte";
-</script>
+	import SearchAll from "../components/SearchAll.svelte";
+	import PageContainer from "../components/design/PageContainer.svelte";
+</script> 
 
 <!-- <LoadPeople /> -->
-<!-- <SearchPeople />  -->
 <!-- <LoadTrendingPeople /> -->
 <!-- <LoadTrendingMovies /> -->
 <!-- <SearchMovies/> -->
@@ -27,6 +27,9 @@
 <!-- <LoadMovies /> -->
 <!-- <MovieGenres /> -->
 <!-- <TVGenres /> -->
-<!-- <SearchAll/> -->
+<PageContainer><SearchAll/></PageContainer>
+<!-- <PageContainer><SearchTvShows/></PageContainer> -->
+<!-- <PageContainer><SearchMovies/></PageContainer> -->
+<!-- <PageContainer><SearchPeople/></PageContainer> -->
 
 

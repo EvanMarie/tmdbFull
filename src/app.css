@@ -11,22 +11,16 @@
     --darkGray08: rgba(68, 71, 90, 0.8);
     --lightest: #f8f8f2;
     --lightest08: rgba(248, 248, 242, 0.8);
-    --mediumBlue: #6272a4;
-    --mediumBlue08: rgba(98, 114, 164, 0.8);
-    --cyan: #8be9fd;
-    --cyan08: rgba(139, 233, 253, 0.8);
-    --green: #50fa7b;
-    --green08: rgba(80, 250, 123, 0.8);
-    --orange: #ffb86c;
-    --orange08: rgba(255, 184, 108, 0.8);
-    --pink: #ff79c6;
-    --pink08: rgba(255, 121, 198, 0.8);
-    --purple: #bd93f9;
-    --purple08: rgba(189, 147, 249, 0.8);
-    --red: #ff5555;
-    --red08: rgba(255, 85, 85, 0.8);
-    --yellow: #f1fa8c;
-    --yellow08: rgba(241, 250, 140, 0.8);
+    --mediumBlue: #008b8b;
+    --mediumBlue09: rgba(98, 114, 164, 0.9);
+    --cyan: cyan;
+    --cyan08: rgba(0, 255, 255, 0.8);
+    --purple: #6c48ff;
+    --purple08: rgba(108, 72, 255, 0.8);
+    --pink: #bd27ff;
+    --pink08: rgba(189, 39, 255, 0.8);
+
+
 }
 
 html {
@@ -120,4 +114,19 @@ body {
 body::-webkit-scrollbar {
     width: 4px;
     /* You can adjust the width */
+}
+
+.button-styles {
+    background-color: var(--lightPink);
+    color: var(--darkestGray);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border: 1px solid;
+}
+
+.button-styles:hover {
+    background-color: var(--mediumBlue);
+    color: var(--lightest);
+    transition: all 0.3s ease-in-out;
 }
