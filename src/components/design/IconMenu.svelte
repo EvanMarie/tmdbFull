@@ -45,11 +45,12 @@
 		background-color: var(--cyan);
 		border-top-left-radius: 20px;
 		border-bottom-left-radius: 20px;
+		box-shadow: 2px -3px 3px rgba(0, 0, 0, 0.8);
 	}
 
 	.icon-menu-item:hover {
 		background-color: var(--lightPink);
-		/* move left 35px and down 10px while scaling to 1.06 */
+				box-shadow: 2px -3px 3px rgba(0, 0, 0, 0.9);
 		transform: translateX(-20px) translateY(5px) scale(1.06);
 		transition: all 0.3s ease-in-out;
 	}

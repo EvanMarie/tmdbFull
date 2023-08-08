@@ -1,16 +1,21 @@
 <script>
 	import { onMount } from 'svelte';
-	import SearchAll from '../SearchAll.svelte';
+	import { writable } from 'svelte/store';
+
+	let menuOpen = false;
+	const closeMenu = () => {
+		menuOpen = false;
+	};
 
 	let isOpen = false;
 
 	function toggleMenu() {
-		isOpen = !isOpen;
+		menuOpen = !menuOpen;
 	}
 
-	function closeMenu() {
-		isOpen = false;
-	}
+	// function closeMenu() {
+	// 	isOpen = false;
+	// }
 
 	onMount(() => {
 		function handleKeydown(event) {
@@ -23,57 +28,77 @@
 			window.removeEventListener('keydown', handleKeydown);
 		};
 	});
+
+		function handleOverlayKeydown(event) {
+		if (event.key === 'Enter' || event.key === ' ') {
+			closeMenu();
+		}
+	}
 </script>
 
 <button on:click={toggleMenu} class="toggle-button"
 	><img src="/menu.png" alt="menu" class="icon" /></button
 >
 
+<div 
+	class="drawer-overlay" 
+	class:active={menuOpen} 
+	on:click={closeMenu} 
+	on:keydown={handleOverlayKeydown} 
+	role="button" 
+	tabindex="0" 
+></div>
+
 <div
 	class={`drawer-menu fixed w-full h-screen bg-gray-100 transition-transform duration-400 ease-in-out ${
-		isOpen ? 'open' : ''
+		menuOpen ? 'open' : ''
 	}`}
 >
+
 	<div class="menu-container">
 		<ul class="menu-bar">
 			<li>
 				<div class="menu-section">
-					<a href="/movies" class="menu-main"
+					<a href="/movies" class="menu-main" on:click={closeMenu}
 						><img src="/movieSm_hover.png" alt="movies" style="height: 2rem;" />
 						<h1>Movies</h1></a
 					>
 					<div class="sub-links">
-						<a href="/movies/trending_movies" class="menu-sub">Trending Movies</a>
-						<a href="/movies/movie_genres" class="menu-sub">Movie Genres</a>
-						<a href="/movies/search_movies" class="menu-sub">Search Movies</a>
+						<a href="/movies/trending_movies" class="menu-sub" on:click={closeMenu}
+							>Trending Movies</a
+						>
+						<a href="/movies/movie_genres" class="menu-sub" on:click={closeMenu}>Movie Genres</a>
+						<a href="/movies/search_movies" class="menu-sub" on:click={closeMenu}>Search Movies</a>
 					</div>
 					<div class="divider" />
 				</div>
 			</li>
 			<li>
 				<div class="menu-section">
-					<a href="/tv" class="menu-main">
+					<a href="/tv" class="menu-main" on:click={closeMenu}>
 						<img src="/tv_hover.png" alt="movies" style="height: 2rem;" />
 						<h1>TV</h1>
 					</a>
 					<div class="sub-links">
-						<a href="/tv/trending_tv" class="menu-sub">Trending TV</a>
-						<a href="/tv/tv_genres" class="menu-sub">TV Genres</a>
-						<a href="/tv/search_tv" class="menu-sub">Search TV</a>
+						<a href="/tv/trending_tv" class="menu-sub" on:click={closeMenu}>Trending TV</a>
+						<a href="/tv/tv_genres" class="menu-sub" on:click={closeMenu}>TV Genres</a>
+						<a href="/tv/search_tv" class="menu-sub" on:click={closeMenu}>Search TV</a>
 					</div>
 					<div class="divider" />
 				</div>
 			</li>
 			<li>
 				<div class="menu-section">
-					<a href="/people" class="menu-main">
+					<a href="/people" class="menu-main" on:click={closeMenu}>
 						<img src="/person_hover.png" alt="movies" style="height: 2rem;" />
 						<h1>People</h1>
 					</a>
 
 					<div class="sub-links">
-						<a href="/people/trending_people" class="menu-sub">Trending People</a>
-						<a href="/people/search_people" class="menu-sub">Search People</a>
+						<a href="/people/trending_people" class="menu-sub" on:click={closeMenu}
+							>Trending People</a
+						>
+						<a href="/people/search_people" class="menu-sub" on:click={closeMenu}>Search People</a>
 					</div>
 					<div class="divider" />
 				</div>
@@ -84,7 +109,6 @@
 						<img src="/search_hover.png" alt="movies" style="height: 2rem;" />
 						<h1>Search All</h1>
 					</a>
-	
 				</div>
 			</li>
 			<!-- Add more links as needed -->
@@ -96,6 +120,10 @@
 </div>
 
 <style>
+	.hidden {
+		display: none;
+	}
+
 	.toggle-button {
 		position: fixed;
 		bottom: 40px;
@@ -201,15 +229,16 @@
 
 	.menu-bar a {
 		width: 100%;
-		color: var(--cyan);		
-		text-shadow: 2px -4px 4px rgba(0, 0, 0, 0.9);
+		color: var(--cyan);
+		text-shadow: 2px -3px 3px rgba(0, 0, 0, 0.9);
 	}
 
 	.menu-bar a:hover,
 	h1:hover {
 		background-color: var(--lightPink);
 		color: var(--darkestGray);
-		text-shadow: 2px -4px 4px rgba(255, 255, 255, 0.9);
+		border-radius: 5px;
+		text-shadow: 2px -3px 3px rgba(255, 255, 255, 0.9);
 	}
 
 	.sub-links {
@@ -249,5 +278,25 @@
 			width: 40px;
 			height: 40px;
 		}
+	}
+
+	.drawer-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0, 0, 0, 0.5); /* You can adjust the opacity here */
+		z-index: 750; /* Updated value to make sure it's less than the menu's z-index */
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+		backdrop-filter: blur(5px);	
+	}
+
+	.drawer-overlay.active {
+		opacity: 1;
+		visibility: visible;
+		
 	}
 </style>
