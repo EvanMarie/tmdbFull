@@ -1,7 +1,8 @@
 <script>
 	import PageContainer from "../../../components/design/PageContainer.svelte";
-	import SearchMovies from "../../../components/movies/SearchMovies.svelte";
+	import SearchTvShows from "../../../components/tv/SearchTVShows.svelte";
+
 
 </script>
 <PageContainer>
-<SearchMovies /></PageContainer>
+<SearchTvShows /></PageContainer>

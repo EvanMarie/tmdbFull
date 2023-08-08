@@ -4,6 +4,8 @@
 	import MovieGenreSelector from './MovieGenreSelector.svelte';
 	import { getMoviesByGenre } from '$lib/api/movies.js';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import ReturnToTop from '../design/ReturnToTop.svelte';
+	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 
 	let moviesByGenre = [];
 	let genreId = null;
@@ -46,6 +48,7 @@
 	/>
 {/each}
 
+	<ReturnToTop />
 {#if showButton && moreMovies}
-	<button on:click={loadMoviesByGenre}>Load More</button>
+<LoadMoreButton onClick={loadMoviesByGenre} />
 {/if}

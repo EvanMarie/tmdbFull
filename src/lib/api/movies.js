@@ -13,24 +13,39 @@ export const totalMoviePagesStore = writable(1);
 
 export const getMovies = async (append = false) => {
 	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
-	const options = {
-		method: 'GET',
-		url: `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${get(moviePageStore)}`,
-		headers: {
-			accept: 'application/json',
-			Authorization: `Bearer ${ACCESS_TOKEN}`
-		}
-	};
+	let fetchedMovies = [];
+	const requests = [];
+
+	for (let i = 0; i < 3; i++) {
+		requests.push({
+			method: 'GET',
+			url: `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${
+				get(moviePageStore) + i
+			}`,
+			headers: {
+				accept: 'application/json',
+				Authorization: `Bearer ${ACCESS_TOKEN}`
+			}
+		});
+	}
+
 	try {
-		const response = await axios.request(options);
+		// Use axios.all to send all requests concurrently
+		const responses = await axios.all(requests.map((request) => axios.request(request)));
+		// Combine the results from all responses
+		fetchedMovies = responses.reduce(
+			(results, response) => results.concat(response.data.results),
+			[]
+		);
+
 		if (append) {
-			movies.update((existingMovies) => [...existingMovies, ...response.data.results]);
+			movies.update((existingMovies) => [...existingMovies, ...fetchedMovies]);
 		} else {
-			movies.set(response.data.results);
+			movies.set(fetchedMovies);
 		}
-		moviePageStore.update((n) => n + 1);
-		totalMoviePagesStore.set(response.data.total_pages);
-		console.log(response.data.results);
+		moviePageStore.update((n) => n + 3); // Increment by 3 as we fetched 3 pages
+		totalMoviePagesStore.set(responses[0].data.total_pages); // Assuming all pages have the same total
+		console.log(fetchedMovies);
 	} catch (error) {
 		console.error(error);
 	}
@@ -38,26 +53,38 @@ export const getMovies = async (append = false) => {
 
 export const searchMovies = async (searchQuery, append = false) => {
 	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
-	const options = {
-		method: 'GET',
-		url: `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
-			searchQuery
-		)}&language=en-US&page=${get(searchMoviePageStore)}`,
-		headers: {
-			accept: 'application/json',
-			Authorization: `Bearer ${ACCESS_TOKEN}`
-		}
-	};
+	let fetchedMovies = [];
+	const requests = [];
+
+	for (let i = 0; i < 3; i++) {
+		requests.push({
+			method: 'GET',
+			url: `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+				searchQuery
+			)}&language=en-US&page=${get(searchMoviePageStore) + i}`,
+			headers: {
+				accept: 'application/json',
+				Authorization: `Bearer ${ACCESS_TOKEN}`
+			}
+		});
+	}
 
 	try {
-		const response = await axios.request(options);
+		// Use axios.all to send all requests concurrently
+		const responses = await axios.all(requests.map((request) => axios.request(request)));
+		// Combine the results from all responses
+		fetchedMovies = responses.reduce(
+			(results, response) => results.concat(response.data.results),
+			[]
+		);
+
 		if (append) {
-			movieResults.update((existingMovies) => [...existingMovies, ...response.data.results]);
+			movieResults.update((existingMovies) => [...existingMovies, ...fetchedMovies]);
 		} else {
-			movieResults.set(response.data.results);
+			movieResults.set(fetchedMovies);
 		}
-		searchMoviePageStore.update((n) => n + 1);
-		totalMoviePagesStore.set(response.data.total_pages);
+		searchMoviePageStore.update((n) => n + 3); // Increment by 3 as we fetched 3 pages
+		totalMoviePagesStore.set(responses[0].data.total_pages); // Assuming all pages have the same total
 	} catch (error) {
 		console.error(error);
 	}

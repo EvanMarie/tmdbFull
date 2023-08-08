@@ -1,8 +1,11 @@
+// LoadTrendingTvShows.svelte
+
 import axios from 'axios';
 import { writable } from 'svelte/store';
 
 export const trendingTVShows = writable([]);
 export let trendingTVShowPageNumber = writable(1); // Change to a writable store
+export let totalTrendingTVShowPages = writable(1);
 
 export const getTrendingTVShows = async (trendingTimeWindow) => {
 	let currentPage;
@@ -24,6 +27,8 @@ export const getTrendingTVShows = async (trendingTimeWindow) => {
 
 	try {
 		const response = await axios.request(options);
+
+		totalTrendingTVShowPages.set(response.data.total_pages);
 
 		// If it's the first page of trending TV shows, update the trendingTVShows store
 		// Otherwise, append the new results to the existing ones

@@ -17,33 +17,37 @@ export const getTVShows = async (searchQuery = '', append = false) => {
 		page = value;
 	});
 
-	try {
+	const requests = [];
+
+	for (let i = 0; i < 3; i++) {
 		let url;
 		if (searchQuery) {
-			url = `https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(
-				searchQuery
-			)}&page=${page}&language=en-US`;
+			url = `https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(searchQuery)}&page=${
+				page + i
+			}&language=en-US`;
 		} else {
-			url = `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${page}`;
+			url = `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${page + i}`;
 		}
 
-		const options = {
+		requests.push({
 			method: 'GET',
 			url,
 			headers: {
 				accept: 'application/json',
 				Authorization: `Bearer ${ACCESS_TOKEN}`
 			}
-		};
+		});
+	}
 
-		const response = await axios.request(options);
-		// Updating the total pages available
-		totalTVShowPagesStore.set(response.data.total_pages);
-		// Filtering and sorting as needed
-		const englishShows = response.data.results.filter((show) => show.original_language === 'en');
-		const sortedShows = englishShows.sort((a, b) => b.vote_average - a.vote_average);
-
-		fetchedShows = sortedShows;
+	try {
+		// Use axios.all to send all requests concurrently
+		const responses = await axios.all(requests.map((request) => axios.request(request)));
+		// Combine the results from all responses
+		fetchedShows = responses.reduce((results, response) => {
+			const englishShows = response.data.results.filter((show) => show.original_language === 'en');
+			const sortedShows = englishShows.sort((a, b) => b.vote_average - a.vote_average);
+			return results.concat(sortedShows);
+		}, []);
 
 		if (append) {
 			tvShows.update((existingShows) => [...existingShows, ...fetchedShows]);
@@ -51,7 +55,8 @@ export const getTVShows = async (searchQuery = '', append = false) => {
 			tvShows.set(fetchedShows);
 		}
 		// Incrementing the page number for the next fetch
-		tvShowPageStore.update((n) => n + 1);
+		tvShowPageStore.update((n) => n + 3); // Increment by 3 as we fetched 3 pages
+		totalTVShowPagesStore.set(responses[0].data.total_pages); // Assuming all pages have the same total
 	} catch (error) {
 		console.error(error);
 	}

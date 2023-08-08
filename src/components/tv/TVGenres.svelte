@@ -1,6 +1,8 @@
 <script>
 	import { getTVShowsByGenre } from '$lib/api/tvshows.js';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import LoadMoreButton from '../design/LoadMoreButton.svelte';
+	import ReturnToTop from '../design/ReturnToTop.svelte';
     import TVGenreSelector from './TVGenreSelector.svelte';
 	
 
@@ -39,6 +41,7 @@
     <img src={`https://image.tmdb.org/t/p/w500${show.poster_path}`} alt={show.name} style="width: 300px;" />
 {/each}
 
+<ReturnToTop />
 {#if showButton && moreShows}
-	<button on:click={loadShowsByGenre}>Load More</button>
+<LoadMoreButton onClick={loadShowsByGenre} />
 {/if}

@@ -6,6 +6,7 @@
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
 	import { get } from 'svelte/store';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
+	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 
 	let loadMoreVisible = true;
 
@@ -39,5 +40,5 @@
 
 	<ReturnToTop />
 {#if loadMoreVisible}
-	<button on:click={() => getMovies(true)} class="button-styles">Load More</button>
+<LoadMoreButton onClick={() => getMovies(true)} />
 {/if}

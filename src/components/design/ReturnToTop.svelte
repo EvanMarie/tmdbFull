@@ -29,7 +29,7 @@
 	}
 
 	.return-to-top:hover {
-		background-color: var(--lightCyan);
+		background-color: var(--lightPink);
 		/* move left 35px and down 10px while scaling to 1.06 */
 		transform: translateX(-20px) translateY(5px) scale(1.06);
 		transition: all 0.3s ease-in-out;

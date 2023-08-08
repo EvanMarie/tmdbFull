@@ -3,6 +3,8 @@
 <script>
   import { searchMovies, movieResults, searchMoviePageStore, totalMoviePagesStore } from '$lib/api/movies.js';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import LoadMoreButton from '../design/LoadMoreButton.svelte';
+	import ReturnToTop from '../design/ReturnToTop.svelte';
   
   let movieSearchData = [];
   let searchQuery = '';
@@ -50,8 +52,10 @@
   {/each}
 
   {#if currentPage <= totalMoviePages}
-    <button on:click={loadMoreMovies} class="button-styles">Load More Movies</button>
+  <LoadMoreButton onClick={loadMoreMovies} />
   {/if}
 {:else}
   <p>No search results to display.</p>
 {/if}
+
+	<ReturnToTop />

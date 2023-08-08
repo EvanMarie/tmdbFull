@@ -1,34 +1,40 @@
+<!-- LoadTrendingTVShows.svelte -->
+
 <script>
-  import {
-    getTrendingTVShows,
-    trendingTVShows,
-    trendingTVShowPageNumber
-  } from '$lib/api/trendingTVShows.js';
-  import { onMount, afterUpdate } from 'svelte';
+	import {
+		getTrendingTVShows,
+		trendingTVShows,
+		trendingTVShowPageNumber
+	} from '$lib/api/trendingTVShows.js';
+	import { onMount, afterUpdate } from 'svelte';
+	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import { totalTrendingTVShowPages } from '$lib/api/trendingTVShows.js';
+	import ReturnToTop from '../design/ReturnToTop.svelte';
+	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 
+  let totalTrendingPages = 0;
   let trendingTVShowData = [];
-  let trendingTimeWindow = 'day'; // Initialize the trendingTimeWindow variable with 'day'
+  let trendingTimeWindow = 'day';
+  let initialized = false;
 
-  // Subscribe to the trending TV shows store
+  onMount(() => {
+    trendingTVShowPageNumber.set(1);
+    getTrendingTVShows(trendingTimeWindow);
+    initialized = true;
+  });
+
+  $: if (trendingTimeWindow && initialized) {
+    trendingTVShowPageNumber.set(1);
+    getTrendingTVShows(trendingTimeWindow);
+  }
+
   trendingTVShows.subscribe((value) => {
     trendingTVShowData = value;
   });
 
-  onMount(() => {
-    trendingTVShowPageNumber.set(1); // Reset the page number when the component mounts
-    getTrendingTVShows(trendingTimeWindow); // Load trending TV shows for the initial time window when the component mounts
+  totalTrendingTVShowPages.subscribe((value) => {
+    totalTrendingPages = value;
   });
-
-  afterUpdate(() => {
-    getTrendingTVShows(trendingTimeWindow);
-  });
-
-  $: {
-    if (trendingTimeWindow) { // If the time window is defined
-      trendingTVShowPageNumber.set(1); // Reset the page number when time window changes
-      getTrendingTVShows(trendingTimeWindow);
-    }
-  }
 
   const handleLoadTrending = () => {
     getTrendingTVShows(trendingTimeWindow);
@@ -36,11 +42,13 @@
 
   const handleTimeWindowChange = (event) => {
     trendingTimeWindow = event.target.value;
-    console.log('trendingTimeWindow:', trendingTimeWindow); // Add this log statement
+    console.log('trendingTimeWindow:', trendingTimeWindow);
+  };
+
+  const handleLoadMoreTrending = () => {
+    getTrendingTVShows(trendingTimeWindow, true);
   };
 </script>
-
-<!-- The rest of your component's markup goes here -->
 
 <div>
 	<input
@@ -64,7 +72,7 @@
 <button on:click={handleLoadTrending}>Load Trending TV Shows</button>
 
 <!-- Display the trending TV shows -->
-{#each trendingTVShowData as show}
+{#each trendingTVShowData.sort(prioritizeImages) as show}
 	<div>{show.name}</div>
 	<div>{show.first_air_date}</div>
 	<div>{show.popularity}</div>
@@ -75,5 +83,8 @@
 	/>
 {/each}
 
-<!-- Next Page button -->
-<!-- <button on:click={handleLoadTrending}>Next Page</button> -->
+<ReturnToTop />
+
+{#if $trendingTVShowPageNumber < totalTrendingPages}
+<LoadMoreButton onClick={handleLoadMoreTrending} />
+{/if}

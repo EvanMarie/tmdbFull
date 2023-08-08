@@ -1,7 +1,10 @@
 <script>
 	import PageContainer from "../../../components/design/PageContainer.svelte";
-	import SearchMovies from "../../../components/movies/SearchMovies.svelte";
+	import TvGenres from "../../../components/tv/TVGenres.svelte";
+
 
 </script>
+
 <PageContainer>
-<SearchMovies /></PageContainer>
+    <TvGenres />
+</PageContainer>
