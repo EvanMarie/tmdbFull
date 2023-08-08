@@ -1,9 +1,10 @@
 <!-- LoadTrendingPeople.svelte -->
 <script>
-  import { getTrendingPeople, trendingPeople, trendingPageNumber } from "$lib/api/trendingPeople.js";
+  import { getTrendingPeople, trendingPeople, trendingPageNumber, totalTrendingPages } from "$lib/api/trendingPeople.js";
   import { onMount } from 'svelte';
-	import { prioritizeImages } from "../../lib/api/prioritizeImages";
-
+  import { prioritizeImages } from "../../lib/api/prioritizeImages";
+	import ReturnToTop from "../design/ReturnToTop.svelte";
+	import LoadMoreButton from "../design/LoadMoreButton.svelte";
 
   let trendingPeopleData = [];
 
@@ -14,14 +15,15 @@
 
   // Load the first page of trending people when the component mounts
   onMount(() => {
-    getTrendingPeople(trendingPageNumber);
+    getTrendingPeople();
   });
 
-  const handleLoadNextPage = async () => {
-    trendingPageNumber++; // Increment the current page number
-    await getTrendingPeople(trendingPageNumber); // Fetch the next page of trending people
+  const handleLoadMoreTrending = async () => {
+    await getTrendingPeople(true); // Fetch the next 3 pages of trending people
   };
 </script>
+
+
 
 <!-- Display the trending people -->
 {#each trendingPeopleData.sort(prioritizeImages) as person}
@@ -32,3 +34,7 @@
 {/each}
 
 
+<ReturnToTop/>
+{#if trendingPageNumber < $totalTrendingPages}
+<LoadMoreButton onClick={handleLoadMoreTrending}/>
+{/if}

@@ -4,6 +4,8 @@
 	import { searchPeople, searchResults, totalSearchPagesStore } from '$lib/api/popularPeople.js';
 	import { onMount } from 'svelte';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import LoadMoreButton from '../design/LoadMoreButton.svelte';
+	import ReturnToTop from '../design/ReturnToTop.svelte';
 
 	let searchQuery = '';
 	let searchPageNumber = 1;
@@ -22,16 +24,16 @@
 
 	totalSearchPagesStore.subscribe((value) => (totalSearchPages = value));
 
-const handleSearch = async () => {
-	searchResultsData = []; // Clear existing search results
-	await searchPeople(searchQuery, true);
-};
+	const handleSearch = async () => {
+		searchResultsData = []; // Clear existing search results
+		await searchPeople(searchQuery, true);
+	};
 
-const handleLoadMore = async () => {
-	await searchPeople(searchQuery); // or searchPeople(searchQuery, false);
-};
+	const handleLoadMore = async () => {
+		searchPageNumber++; // Increment the search page number
+		await searchPeople(searchQuery); // or searchPeople(searchQuery, false);
+	};
 </script>
-
 
 <form on:submit|preventDefault={handleSearch}>
 	<input type="text" bind:value={searchQuery} placeholder="Search for an actor..." />
@@ -50,8 +52,10 @@ const handleLoadMore = async () => {
 			style="width: 300px;"
 		/>
 	{/each}
-	{#if searchResultsData.length > 0 && searchPageNumber <= totalSearchPages}
-		<button on:click={handleLoadMore} class="button-styles">Load More</button>
+
+	<ReturnToTop />
+	{#if searchResultsData.length > 0 && searchPageNumber < totalSearchPages}
+		<LoadMoreButton onClick={handleLoadMore} />
 	{/if}
 {:else}
 	<p>No search results to display.</p>

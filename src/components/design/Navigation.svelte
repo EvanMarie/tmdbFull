@@ -38,20 +38,53 @@
 		<ul class="menu-bar">
 			<li>
 				<div class="menu-section">
-					<h1>Movies</h1>
+					<a href="/movies" class="menu-main"
+						><img src="/movieSm_hover.png" alt="movies" style="height: 2rem;" />
+						<h1>Movies</h1></a
+					>
+					<div class="sub-links">
+						<a href="/movies/trending_movies" class="menu-sub">Trending Movies</a>
+						<a href="/movies/movie_genres" class="menu-sub">Movie Genres</a>
+						<a href="/movies/search_movies" class="menu-sub">Search Movies</a>
+					</div>
 					<div class="divider" />
 				</div>
 			</li>
 			<li>
 				<div class="menu-section">
-					<h1>TV</h1>
+					<a href="/tv" class="menu-main">
+						<img src="/tv_hover.png" alt="movies" style="height: 2rem;" />
+						<h1>TV</h1>
+					</a>
+					<div class="sub-links">
+						<a href="/tv/trending_tv" class="menu-sub">Trending TV</a>
+						<a href="/tv/tv_genres" class="menu-sub">TV Genres</a>
+						<a href="/tv/search_tv" class="menu-sub">Search TV</a>
+					</div>
 					<div class="divider" />
 				</div>
 			</li>
 			<li>
 				<div class="menu-section">
-					<h1>People</h1>
+					<a href="/people" class="menu-main">
+						<img src="/person_hover.png" alt="movies" style="height: 2rem;" />
+						<h1>People</h1>
+					</a>
+
+					<div class="sub-links">
+						<a href="/people/trending_people" class="menu-sub">Trending People</a>
+						<a href="/people/search_people" class="menu-sub">Search People</a>
+					</div>
 					<div class="divider" />
+				</div>
+			</li>
+			<li>
+				<div class="menu-section">
+					<a href="/search" class="menu-main">
+						<img src="/search_hover.png" alt="movies" style="height: 2rem;" />
+						<h1>Search All</h1>
+					</a>
+	
 				</div>
 			</li>
 			<!-- Add more links as needed -->
@@ -101,8 +134,8 @@
 		width: 100%;
 		max-width: 500px;
 		transform: translateY(100%);
-		background-color: var(--mediumBlue08);
-		padding: 40px 0px 0px 0px;
+		background-color: var(--darkGray08);
+		padding: 20px 0px 0px 0px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -124,7 +157,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: space-between;
-		padding-top: 60px;
+		padding-top: 70px;
 	}
 
 	.menu-bar {
@@ -142,25 +175,53 @@
 	.menu-section {
 		width: 100%;
 		max-width: 800px;
-		padding: 10px 20px;
+		padding: 0px 20px 10px 20px;
 	}
 
 	.menu-section h1 {
 		font-size: 2rem;
 		font-weight: 600;
 		color: var(--white);
-		text-shadow: 2px -4px 4px rgba(0, 0, 0, 0.9);
 	}
 
-	.menu-section {
-		width: 100%;
+	.menu-main {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: row;
+		gap: 10px;
 	}
 
 	.menu-section .divider {
 		width: 100%;
 		height: 1px;
 		background-color: var(--white);
-		margin: 5px 0;
+		margin: 10px 0;
+	}
+
+	.menu-bar a {
+		width: 100%;
+		color: var(--cyan);		
+		text-shadow: 2px -4px 4px rgba(0, 0, 0, 0.9);
+	}
+
+	.menu-bar a:hover,
+	h1:hover {
+		background-color: var(--lightPink);
+		color: var(--darkestGray);
+		text-shadow: 2px -4px 4px rgba(255, 255, 255, 0.9);
+	}
+
+	.sub-links {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-weight: 500;
+		font-size: 1.5rem;
+		padding: 5px 10px;
+		gap: 5px;
 	}
 
 	.close-button {
@@ -181,7 +242,7 @@
 
 	@media (min-width: 600px) {
 		.menu-container {
-			padding-top: 0px;
+			padding-top: 10px;
 		}
 
 		.icon {

@@ -1,4 +1,8 @@
 <script>
-    /** @type {import('./$types').PageData} */
-    export let data;
+	import PageContainer from "../../components/design/PageContainer.svelte";
+	import LoadPeople from "../../components/people/LoadPeople.svelte";
+
+
 </script>
+
+<PageContainer><LoadPeople/></PageContainer>

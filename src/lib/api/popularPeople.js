@@ -3,35 +3,47 @@
 import axios from 'axios';
 import { writable } from 'svelte/store';
 
-export const people = writable([]);
 export const searchResults = writable([]);
-export let pageNumber = 1; // Maintain the state of the page number
 export let searchPageNumber = 1; // Maintain the state of the search page number
-export const totalPopularPagesStore = writable(1); // Total pages available for popular people
 export const totalSearchPagesStore = writable(1); // Total pages available for search results
 
-export const getPeople = async () => {
-	const response = await axios.request(options);
-	people.set(response.data.results);
-	totalPopularPagesStore.set(response.data.total_pages); // Set the total pages for popular people
-	pageNumber++; // Increment the page number after successful data fetch
+export const people = writable([]);
+export let pageNumber = writable(1); // Change this to a writable store
+export const totalPopularPagesStore = writable(1);
 
+export const getPeople = async (loadMore = false) => {
 	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
-	const options = {
-		method: 'GET',
-		url: 'https://api.themoviedb.org/3/person/popular?language=en-US&page=' + pageNumber,
-		headers: {
-			accept: 'application/json',
-			Authorization: `Bearer ${ACCESS_TOKEN}`
+
+	let currentPage;
+	pageNumber.subscribe((value) => {
+		currentPage = value;
+	});
+
+	if (!loadMore && currentPage > 1) return;
+
+	let response; // Define the response variable outside of the loop
+
+	// Loop to fetch 3 pages
+	for (let i = 0; i < 3; i++) {
+		const options = {
+			method: 'GET',
+			url: 'https://api.themoviedb.org/3/person/popular?language=en-US&page=' + currentPage,
+			headers: {
+				accept: 'application/json',
+				Authorization: `Bearer ${ACCESS_TOKEN}`
+			}
+		};
+
+		try {
+			response = await axios.request(options); // Update the response variable here
+			people.update((existingResults) => [...existingResults, ...response.data.results]);
+			totalPopularPagesStore.set(response.data.total_pages);
+			pageNumber.update((n) => n + 1);
+		} catch (error) {
+			console.error(error);
 		}
-	};
-	try {
-		const response = await axios.request(options);
-		people.set(response.data.results);
-		pageNumber++; // Increment the page number after successful data fetch
-		console.log(response.data.results); // This will log the data about the people on the new page
-	} catch (error) {
-		console.error(error);
+
+		if (currentPage >= response.data.total_pages) break; // Now response is in scope
 	}
 };
 
