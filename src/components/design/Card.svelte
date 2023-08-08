@@ -1,49 +1,57 @@
 <!-- Card.svelte -->
 
 <script>
-	const DEFAULT_IMAGE_URL = '/noimage.png';
-	export let item;
 	import { createEventDispatcher } from 'svelte';
+
+	const DEFAULT_IMAGE_URL = '/noimage.png';
+
 	const dispatch = createEventDispatcher();
-	function handleItemClick(item) {
+
+	function handleItemClick() {
 		dispatch('itemClick', { item });
 	}
-	let selectedItem = null;
+	export let item;
 </script>
 
-
-	<div class="indicator">
-		<div class="indicator-item badge">
-			<div
-				class="radial-progress"
-				style="--value:{item.rating * 10}; --size:1rem; --thickness: 0.2rem;"
-			>
-				{item.rating * 10}%
-			</div>
-		</div>
+<div class="indicator">
+	<div class="indicator-item badge">
 		<div
-			class="card-styles"
-			role="button"
-			tabindex="0"
+			class="radial-progress"
+			style="--value:{item.rating * 10}; --size:1rem; --thickness: 0.2rem;"
 		>
-			<figure>
-				<img src={item.backdrop_path ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}` : DEFAULT_IMAGE_URL} alt="{item.title || 'No Title'}" class="item-poster" />
-			</figure>
-			<div class="card-body">
-				<p class="card-title" style="color: cyan;">{item.title}</p>
-				<p>{item.shortOverview}</p>
+			{item.rating * 10}%
+		</div>
+	</div>
+	<div
+		class="card-styles"
+		role="button"
+		tabindex="0"
+		on:click={handleItemClick}
+		on:keydown={handleItemClick}
+	>
+		<figure>
+			<img
+				src={item.backdrop_path
+					? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
+					: DEFAULT_IMAGE_URL}
+				alt={item.title || 'No Title'}
+				class="item-poster"
+			/>
+		</figure>
+		<div class="card-body">
+			<p class="card-title" style="color: cyan;">{item.title}</p>
+			<div class="truncated-overview">
+				<p class="truncate-lines">{item.overview}</p>
 			</div>
 		</div>
 	</div>
-
+</div>
 
 <style>
-
 	.item-poster {
 		width: 250px;
-		/* height: 250px; */
 		object-fit: cover;
-		display: block; 
+		display: block;
 		border-radius: 10px;
 		box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.8);
 	}
@@ -108,6 +116,19 @@
 		justify-content: center;
 		align-items: center;
 		padding: 5px;
-		font-size: 0.85rem;
+		font-size: 0.9rem;
+	}
+
+	.truncated-overview {
+		height: 2.4rem; /* fallback */
+	}
+
+	.truncate-lines {
+		display: -webkit-box;
+		-webkit-line-clamp: 2; /* Number of lines to display */
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		line-height: 1.2rem;
 	}
 </style>

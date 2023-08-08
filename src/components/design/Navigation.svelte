@@ -29,7 +29,7 @@
 		};
 	});
 
-		function handleOverlayKeydown(event) {
+	function handleOverlayKeydown(event) {
 		if (event.key === 'Enter' || event.key === ' ') {
 			closeMenu();
 		}
@@ -40,21 +40,20 @@
 	><img src="/menu.png" alt="menu" class="icon" /></button
 >
 
-<div 
-	class="drawer-overlay" 
-	class:active={menuOpen} 
-	on:click={closeMenu} 
-	on:keydown={handleOverlayKeydown} 
-	role="button" 
-	tabindex="0" 
-></div>
+<div
+	class="drawer-overlay"
+	class:active={menuOpen}
+	on:click={closeMenu}
+	on:keydown={handleOverlayKeydown}
+	role="button"
+	tabindex="0"
+/>
 
 <div
 	class={`drawer-menu fixed w-full h-screen bg-gray-100 transition-transform duration-400 ease-in-out ${
 		menuOpen ? 'open' : ''
 	}`}
 >
-
 	<div class="menu-container">
 		<ul class="menu-bar">
 			<li>
@@ -287,16 +286,15 @@
 		right: 0;
 		bottom: 0;
 		background-color: rgba(0, 0, 0, 0.5); /* You can adjust the opacity here */
+		backdrop-filter: blur(5px);
 		z-index: 750; /* Updated value to make sure it's less than the menu's z-index */
 		opacity: 0;
 		visibility: hidden;
 		transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
-		backdrop-filter: blur(5px);	
 	}
 
 	.drawer-overlay.active {
 		opacity: 1;
 		visibility: visible;
-		
 	}
 </style>

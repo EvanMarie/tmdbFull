@@ -15,7 +15,8 @@ export function roundPopularity(popularity) {
 	return Math.round(popularity);
 }
 
-export function truncateText(text, length = 100) {
-	if (text.length <= length) return text;
-	return text.slice(0, length) + '...';
+export function findGenreName(genreId) {
+	let genres = [];
+	const genre = genres.find((g) => g.id === parseInt(genreId));
+	return genre ? genre.name : '';
 }
