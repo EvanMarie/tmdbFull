@@ -1,59 +1,49 @@
+<!-- Card.svelte -->
+
 <script>
 	const DEFAULT_IMAGE_URL = '/noimage.png';
+	export let item;
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+	function handleItemClick(item) {
+		dispatch('itemClick', { item });
+	}
+	let selectedItem = null;
 </script>
 
-<div class="card-container">
-	{#each data as item}<div class="indicator">
-			<div class="indicator-item badge">
-				<div
-					class="radial-progress"
-					style="--value:{item.rating}; --size:1rem; --thickness: 0.2rem;"
-				>
-					{item.rating}%
-				</div>
-			</div>
+
+	<div class="indicator">
+		<div class="indicator-item badge">
 			<div
-				class="card-styles"
-				style="background-color: {item.color}"
-				on:click={() => {
-					selectedItem = item;
-					document.getElementById('my_modal_4').showModal();
-				}}
-				on:keydown={(event) => {
-					if (event.key === 'Enter') selectedItem = item;
-				}}
-				role="button"
-				tabindex="0"
+				class="radial-progress"
+				style="--value:{item.rating * 10}; --size:1rem; --thickness: 0.2rem;"
 			>
-				<figure>
-					<img
-						src={item.backdrop_path
-							? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
-							: DEFAULT_IMAGE_URL}
-						alt="item Poster"
-						class="item-poster"
-					/>
-				</figure>
-				<div class="card-body">
-					<p class="card-title" style="color: cyan;">{item.title}</p>
-					<p>{item.shortOverview}</p>
-				</div>
+				{item.rating * 10}%
 			</div>
-		</div>{/each}
-</div>
+		</div>
+		<div
+			class="card-styles"
+			role="button"
+			tabindex="0"
+		>
+			<figure>
+				<img src={item.backdrop_path ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}` : DEFAULT_IMAGE_URL} alt="{item.title || 'No Title'}" class="item-poster" />
+			</figure>
+			<div class="card-body">
+				<p class="card-title" style="color: cyan;">{item.title}</p>
+				<p>{item.shortOverview}</p>
+			</div>
+		</div>
+	</div>
+
 
 <style>
-	.card-container {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 2rem;
-	}
 
 	.item-poster {
 		width: 250px;
-		height: 200px;
+		/* height: 250px; */
+		object-fit: cover;
+		display: block; 
 		border-radius: 10px;
 		box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.8);
 	}
@@ -65,8 +55,9 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		border-radius: 10px;
+		border-radius: 5px;
 		box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.6);
+		background-color: var(--mediumBlue08);
 	}
 
 	.card-styles:hover {
@@ -84,7 +75,7 @@
 		width: 45px;
 		padding: 3px;
 		border-radius: 50%;
-		background-color: cyan;
+		background-color: var(--lightPink);
 		top: 15px;
 		right: 15px;
 	}
@@ -99,15 +90,6 @@
 
 	.radial-progress::after {
 		background-color: transparent;
-	}
-
-	@media (min-width: 768px) {
-		.card-container {
-			flex-direction: row;
-			flex-wrap: wrap;
-			column-gap: 3rem;
-			align-items: stretch;
-		}
 	}
 
 	.card-title {

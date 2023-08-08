@@ -148,6 +148,7 @@ body::-webkit-scrollbar {
 	top: 0;
 	gap: 15px;
 	padding-left: 10px;
+	z-index: 200;
 }
 
 .logo {
