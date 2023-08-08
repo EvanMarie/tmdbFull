@@ -34,7 +34,7 @@
 		height: 200px;
 		justify-content: space-around;
 		align-items: center;
-		gap: 30px;
+		gap: 25px;
 		position: fixed;
 		top: 200px;
 		right: -20px;

@@ -8,6 +8,7 @@
   } from '$lib/api/trendingMovies.js';
   import { onMount, afterUpdate } from 'svelte';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import ReturnToTop from '../design/ReturnToTop.svelte';
 
   let trendingMovieData = [];
   let trendingTimeWindow = 'day'; // Initialize the trendingTimeWindow variable with 'day'
@@ -79,6 +80,6 @@
 		style="width: 300px;"
 	/>
 {/each}
-
+	<ReturnToTop />
 <!-- Next Page button -->
 <button on:click={handleLoadTrending}>Next Page</button>

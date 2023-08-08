@@ -1,4 +1,10 @@
 <script>
-    /** @type {import('./$types').PageData} */
-    export let data;
+	import PageContainer from "../../components/design/PageContainer.svelte";
+	import LoadMovies from "../../components/movies/LoadMovies.svelte";
+
+
 </script>
+
+<PageContainer>
+    <LoadMovies />
+</PageContainer>

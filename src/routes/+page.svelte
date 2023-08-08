@@ -1,36 +1,24 @@
 <!-- +page.svelte -->
 <script>
-	// import LoadTrendingTvShows from "../components/tv/LoadTrendingTVShows.sv
-	// import LoadPeople from '../components/loaders/LoadPeople.svelte'
-	// import SearchPeople from '../components/people/SearchPeople.svelte'
-	// import LoadTrendingPeople from '../components/people/LoadTrendingPeople.svelte'
-	// import SearchMovies from "../components/movies/SearchMovies.svelte";
-	// import LoadMovies from "../components/movies/LoadMovies.svelte";
-	// import LoadTrendingMovies from "../components/movies/LoadTrendingMovies.svelte";
-	// import LoadTvShows from "../components/tv/LoadTvShows.svelte";
-	// import SearchTvShows from "../components/tv/SearchTVShows.svelte";
-	// import LoadMovies from "../components/movies/LoadMovies.svelte";
-	// import MovieGenres from '../components/movies/MovieGenres.svelte';
-	// import TVGenres from "../components/tv/TVGenres.svelte";
-	import SearchAll from "../components/SearchAll.svelte";
+	import LogoHeader from "../components/design/LogoHeader.svelte";
+
+
 	import PageContainer from "../components/design/PageContainer.svelte";
 </script> 
+	<LogoHeader/>
+<div class="hero min-h-screen" style="background-image: url(/option03.png); overflow-y: hidden;">
+  <div class="hero-overlay bg-opacity-60"></div>
+  <div class="hero-content text-center text-neutral-content">
+    <div class="max-w-lg">
+		<h2 class="mb-5 text-3xl font-bold">Welcome to</h2>
+      <h1 class="mb-5 text-5xl font-bold">NJATMDB</h1>
+	  <h2 class="mb-5 text-3xl font-bold">not just another TMDB</h2>
+      <p class="mb-5">It's kind of like TMDB only better looking.</p>
+      <a href="/movies"><button class="button-styles">See what it's like...</button></a>
+    </div>
+  </div>
+</div>
 
-<!-- <LoadPeople /> -->
-<!-- <LoadTrendingPeople /> -->
-<!-- <LoadTrendingMovies /> -->
-<!-- <SearchMovies/> -->
-<!-- <LoadTrendingPeople /> -->
-<!-- <LoadTvShows /> -->
-<!-- <SearchTvShows /> -->
-<!-- <LoadTrendingTvShows/> -->
-<!-- <LoadMovies /> -->
-<!-- <MovieGenres /> -->
-<!-- <TVGenres /> -->
-<PageContainer><SearchAll/></PageContainer>
 
-<!-- <PageContainer><SearchTvShows/></PageContainer> -->
-<!-- <PageContainer><SearchMovies/></PageContainer> -->
-<!-- <PageContainer><SearchPeople/></PageContainer> -->
 
 

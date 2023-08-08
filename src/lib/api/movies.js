@@ -1,3 +1,5 @@
+// movies.js
+
 import { writable, get } from 'svelte/store';
 import axios from 'axios';
 
@@ -9,7 +11,7 @@ export const searchMoviePageStore = writable(1);
 
 export const totalMoviePagesStore = writable(1);
 
-export const getMovies = async () => {
+export const getMovies = async (append = false) => {
 	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const options = {
 		method: 'GET',
@@ -21,8 +23,13 @@ export const getMovies = async () => {
 	};
 	try {
 		const response = await axios.request(options);
-		movies.set(response.data.results);
+		if (append) {
+			movies.update((existingMovies) => [...existingMovies, ...response.data.results]);
+		} else {
+			movies.set(response.data.results);
+		}
 		moviePageStore.update((n) => n + 1);
+		totalMoviePagesStore.set(response.data.total_pages);
 		console.log(response.data.results);
 	} catch (error) {
 		console.error(error);

@@ -4,6 +4,8 @@
 
 :root {
 	/* vars for dracula theme */
+	--ultraDark: #1a1c24;
+	--ultraDark08: rgba(26, 28, 36, 0.8);
 	--darkestGray: #282a36;
 	--darkestGray08: rgba(40, 42, 54, 0.8);
 	--darkGray: #44475a;
@@ -11,11 +13,11 @@
 	--lightest: #f8f8f2;
 	--lightest08: rgba(248, 248, 242, 0.8);
 	--mediumBlue: #008b8b;
-    --mediumBlue08: rgba(0, 139, 139, 0.9);
+	--mediumBlue08: rgba(0, 139, 139, 0.9);
 	--cyan: cyan;
 	--cyan08: rgba(0, 255, 255, 0.8);
-    --lightCyan: #78ffef;
-    --lightCyan08: rgba(120, 255, 239, 0.8);
+	--lightCyan: #78ffef;
+	--lightCyan08: rgba(120, 255, 239, 0.8);
 	--purple: #6c48ff;
 	--purple08: rgba(108, 72, 255, 0.8);
 	--pink: #bd27ff;
@@ -27,6 +29,7 @@
 html {
 	font-family: 'Quicksand', sans-serif;
 	font-size: 1rem;
+	overflow-x: hidden;
 }
 
 h1 {
@@ -42,7 +45,7 @@ h3 {
 }
 
 select,
-input[type="text"] {
+input[type='text'] {
 	padding: 0.1rem 0.6rem;
 	width: 250px;
 	border-radius: 0.5rem;
@@ -52,10 +55,10 @@ input[type="text"] {
 	font-weight: bold;
 }
 
-input[type="text"]:focus {
-    outline: none;
-    border-color: var(--mediumBlue);
-    box-shadow: 1px 1px 1px var(--mediumBlue);
+input[type='text']:focus {
+	outline: none;
+	border-color: var(--mediumBlue);
+	box-shadow: 1px 1px 1px var(--mediumBlue);
 }
 
 /* Styling for the arrow on the selection element */
@@ -122,7 +125,7 @@ body::-webkit-scrollbar {
 
 .button-styles {
 	background-color: var(--cyan);
-    color: var(--darkestGray);
+	color: var(--darkestGray);
 	border-radius: 0.5rem;
 	padding: 0.5rem 1rem;
 	font-weight: bold;
@@ -132,4 +135,104 @@ body::-webkit-scrollbar {
 .button-styles:hover {
 	background-color: var(--lightCyan);
 	transition: all 0.3s ease-in-out;
+}
+
+.header-container {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 70px;
+	background-color: var(--ultraDark08);
+	position: fixed;
+	top: 0;
+	gap: 20px;
+	padding-left: 10px;
+}
+
+.logo {
+	width: 125px;
+}
+
+.logo:hover {
+	cursor: pointer;
+	transform: scale(1.05) translateY(2px);
+	transition: all 0.3s ease-in-out;
+}
+
+.header-links-container {
+flex: 1;
+}
+
+.header-links {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 1rem;
+	gap: 5px;
+	padding-right: 5px;
+}
+
+.header-link {
+		width: 100px;
+	color: var(--lightPink);
+	font-weight: 500;
+	text-align: center;
+}
+
+
+.header-link:hover {
+	color: var(--pink);
+	transition: all 0.3s ease-in-out;
+}
+
+.header-links-desktop {
+	display: none;
+}
+
+
+@media (min-width: 600px){
+	.logo {
+		width: 175px;
+	}
+	.header-link {
+		width: 120px;
+		font-size: 1.2rem;
+	}
+}
+
+@media (min-width: 800px) {
+
+	.logo {
+			width: 200px;
+		}
+
+
+
+	.header-links {
+		display: flex;
+		width: fit-content;
+		flex-direction: row;
+		align-items: center;
+		font-size: 1.2rem;
+		padding-right: 20px;
+	}
+}
+
+@media (min-width: 1080px) {
+	.header-links {
+		gap: 60px;
+		padding-right: 60px;
+		font-size: 1.5rem;
+	}
+}
+
+@media (min-width: 1300px) {
+	.header-links {
+		gap: 100px;
+		padding-right: 100px;
+		font-size: 1.75rem;
+	}
 }

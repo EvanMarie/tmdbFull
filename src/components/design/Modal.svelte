@@ -52,14 +52,13 @@
 	</form>
 </dialog>
 
-
 <style>
-    .movie-poster-modal {
+	.movie-poster-modal {
 		width: 250px;
 		height: 200px;
 		border-radius: 10px;
 		box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.8);
-    }
+	}
 
 	.modal-image-overview {
 		display: flex;
@@ -97,6 +96,20 @@
 	.modal p {
 		margin: 0;
 		padding: 0;
+	}
+
+	.type {
+		color: cyan;
+	}
+
+	.stats {
+		width: 100%;
+		text-align: center;
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.75rem;
 	}
 
 	@media (min-width: 768px) {

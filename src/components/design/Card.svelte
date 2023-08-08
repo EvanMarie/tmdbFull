@@ -1,38 +1,42 @@
+<script>
+	const DEFAULT_IMAGE_URL = '/noimage.png';
+</script>
+
 <div class="card-container">
-	{#each media as movie}<div class="indicator">
+	{#each data as item}<div class="indicator">
 			<div class="indicator-item badge">
 				<div
 					class="radial-progress"
-					style="--value:{movie.rating}; --size:1rem; --thickness: 0.2rem;"
+					style="--value:{item.rating}; --size:1rem; --thickness: 0.2rem;"
 				>
-					{movie.rating}%
+					{item.rating}%
 				</div>
 			</div>
 			<div
 				class="card-styles"
-				style="background-color: {movie.color}"
+				style="background-color: {item.color}"
 				on:click={() => {
-					selectedMovie = movie;
+					selectedItem = item;
 					document.getElementById('my_modal_4').showModal();
 				}}
 				on:keydown={(event) => {
-					if (event.key === 'Enter') selectedMovie = movie;
+					if (event.key === 'Enter') selectedItem = item;
 				}}
 				role="button"
 				tabindex="0"
 			>
 				<figure>
 					<img
-						src={movie.backdrop_path
-							? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
+						src={item.backdrop_path
+							? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
 							: DEFAULT_IMAGE_URL}
-						alt="Movie Poster"
-						class="movie-poster"
+						alt="item Poster"
+						class="item-poster"
 					/>
 				</figure>
 				<div class="card-body">
-					<p class="card-title" style="color: cyan;">{movie.title}</p>
-					<p>{movie.shortOverview}</p>
+					<p class="card-title" style="color: cyan;">{item.title}</p>
+					<p>{item.shortOverview}</p>
 				</div>
 			</div>
 		</div>{/each}
@@ -47,7 +51,7 @@
 		gap: 2rem;
 	}
 
-	.movie-poster {
+	.item-poster {
 		width: 250px;
 		height: 200px;
 		border-radius: 10px;
@@ -104,20 +108,6 @@
 			column-gap: 3rem;
 			align-items: stretch;
 		}
-	}
-
-	.type {
-		color: cyan;
-	}
-
-	.stats {
-		width: 100%;
-		text-align: center;
-		display: flex;
-		justify-content: space-evenly;
-		align-items: center;
-		gap: 0.5rem;
-		font-size: 0.75rem;
 	}
 
 	.card-title {
