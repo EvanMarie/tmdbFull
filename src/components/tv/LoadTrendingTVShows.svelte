@@ -36,6 +36,9 @@
 	trendingTVShows.subscribe((value) => {
 		tvShowData = value.map((show) => ({
 			title: show.name,
+			id: show.id,
+			datatype: 'tv',
+			genre_ids: show.genre_ids,
 			rating: show.vote_average,
 			popularity: roundPopularity(show.popularity),
 			backdrop_path: show.poster_path,
@@ -66,7 +69,10 @@
 	}
 </script>
 
-<div>
+<div class="page-header-container">
+	<h1>Trending TV</h1>
+		
+<div style="display: flex; gap: 20px;">
 	<input
 		type="radio"
 		bind:group={trendingTimeWindow}
@@ -83,7 +89,7 @@
 		on:change={handleTimeWindowChange}
 	/>
 	<label for="week">This Week</label>
-</div>
+</div></div>
 
 <CardsContainer>
 	{#each tvShowData.sort(prioritizeImages) as item}

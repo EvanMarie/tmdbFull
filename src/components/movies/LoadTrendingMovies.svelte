@@ -58,6 +58,9 @@
 		movieData = value.map((movie) => ({
 			// Mapping the properties you need
 			title: movie.title,
+			id: movie.id,
+			datatype: 'movie',
+			genre_ids: movie.genre_ids,
 			rating: movie.vote_average,
 			popularity: roundPopularity(movie.popularity), // Use appropriate rating property
 			backdrop_path: movie.poster_path,
@@ -86,8 +89,10 @@
 </script>
 
 <!-- The rest of your component's markup goes here -->
-
-<div>
+<div class="page-header-container">
+	<h1>Trending Movies</h1>
+		
+<div style="display: flex; gap: 20px;">
 	<input
 		type="radio"
 		bind:group={trendingTimeWindow}
@@ -104,7 +109,7 @@
 		on:change={handleTimeWindowChange}
 	/>
 	<label for="week">This Week</label>
-</div>
+</div></div>
 
 <!-- Display the trending movies -->
 <CardsContainer>
@@ -115,6 +120,7 @@
 </CardsContainer>
 <ReturnToTop />
 
-{#if currentPage <= 5} <!-- Condition to check if more pages are available -->
+{#if currentPage <= 5}
+	<!-- Condition to check if more pages are available -->
 	<LoadMoreButton onClick={handleLoadMore} />
 {/if}

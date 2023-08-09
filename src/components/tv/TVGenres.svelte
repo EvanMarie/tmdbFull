@@ -30,6 +30,9 @@
 			...showsByGenreData,
 			...newShows.map((show) => ({
 				title: show.name,
+				id: show.id,
+				datatype: 'tv',
+				genre_ids: show.genre_ids,
 				rating: show.vote_average, // Use appropriate rating property
 				popularity: show.popularity,
 				backdrop_path: show.poster_path,
@@ -55,8 +58,10 @@
 		selectedItem = null;
 	}
 </script>
-
-<TVGenreSelector {genreId} on:genreselect={handleGenreSelect} />
+<div class="page-header-container">
+	<p>TV Genres</p>
+		<div class="input-and-button">
+<TVGenreSelector {genreId} on:genreselect={handleGenreSelect} /></div>	</div>
 
 <CardsContainer>
 	{#each showsByGenreData.sort(prioritizeImages) as item (item.credits)}

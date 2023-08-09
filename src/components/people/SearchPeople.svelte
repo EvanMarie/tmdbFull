@@ -7,11 +7,25 @@
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import SearchButton from '../design/SearchButton.svelte';
+	import CardsContainer from '../design/CardsContainer.svelte';
+	import Card from '../design/Card.svelte';
+	import Modal from '../design/Modal.svelte';
 
 	let searchQuery = 'Chaplin'; // Set the initial search query to "Chaplin"
 	let searchPageNumber = 1;
 	let searchResultsData = [];
 	let totalSearchPages = 1;
+	let peopleData = [];
+
+	function handleItemClick(event) {
+		selectedItem = event.detail.item;
+	}
+
+	let selectedItem = null;
+
+	function closeModal() {
+		selectedItem = null;
+	}
 
 	// Subscribe to the search results store
 	searchResults.subscribe((value) => {
@@ -35,26 +49,46 @@
 		searchPageNumber++; // Increment the search page number
 		await searchPeople(searchQuery); // or searchPeople(searchQuery, false);
 	};
+
+	searchResults.subscribe((value) => {
+		peopleData = value.map((person) => ({
+			// Mapping the properties you need
+			id: person.id,
+			datatype: 'person',
+			title: person.name,
+			popularity: person.popularity,
+			knownFor: person.known_for.map((item) => ({
+				id: item.id,
+				title: item.title,
+				poster_path: item.backdrop_path,
+				rating: item.vote_average,
+				release_date: item.release_date
+			})),
+			gender: person.gender === 1 ? 'Female' : 'Male',
+			known_for_department: person.known_for_department,
+			backdrop_path: person.profile_path
+		}));
+	});
 </script>
-<div class="page-header-container"><p>Search People </p>
-<form on:submit|preventDefault={handleSearch}>
-	<div class="input-and-button">
-	<input type="text" bind:value={searchQuery} placeholder="Search for an actor..." />
-	<SearchButton/></div>
-</form></div>
+
+<div class="page-header-container">
+	<p>Search People</p>
+	<form on:submit|preventDefault={handleSearch}>
+		<div class="input-and-button">
+			<input type="text" bind:value={searchQuery} placeholder="Search for an actor..." />
+			<SearchButton />
+		</div>
+	</form>
+</div>
 
 <!-- Display the search results -->
 {#if searchResultsData.length > 0}
-	{#each searchResultsData.sort(prioritizeImages) as person}
-		<div>{person.name}</div>
-		<div>{person.known_for_department}</div>
-		<div>{person.popularity}</div>
-		<img
-			src={`https://image.tmdb.org/t/p/w500${person.profile_path || person.poster_path}`}
-			alt={person.name}
-			style="width: 300px;"
-		/>
-	{/each}
+	<CardsContainer>
+		{#each peopleData.sort(prioritizeImages) as item}
+			<Card {item} on:itemClick={handleItemClick} />
+		{/each}
+		<Modal {selectedItem} close={closeModal} />
+	</CardsContainer>
 
 	<ReturnToTop />
 	{#if searchResultsData.length > 0 && searchPageNumber < totalSearchPages}

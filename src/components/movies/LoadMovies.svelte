@@ -39,6 +39,9 @@
 	movies.subscribe((value) => {
 		movieData = value.map((movie) => ({
 			// Mapping the properties you need
+			id: movie.id,
+			datatype: "movie",
+			genre_ids: movie.genre_ids,
 			title: movie.title,
 			rating: movie.vote_average,
 			popularity: roundPopularity(movie.popularity), // Use appropriate rating property
@@ -56,7 +59,8 @@
 </script>
 
 <!-- Display the movies -->
-
+<div class="page-header-container">
+	<h1>Explore Movies</h1></div>	
 <CardsContainer>
 	{#each movieData.sort(prioritizeImages) as item}
 		<Card {item} on:itemClick={handleItemClick}/>

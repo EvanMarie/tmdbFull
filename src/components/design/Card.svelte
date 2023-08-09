@@ -2,7 +2,7 @@
 
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import { roundPopularity } from '$lib/cardUtils.js';
+	import { roundPopularity, getNextColor } from '$lib/cardUtils.js';
 
 	const DEFAULT_IMAGE_URL = '/noimage.png';
 
@@ -13,16 +13,36 @@
 	}
 	export let item;
 
+	let cardColor = getNextColor();
 </script>
 
 <div class="indicator">
 	<div class="indicator-item badge">
-		<div
-			class="radial-progress"
-			style="--value:{item.rating * 10}; --size:1rem; --thickness: 0.2rem;"
-		>
-			{roundPopularity(item.rating) * 10}%
-		</div>
+		{#if item.rating}
+			<div
+				class="radial-progress"
+				style="--value:{item.rating * 10}; --size:1rem; --thickness: 0.2rem;"
+			>
+				{roundPopularity(item.rating) * 10}%
+			</div>
+		{/if}
+		{#if item.known_for_department === 'Acting'}
+			<img src="/acting.png" alt="person" class="indicator-icon" style="width: 30px;" />
+		{:else if item.known_for_department === 'Directing'}
+			<img src="/directing.png" alt="person" class="indicator-icon" style="width: 30px;" />
+		{:else if item.known_for_department === 'Writing'}
+			<img src="/writing.png" alt="person" class="indicator-icon" style="width: 30px;" />
+		{:else if item.known_for_department === 'Production'}
+			<img src="/producing.png" alt="person" class="indicator-icon" style="width: 30px;" />
+		{:else if item.known_for_department === 'Editing'}
+			<img src="/editing.png" alt="person" class="indicator-icon" style="width: 30px;" />
+		{:else if item.known_for_department === 'Visual Effects'}
+			<img src="/visual.png" alt="person" class="indicator-icon" style="width: 30px;" />
+		{:else if item.datatype === 'person'}
+			<img src="/person.png" alt="person" class="indicator-icon" style="width: 30px;" />
+		{:else if !item.rating}
+		<img src="/confused.png" alt="person" class="indicator-icon" style="width: 30px;" />
+		{/if}
 	</div>
 	<div
 		class="card-styles"
@@ -30,6 +50,7 @@
 		tabindex="0"
 		on:click={handleItemClick}
 		on:keydown={handleItemClick}
+		style="background-color: {cardColor};"
 	>
 		<figure>
 			<img
@@ -41,9 +62,27 @@
 			/>
 		</figure>
 		<div class="card-body">
-			<p class="card-title" style="color: cyan;">{item.title}</p>
+			<p
+				class="card-title"
+				style="color: cyan; font-size: {item.datatype === 'person'
+					? '1.3rem'
+					: '1.1rem'};"
+			>
+				{item.title}
+			</p>
+
 			<div class="truncated-overview">
-				<p class="truncate-lines">{item.overview}</p>
+				{#if item.overview}
+					<p class="truncate-lines">{item.overview}</p>
+				{:else}
+					<div class="person-details">
+						<div><span>Gender: </span><span style="color: cyan; text-shadow: 1px 1px 2px black;">{item.gender}</span></div>
+						<div>
+							<span>Known for: </span>
+							<span style="color: cyan; text-shadow: 1px 1px 2px black;">{item.known_for_department}</span>
+						</div>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -82,8 +121,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 45px;
-		width: 45px;
+		height: 50px;
+		width: 50px;
 		padding: 3px;
 		border-radius: 50%;
 		background-color: var(--lightPink);
@@ -92,10 +131,10 @@
 	}
 
 	.radial-progress {
-		width: 98%;
-		height: 98%;
+		width: 99%;
+		height: 99%;
 		color: black;
-		font-size: 0.8rem;
+		font-size: 0.7rem;
 		font-weight: bold;
 	}
 
@@ -107,7 +146,6 @@
 		padding: 4px;
 		border-radius: 5px;
 		text-align: center;
-		font-size: 1.1rem;
 		text-shadow: 3px 2px 20px rgba(0, 0, 0, 1);
 		line-height: 1.2rem;
 		margin-top: 0.25rem;
@@ -134,4 +172,14 @@
 		text-overflow: ellipsis;
 		line-height: 1.2rem;
 	}
+
+	.person-details {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: left;
+	}
+
 </style>

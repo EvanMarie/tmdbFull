@@ -1,19 +1,27 @@
 <!-- LoadPeople.svelte -->
 
 <script>
-    import { getPeople, people, pageNumber, totalPopularPagesStore } from "$lib/api/popularPeople.js"
-    import { onMount } from 'svelte';
-	import { prioritizeImages } from "../../lib/api/prioritizeImages";
-	import ReturnToTop from "../design/ReturnToTop.svelte";
-	import LoadMoreButton from "../design/LoadMoreButton.svelte";
+	import { getPeople, people, pageNumber, totalPopularPagesStore } from '$lib/api/popularPeople.js';
+	import { onMount } from 'svelte';
+	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import ReturnToTop from '../design/ReturnToTop.svelte';
+	import LoadMoreButton from '../design/LoadMoreButton.svelte';
+	import CardsContainer from '../design/CardsContainer.svelte';
+	import Card from '../design/Card.svelte';
+	import Modal from '../design/Modal.svelte';
 
 	let peopleData = [];
 	let totalPopularPages;
 
-	// Subscribe to the popular people store
-	people.subscribe(value => {
-		peopleData = value;
-	});
+	function handleItemClick(event) {
+		selectedItem = event.detail.item;
+	}
+
+	let selectedItem = null;
+
+	function closeModal() {
+		selectedItem = null;
+	}
 
 	totalPopularPagesStore.subscribe((value) => {
 		totalPopularPages = value;
@@ -27,18 +35,42 @@
 	const handleLoadMore = () => {
 		getPeople(true); // Pass true to indicate a "Load More" request
 	};
+
+	people.subscribe((value) => {
+		peopleData = value.map((person) => ({
+			// Mapping the properties you need
+			id: person.id,
+			datatype: 'person',
+			title: person.name,
+			popularity: person.popularity,
+			knownFor: person.known_for.map((item) => ({
+				id: item.id,
+				title: item.title,
+				poster_path: item.backdrop_path,
+				rating: item.vote_average,
+				release_date: item.release_date
+			})),
+			gender: person.gender === 1 ? 'Female' : 'Male',
+			known_for_department: person.known_for_department,
+			backdrop_path: person.profile_path
+		}));
+	});
+
+	console.log(people);
 </script>
 
-
 <!-- Display the popular people -->
-{#each peopleData.sort(prioritizeImages) as person}
-    <div>{person.name}</div>
-    <div>{person.known_for_department}</div>
-    <div>{person.popularity}</div>
-    <img src={`https://image.tmdb.org/t/p/w500${person.profile_path}`} alt={person.name} style="width: 300px;"/>
-{/each}
+<div class="page-header-container">
+	<h1>Explore People</h1>
+		</div>
+<CardsContainer>
+	{#each peopleData.sort(prioritizeImages) as item}
+		<Card {item} on:itemClick={handleItemClick} />
+	{/each}
+	<Modal {selectedItem} close={closeModal} />
+</CardsContainer>
 
-<ReturnToTop/>
+<ReturnToTop />
 {#if $pageNumber < totalPopularPages}
-<LoadMoreButton onClick={getPeople}/>
+	<LoadMoreButton onClick={getPeople} />
 {/if}

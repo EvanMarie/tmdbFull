@@ -62,7 +62,11 @@
 	// Subscribe to the movieResults store
 	movieResults.subscribe((value) => {
 		movieSearchData = value.map((movie) => ({
+			id: movie.id,
+			datatype: 'movie',
+			genre_ids: movie.genre_ids,
 			title: movie.title,
+			genre_ids: movie.genre_ids,
 			rating: movie.vote_average,
 			backdrop_path: movie.poster_path,
 			overview: movie.overview

@@ -30,19 +30,6 @@
 
 	let movieData = [];
 
-	// Subscribe to the movies by genre store
-	moviesByGenreStore.subscribe((value) => {
-		movieData = value.map((movie) => ({
-			// Mapping the properties you need
-			title: movie.title,
-			rating: movie.vote_average,
-			popularity: roundPopularity(movie.popularity),
-			backdrop_path: movie.poster_path,
-			overview: movie.overview,
-			release_date: formatDate(movie.release_date),
-			credits: movie.id
-		}));
-	});
 	let moviesByGenre = [];
 	let page = 1;
 	let showButton = false;
@@ -69,6 +56,9 @@
 			...movieData,
 			...newMovies.map((movie) => ({
 				title: movie.title,
+				id: movie.id,
+				datatype: 'movie',
+				genre_ids: movie.genre_ids,
 				rating: movie.vote_average,
 				popularity: roundPopularity(movie.popularity), // Use appropriate rating property
 				backdrop_path: movie.poster_path,
@@ -99,7 +89,11 @@
 	let selectedItem = null;
 </script>
 
-<MovieGenreSelector on:genreselect={handleGenreSelect} />
+
+<div class="page-header-container">
+	<p>Movie Genres</p>
+		<div class="input-and-button">
+<MovieGenreSelector on:genreselect={handleGenreSelect} /></div>	</div>	
 
 <CardsContainer>
 	{#each movieData.sort(prioritizeImages) as item}

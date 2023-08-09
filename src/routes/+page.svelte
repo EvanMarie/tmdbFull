@@ -14,7 +14,7 @@
       <h1 class="mb-5 text-5xl font-bold">NJATMDB</h1>
 	  <h2 class="mb-5 text-3xl font-bold">not just another TMDB</h2>
       <p class="mb-5">It's kind of like TMDB only better looking.</p>
-      <a href="/movies"><button class="button-styles">See what it's like...</button></a>
+      <a href="/movies"><button class="button-styles">Explore</button></a>
     </div>
   </div>
 </div>

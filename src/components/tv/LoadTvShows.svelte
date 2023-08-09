@@ -1,6 +1,12 @@
 <!-- LoadTVShows.svelte -->
 <script>
-	import { tvShows, tvShowPageStore, totalTVShowPagesStore, getTVShows, loadMoreTVShows } from '$lib/api/tvShows.js';
+	import {
+		tvShows,
+		tvShowPageStore,
+		totalTVShowPagesStore,
+		getTVShows,
+		loadMoreTVShows
+	} from '$lib/api/tvShows.js';
 	import { onMount } from 'svelte';
 	import { get } from 'svelte/store';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
@@ -24,12 +30,15 @@
 	tvShows.subscribe((value) => {
 		tvShowData = value.map((tvShow) => ({
 			title: tvShow.name,
+			id: tvShow.id,
+			datatype: 'tv',
+			genre_ids: tvShow.genre_ids,
 			rating: tvShow.vote_average,
 			popularity: roundPopularity(tvShow.popularity),
 			backdrop_path: tvShow.poster_path,
 			overview: tvShow.overview,
 			release_date: formatDate(tvShow.first_air_date),
-			credits: tvShow.id,
+			credits: tvShow.id
 		}));
 	});
 
@@ -43,7 +52,8 @@
 		selectedItem = null;
 	}
 </script>
-
+<div class="page-header-container">
+	<h1>Explore TV</h1></div>	
 <CardsContainer>
 	{#each tvShowData.sort(prioritizeImages) as item}
 		<Card {item} on:itemClick={handleItemClick} />
