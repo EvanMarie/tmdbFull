@@ -1,6 +1,7 @@
 <!-- SearchAll.svelte -->
 
 <script>
+	import { onMount } from 'svelte';
 	import {
 		searchMulti,
 		multiResults,
@@ -9,14 +10,26 @@
 	} from '$lib/api/multiSearch.js';
 	import { prioritizeImages } from '../lib/api/prioritizeImages';
 	import ReturnToTop from './design/ReturnToTop.svelte';
+	import Card from './design/Card.svelte'; // Import Card
+	import CardsContainer from './design/CardsContainer.svelte'; // Import CardsContainer
+	import Modal from './design/Modal.svelte'; // Import Modal
+	import LoadMoreButton from './design/LoadMoreButton.svelte';
 
 	let multiSearchData = [];
+	let searchQuery = 'happiness';
 	let currentPage = 1;
 	let totalMultiPages = 1;
-	let searchQuery = 'happiness';
+	let selectedItem = null; // Add variable to hold selected item
 
 	multiResults.subscribe((value) => {
-		multiSearchData = value;
+		multiSearchData = value.map((result) => ({
+			// Map the results into the structure your Card component expects
+			title: result.name || result.title,
+			rating: result.vote_average,
+			backdrop_path: result.profile_path || result.poster_path,
+			overview: result.overview
+			// Add any other properties that you need
+		}));
 	});
 
 	searchMultiPageStore.subscribe((value) => (currentPage = value));
@@ -35,8 +48,22 @@
 	const loadMore = () => {
 		searchMulti(searchQuery, true);
 	};
+
+	const openModal = (item) => { // Function to open modal
+		selectedItem = item;
+	};
+
+	const closeModal = () => { // Function to close modal
+		selectedItem = null;
+	};
+
+	onMount(() => {
+		handleSearch();
+	});
 </script>
 
+<div class="page-header-container">		<p>Search All</p>
+	<div class="input-and-button">
 <input
 	type="text"
 	bind:value={searchQuery}
@@ -44,25 +71,20 @@
 	on:keydown={handleKeyPress}
 />
 
-<button on:click={handleSearch}>Search</button>
+<button on:click={handleSearch} class="button-styles">go</button></div></div>
 
 {#if multiSearchData.length > 0}
-	{#each multiSearchData.sort(prioritizeImages) as result}
-		<div>{result.name || result.title}</div>
-		<div>{result.release_date || result.first_air_date || result.known_for_department}</div>
-		<div>{result.popularity}</div>
-		{#if result.profile_path || result.poster_path}
-			<img
-				src={`https://image.tmdb.org/t/p/w500${result.profile_path || result.poster_path}`}
-				alt={result.name || result.title}
-				style="width: 300px;"
-			/>
-		{/if}
+
+<CardsContainer>
+	{#each multiSearchData.sort(prioritizeImages) as item}
+		<Card {item} on:itemClick={() => openModal(item)} />
 	{/each}
+</CardsContainer>
+<Modal selectedItem={selectedItem} close={closeModal} />
+		{/if}
+
 	{#if currentPage <= totalMultiPages}
-		<button on:click={loadMore} class="button-styles">Load More</button>
+	<LoadMoreButton onClick={loadMore} />
 	{/if}
 	<ReturnToTop />
-{:else}
-	<p>No search results to display.</p>
-{/if}
+

@@ -27,7 +27,8 @@
 }
 
 html {
-	font-family: 'Quicksand', sans-serif;
+	/* font-family: 'Quicksand', sans-serif; */
+	font-family: 'M PLUS 1p', sans-serif;
 	font-size: 1rem;
 	overflow-x: hidden;
 }
@@ -307,5 +308,18 @@ body::-webkit-scrollbar {
 @media (min-width: 1080px) {
 	.page-header-container p {
 		font-size: 1.5rem;
+	}
+}
+
+
+@media (min-width: 800px) {
+	.logo-header-link {
+		width: 125px;
+	}
+}
+
+@media (min-width: 1300px) {
+	.logo-header-link {
+		width: 150px;
 	}
 }
