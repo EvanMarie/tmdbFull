@@ -51,6 +51,10 @@ export const getMovies = async (append = false) => {
 	}
 };
 
+export const moviesByGenreStore = writable([]);
+export const genrePageStore = writable(1);
+export const totalGenrePagesStore = writable(1);
+
 export const searchMovies = async (searchQuery, append = false) => {
 	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	let fetchedMovies = [];

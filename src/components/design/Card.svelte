@@ -2,6 +2,7 @@
 
 <script>
 	import { createEventDispatcher } from 'svelte';
+	import { roundPopularity } from '$lib/cardUtils.js';
 
 	const DEFAULT_IMAGE_URL = '/noimage.png';
 
@@ -11,6 +12,7 @@
 		dispatch('itemClick', { item });
 	}
 	export let item;
+
 </script>
 
 <div class="indicator">
@@ -19,7 +21,7 @@
 			class="radial-progress"
 			style="--value:{item.rating * 10}; --size:1rem; --thickness: 0.2rem;"
 		>
-			{item.rating * 10}%
+			{roundPopularity(item.rating) * 10}%
 		</div>
 	</div>
 	<div

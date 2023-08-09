@@ -50,7 +50,7 @@
 	});
 
 	let selectedItem = null;
-	let myModal;
+
 
   console.log(movieData[0])
 </script>

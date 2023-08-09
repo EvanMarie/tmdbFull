@@ -11,9 +11,9 @@
 	import ReturnToTop from './design/ReturnToTop.svelte';
 
 	let multiSearchData = [];
-	let searchQuery = '';
 	let currentPage = 1;
 	let totalMultiPages = 1;
+	let searchQuery = 'happiness';
 
 	multiResults.subscribe((value) => {
 		multiSearchData = value;

@@ -4,7 +4,7 @@
 	import {
 		getTrendingMovies,
 		trendingMovies,
-		trendingMoviePageNumber,
+		trendingMoviePageNumber
 	} from '$lib/api/trendingMovies.js';
 	import { onMount, afterUpdate } from 'svelte';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
@@ -13,17 +13,28 @@
 	import Card from '../design/Card.svelte';
 	import Modal from '../design/Modal.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
-  import { roundPopularity, formatDate } from '$lib/cardUtils.js';
+	import { roundPopularity, formatDate } from '$lib/cardUtils.js';
 
 	let trendingMovieData = [];
 	let trendingTimeWindow = 'day'; // Initialize the trendingTimeWindow variable with 'day'
 	let movieData = [];
 	let selectedItem = null;
+	let currentPage = 1;
 
 	// Subscribe to the trending movies store
 	trendingMovies.subscribe((value) => {
 		trendingMovieData = value;
 	});
+
+	// Subscribe to trendingMoviePageNumber
+	trendingMoviePageNumber.subscribe((value) => {
+		currentPage = value;
+	});
+
+	const handleLoadMore = () => {
+		// Increment current page and call getTrendingMovies
+		getTrendingMovies(trendingTimeWindow);
+	};
 
 	onMount(() => {
 		trendingMoviePageNumber.set(1); // Reset the page number when the component mounts
@@ -41,10 +52,6 @@
 			getTrendingMovies(trendingTimeWindow);
 		}
 	}
-
-	// 	let loadMoreVisible = true;
-
-	// $: loadMoreVisible = get(moviePageStore) <= get(totalMoviePagesStore);
 
 	// Subscribe to the movies store
 	trendingMovies.subscribe((value) => {
@@ -107,9 +114,7 @@
 	<Modal {selectedItem} close={closeModal} />
 </CardsContainer>
 <ReturnToTop />
-<!-- {#if loadMoreVisible}
-	<LoadMoreButton onClick={() => getMovies(true)} />
-{/if} -->
-<ReturnToTop />
-<!-- Next Page button -->
-<button on:click={handleLoadTrending}>Next Page</button>
+
+{#if currentPage <= 5} <!-- Condition to check if more pages are available -->
+	<LoadMoreButton onClick={handleLoadMore} />
+{/if}

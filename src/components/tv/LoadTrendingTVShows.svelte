@@ -1,53 +1,69 @@
-<!-- LoadTrendingTVShows.svelte -->
-
 <script>
 	import {
 		getTrendingTVShows,
 		trendingTVShows,
-		trendingTVShowPageNumber
+		trendingTVShowPageNumber,
+		totalTrendingTVShowPages
 	} from '$lib/api/trendingTVShows.js';
 	import { onMount, afterUpdate } from 'svelte';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
-	import { totalTrendingTVShowPages } from '$lib/api/trendingTVShows.js';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
+	import CardsContainer from '../design/CardsContainer.svelte';
+	import Card from '../design/Card.svelte';
+	import Modal from '../design/Modal.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
+	import { roundPopularity, formatDate } from '$lib/cardUtils.js';
 
-  let totalTrendingPages = 0;
-  let trendingTVShowData = [];
-  let trendingTimeWindow = 'day';
-  let initialized = false;
+	let totalTrendingPages = 0;
+	let trendingTVShowData = [];
+	let trendingTimeWindow = 'day';
+	let initialized = false;
+	let tvShowData = [];
+	let selectedItem = null;
 
-  onMount(() => {
-    trendingTVShowPageNumber.set(1);
-    getTrendingTVShows(trendingTimeWindow);
-    initialized = true;
-  });
+	onMount(() => {
+		trendingTVShowPageNumber.set(1);
+		getTrendingTVShows(trendingTimeWindow);
+		initialized = true;
+	});
 
-  $: if (trendingTimeWindow && initialized) {
-    trendingTVShowPageNumber.set(1);
-    getTrendingTVShows(trendingTimeWindow);
-  }
+	$: if (trendingTimeWindow && initialized) {
+		trendingTVShowPageNumber.set(1);
+		getTrendingTVShows(trendingTimeWindow);
+	}
 
-  trendingTVShows.subscribe((value) => {
-    trendingTVShowData = value;
-  });
+	// Subscribe to the trending TV shows store
+	trendingTVShows.subscribe((value) => {
+		tvShowData = value.map((show) => ({
+			title: show.name,
+			rating: show.vote_average,
+			popularity: roundPopularity(show.popularity),
+			backdrop_path: show.poster_path,
+			overview: show.overview,
+			release_date: formatDate(show.first_air_date),
+			credits: show.id
+		}));
+	});
 
-  totalTrendingTVShowPages.subscribe((value) => {
-    totalTrendingPages = value;
-  });
+	totalTrendingTVShowPages.subscribe((value) => {
+		totalTrendingPages = value;
+	});
 
-  const handleLoadTrending = () => {
-    getTrendingTVShows(trendingTimeWindow);
-  };
+	const handleLoadMoreTrending = () => {
+		getTrendingTVShows(trendingTimeWindow, true);
+	};
 
-  const handleTimeWindowChange = (event) => {
-    trendingTimeWindow = event.target.value;
-    console.log('trendingTimeWindow:', trendingTimeWindow);
-  };
+	const handleTimeWindowChange = (event) => {
+		trendingTimeWindow = event.target.value;
+	};
 
-  const handleLoadMoreTrending = () => {
-    getTrendingTVShows(trendingTimeWindow, true);
-  };
+	function handleItemClick(event) {
+		selectedItem = event.detail.item;
+	}
+
+	function closeModal() {
+		selectedItem = null;
+	}
 </script>
 
 <div>
@@ -69,22 +85,14 @@
 	<label for="week">This Week</label>
 </div>
 
-<button on:click={handleLoadTrending}>Load Trending TV Shows</button>
-
-<!-- Display the trending TV shows -->
-{#each trendingTVShowData.sort(prioritizeImages) as show}
-	<div>{show.name}</div>
-	<div>{show.first_air_date}</div>
-	<div>{show.popularity}</div>
-	<img
-		src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
-		alt={show.name}
-		style="width: 300px;"
-	/>
-{/each}
-
+<CardsContainer>
+	{#each tvShowData.sort(prioritizeImages) as item}
+		<Card {item} on:itemClick={handleItemClick} />
+	{/each}
+	<Modal {selectedItem} close={closeModal} />
+</CardsContainer>
 <ReturnToTop />
 
 {#if $trendingTVShowPageNumber < totalTrendingPages}
-<LoadMoreButton onClick={handleLoadMoreTrending} />
+	<LoadMoreButton onClick={handleLoadMoreTrending} />
 {/if}

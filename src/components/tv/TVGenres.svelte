@@ -1,21 +1,22 @@
-<!-- TVGenres.svelte -->
-
 <script>
 	import { getTVShowsByGenre } from '$lib/api/tvshows.js';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
-    import TVGenreSelector from './TVGenreSelector.svelte';
-	
+	import TVGenreSelector from './TVGenreSelector.svelte';
+	import CardsContainer from '../design/CardsContainer.svelte';
+	import Card from '../design/Card.svelte';
+	import Modal from '../design/Modal.svelte';
 
-	let showsByGenre = [];
+	let showsByGenreData = [];
 	let genreId = 10765; // Assume this is the ID for "Sci-fi and Fantasy"
 	let page = 1;
 	let showButton = false;
 	let moreShows = true;
+	let selectedItem = null;
 
 	const handleGenreSelect = (event) => {
-		showsByGenre = [];
+		showsByGenreData = [];
 		page = 1;
 		genreId = event.detail.genreId;
 		showButton = false;
@@ -25,7 +26,18 @@
 
 	const loadShowsByGenre = async () => {
 		const newShows = await getTVShowsByGenre(genreId, page);
-		showsByGenre = [...showsByGenre, ...newShows];
+		showsByGenreData = [
+			...showsByGenreData,
+			...newShows.map((show) => ({
+				title: show.name,
+				rating: show.vote_average, // Use appropriate rating property
+				popularity: show.popularity,
+				backdrop_path: show.poster_path,
+				overview: show.overview,
+				release_date: show.first_air_date,
+				credits: show.id // or any other identifier
+			}))
+		];
 		showButton = true;
 		if (newShows.length < 60) {
 			moreShows = false;
@@ -34,18 +46,27 @@
 	};
 
 	loadShowsByGenre(); // Load shows for the initial genre
+
+	function handleItemClick(event) {
+		selectedItem = event.detail.item;
+	}
+
+	function closeModal() {
+		selectedItem = null;
+	}
 </script>
 
 <TVGenreSelector {genreId} on:genreselect={handleGenreSelect} />
 
-{#each showsByGenre.sort(prioritizeImages) as show (show.id)}
-    <div>{show.name}</div>
-    <div>{show.first_air_date}</div>
-    <div>{show.popularity}</div>
-    <img src={`https://image.tmdb.org/t/p/w500${show.poster_path}`} alt={show.name} style="width: 300px;" />
-{/each}
-
+<CardsContainer>
+	{#each showsByGenreData.sort(prioritizeImages) as item (item.credits)}
+		<Card {item} on:itemClick={handleItemClick} />
+	{/each}
+	{#if selectedItem}
+		<Modal {selectedItem} close={closeModal} />
+	{/if}
+</CardsContainer>
 <ReturnToTop />
 {#if showButton && moreShows}
-<LoadMoreButton onClick={loadShowsByGenre} />
+	<LoadMoreButton onClick={loadShowsByGenre} />
 {/if}

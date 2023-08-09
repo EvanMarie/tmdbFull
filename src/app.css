@@ -186,7 +186,7 @@ body::-webkit-scrollbar {
 .header-link {
 	width: 80px;
 	padding: 0.15rem 0.5rem;
-	background-color: var(--darkestGray08);
+	background-color: var(--darkestGray);
 	border-radius: 5px;
 	color: var(--cyan);
 	font-weight: 500;
