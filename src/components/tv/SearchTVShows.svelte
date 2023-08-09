@@ -13,9 +13,14 @@
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 
 	let tvShowData = [];
-	let searchQuery = '';
 	let currentPage = 1;
 	let totalTVShowPages = 1;
+		let searchQuery = 'dragon'; // Set the initial search query to "dragon"
+
+	onMount(() => {
+		// Perform the initial search when the component mounts
+		handleSearch();
+	});
 
 	tvShows.subscribe((value) => (tvShowData = value));
 	tvShowPageStore.subscribe((value) => (currentPage = value));
@@ -33,6 +38,10 @@
 	};
 </script>
 
+<div class="page-header-container">
+	<p>Search TV </p>
+
+		<div class="input-and-button">
 <input
 	type="text"
 	bind:value={searchQuery}
@@ -40,7 +49,8 @@
 	on:keydown={handleKeyPress}
 />
 
-<button on:click={handleSearch}>Search TV Shows</button>
+<button on:click={handleSearch} class="button-styles">go</button></div>
+</div>
 
 <!-- Display the TV show search results -->
 {#if tvShowData.length > 0}

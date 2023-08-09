@@ -49,7 +49,8 @@
 
 <style>
 	.item-poster {
-		width: 250px;
+		width: 200px;
+		/* height: 90%; */
 		object-fit: cover;
 		display: block;
 		border-radius: 10px;

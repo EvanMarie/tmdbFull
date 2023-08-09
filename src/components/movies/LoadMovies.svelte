@@ -44,12 +44,15 @@
 			popularity: roundPopularity(movie.popularity), // Use appropriate rating property
 			backdrop_path: movie.poster_path,
 			overview: movie.overview,
-			release_date: formatDate(movie.release_date)
+			release_date: formatDate(movie.release_date),
+      credits: movie.id,
 		}));
 	});
 
 	let selectedItem = null;
 	let myModal;
+
+  console.log(movieData[0])
 </script>
 
 <!-- Display the movies -->

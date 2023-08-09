@@ -1,3 +1,5 @@
+<!-- TVGenres.svelte -->
+
 <script>
 	import { getTVShowsByGenre } from '$lib/api/tvshows.js';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
@@ -7,7 +9,7 @@
 	
 
 	let showsByGenre = [];
-	let genreId = null;
+	let genreId = 10765; // Assume this is the ID for "Sci-fi and Fantasy"
 	let page = 1;
 	let showButton = false;
 	let moreShows = true;
@@ -30,9 +32,11 @@
 		}
 		page += 3;
 	};
+
+	loadShowsByGenre(); // Load shows for the initial genre
 </script>
 
-<TVGenreSelector on:genreselect={handleGenreSelect} />
+<TVGenreSelector {genreId} on:genreselect={handleGenreSelect} />
 
 {#each showsByGenre.sort(prioritizeImages) as show (show.id)}
     <div>{show.name}</div>

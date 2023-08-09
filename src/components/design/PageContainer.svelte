@@ -14,7 +14,7 @@
         justify-content: center;
         width: 100%;
         height: 100%;
-        padding-top: 100px;
+        padding-top: 125px;
         padding-bottom: 80px;
     }
     </style>

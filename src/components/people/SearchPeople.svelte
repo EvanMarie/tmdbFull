@@ -6,8 +6,9 @@
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
+	import SearchButton from '../design/SearchButton.svelte';
 
-	let searchQuery = '';
+	let searchQuery = 'Chaplin'; // Set the initial search query to "Chaplin"
 	let searchPageNumber = 1;
 	let searchResultsData = [];
 	let totalSearchPages = 1;
@@ -18,8 +19,9 @@
 	});
 
 	// Load the first page of search results when the component mounts
-	onMount(() => {
-		// Initially, do not load any search results until the user submits the form
+	onMount(async () => {
+		// Perform the initial search when the component mounts
+		await handleSearch();
 	});
 
 	totalSearchPagesStore.subscribe((value) => (totalSearchPages = value));
@@ -34,11 +36,12 @@
 		await searchPeople(searchQuery); // or searchPeople(searchQuery, false);
 	};
 </script>
-
+<div class="page-header-container"><p>Search People </p>
 <form on:submit|preventDefault={handleSearch}>
+	<div class="input-and-button">
 	<input type="text" bind:value={searchQuery} placeholder="Search for an actor..." />
-	<button type="submit">Search</button>
-</form>
+	<SearchButton/></div>
+</form></div>
 
 <!-- Display the search results -->
 {#if searchResultsData.length > 0}

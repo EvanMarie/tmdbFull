@@ -6,12 +6,17 @@
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
+	import { onMount } from 'svelte';
 
 	let moviesByGenre = [];
-	let genreId = null;
 	let page = 1;
 	let showButton = false;
 	let moreMovies = true;
+	let genreId = 10402;
+
+	onMount(() => {
+		loadMoviesByGenre();
+	});
 
 	const handleGenreSelect = (event) => {
 		// Reset movies and page count when a new genre is selected

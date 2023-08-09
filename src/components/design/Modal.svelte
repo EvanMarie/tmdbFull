@@ -46,7 +46,7 @@
 				<div class="stats">
 					<div class="stat">
 						<div class="type">Rating</div>
-						<div class="value">{selectedItem ? selectedItem.vote_average : ''} / 10</div>
+						<div class="value">{selectedItem ? selectedItem.rating : ''} / 10</div>
 					</div>
 					<div class="stat">
 						<div class="type">Release</div>
@@ -106,6 +106,7 @@
 
 	.movie-poster-modal {
 		width: 250px;
+		height: 100%;
 		object-fit: cover;
 		display: block;
 		border-radius: 10px;
@@ -115,6 +116,7 @@
 	.modal p {
 		margin: 0;
 		padding: 0;
+		font-size: 1.1rem;
 	}
 
 	.type {

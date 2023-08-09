@@ -46,8 +46,8 @@ h3 {
 
 select,
 input[type='text'] {
-	padding: 0.1rem 0.6rem;
-	width: 250px;
+	padding: 0.25rem 1rem;
+	width: 200px;
 	border-radius: 0.5rem;
 	border: 1px solid cyan;
 	background-color: #222429 !important;
@@ -70,7 +70,7 @@ select {
 	appearance: none;
 	padding-right: 30px !important;
 	/* Add some padding to make space for a custom arrow icon */
-	background: url('arrowdown.png') no-repeat right center;
+	background: url('/arrowdown.png') no-repeat right center;
 	/* Replace 'custom-arrow.png' with your custom arrow icon */
 }
 
@@ -80,6 +80,12 @@ select {
 	align-items: center;
 	font-size: 1rem;
 	justify-content: center;
+}
+
+@media (min-width: 768px) {
+	input[type='text'] {
+		width: 300px;
+	}
 }
 
 @media (min-width: 1080px) {
@@ -127,8 +133,9 @@ body::-webkit-scrollbar {
 	background-color: var(--cyan);
 	color: var(--darkestGray);
 	border-radius: 0.5rem;
-	padding: 0.5rem 1rem;
+	padding: 0.15rem 1rem;
 	font-weight: bold;
+	font-size: 1.1rem;
 	border: 1px solid;
 }
 
@@ -142,7 +149,7 @@ body::-webkit-scrollbar {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	height: 70px;
+	height: 65px;
 	background-color: var(--ultraDark08);
 	position: fixed;
 	top: 0;
@@ -178,21 +185,24 @@ body::-webkit-scrollbar {
 
 .header-link {
 	width: 80px;
-		padding: 0.5rem 0.5rem;
-		border-radius: 5px;
+	padding: 0.15rem 0.5rem;
+	background-color: var(--darkestGray08);
+	border-radius: 5px;
 	color: var(--cyan);
 	font-weight: 500;
 	text-align: center;
 }
 
+.header-link.active,
 .header-link:hover {
 	color: var(--darkestGray);
 	background-color: var(--lightPink);
 	transition: all 0.3s ease-in-out;
 }
 
-.header-links-desktop {
-	display: none;
+.header-link-active {
+	color: var(--darkestGray);
+	background-color: var(--lightPink);
 }
 
 @media (min-width: 600px) {
@@ -206,9 +216,7 @@ body::-webkit-scrollbar {
 	}
 
 	.header-link {
-		padding: 0.4rem 0.4rem;
-		width: 120px;
-		font-size: 1.1rem;
+		width: 110px;
 	}
 }
 
@@ -240,7 +248,6 @@ body::-webkit-scrollbar {
 	.header-links {
 		gap: 60px;
 		padding-right: 60px;
-
 	}
 }
 
@@ -249,8 +256,56 @@ body::-webkit-scrollbar {
 		gap: 100px;
 		padding-right: 100px;
 	}
+}
 
-	.header-link {
+
+.page-header-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 10px;
+	background-color: var(--ultraDark08);
+	position: fixed;
+	top: 65px;
+	gap: 15px;
+	z-index: 200;
+	font-weight: 500;
+}
+
+.page-container-header p {
+	font-size: 1rem;
+}
+
+.input-and-button {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+
+@media (min-width: 768px) {
+	.page-header-container, .input-and-button {
+		gap: 30px;
+	}
+
+	.page-header-container p {
+		font-size: 1.2rem;
+	}
+
+	input {
+		padding: 0.35rem 1rem;
+	}
+
+	.button-styles {
+		padding: 0.25rem 1rem;
+	}
+}
+
+
+@media (min-width: 1080px) {
+	.page-header-container p {
 		font-size: 1.5rem;
 	}
 }
