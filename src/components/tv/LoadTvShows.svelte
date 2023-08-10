@@ -51,9 +51,28 @@
 	function closeModal() {
 		selectedItem = null;
 	}
+
+	let selectedFilter = 'top_rated';
+
+	$: {
+		// Reset page number and load shows whenever the filter changes
+		tvShowPageStore.set(1);
+		getTVShows(selectedFilter);
+	}
 </script>
+
 <div class="page-header-container">
-	<h1>Explore TV</h1></div>	
+		<div class="input-and-button"><h1>Explore TV</h1>
+</div>
+<div class="select-container">
+	<select bind:value={selectedFilter} on:change={() => getTVShows(selectedFilter)}>
+		<option value="airing_today">Airing Today</option>
+		<option value="on_the_air">On the Air</option>
+		<option value="popular">Popular</option>
+		<option value="top_rated">Top Rated</option>
+	</select></div>
+</div>
+
 <CardsContainer>
 	{#each tvShowData.sort(prioritizeImages) as item}
 		<Card {item} on:itemClick={handleItemClick} />
@@ -62,5 +81,5 @@
 </CardsContainer>
 <ReturnToTop />
 {#if loadMoreTVShowsVisible}
-	<LoadMoreButton onClick={() => loadMoreTVShows()} />
+	<LoadMoreButton onClick={() => getTVShows(selectedFilter, true)} />
 {/if}

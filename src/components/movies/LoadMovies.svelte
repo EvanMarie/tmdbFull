@@ -26,13 +26,13 @@
 
 	let movieData = [];
 
-onMount(() => {
-	getMovies(filter); // Get movies based on the default filter when the component is mounted
-});
+	onMount(() => {
+		getMovies(filter); // Get movies based on the default filter when the component is mounted
+	});
 
-const handleLoadMovies = () => {
-	getMovies(filter, true); // Load more movies based on the current filter
-};
+	const handleLoadMovies = () => {
+		getMovies(filter, true); // Load more movies based on the current filter
+	};
 
 	// Subscribe to the movies store
 	movies.subscribe((value) => {
@@ -58,25 +58,25 @@ const handleLoadMovies = () => {
 	console.log(movieData[0]);
 	let filter = $filterStore;
 
-function handleChange(event) {
-	filterStore.set(event.target.value);
-	getMovies(event.target.value); // Fetch movies based on the selected filter
-}
-
-
+	function handleChange(event) {
+		filterStore.set(event.target.value);
+		getMovies(event.target.value); // Fetch movies based on the selected filter
+	}
 </script>
 
 <!-- Display the movies -->
 <div class="page-header-container">
-	<h1>Explore Movies</h1>
-	<div class="select-container">
-	<select bind:value={filter} id="filter" on:change={handleChange}>
-		<option value="popular">Popular</option>
-		<option value="top_rated">Top Rated</option>
-		<option value="upcoming">Upcoming</option>
-		<option value="now_playing">Now Playing</option>
-	</select>
-</div>
+	<div class="input-and-button">
+		<h1>Explore Movies</h1>
+		<div class="select-container">
+			<select bind:value={filter} id="filter" on:change={handleChange}>
+				<option value="popular">Popular</option>
+				<option value="top_rated">Top Rated</option>
+				<option value="upcoming">Upcoming</option>
+				<option value="now_playing">Now Playing</option>
+			</select>
+		</div>
+	</div>
 </div>
 <CardsContainer>
 	{#each movieData.sort(prioritizeImages) as item}

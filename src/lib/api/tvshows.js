@@ -1,35 +1,20 @@
 // tvShows.js
 
 import axios from 'axios';
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 
 export const tvShows = writable([]);
 export const tvShowPageStore = writable(1); // Current page number
 export const totalTVShowPagesStore = writable(1); // Total pages available
 
-export const getTVShows = async (searchQuery = '', append = false) => {
+export const getTVShows = async (filter = 'top_rated', loadMore = false) => {
 	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
-	let fetchedShows = [];
-	let page;
+	const pageToFetch = loadMore ? get(tvShowPageStore) + 1 : 1;
 
-	// Get the current page number from the store
-	tvShowPageStore.subscribe((value) => {
-		page = value;
-	});
+	const url = `https://api.themoviedb.org/3/tv/${filter}?language=en-US&page=${pageToFetch}`;
 
-	const requests = [];
-
-	for (let i = 0; i < 3; i++) {
-		let url;
-		if (searchQuery) {
-			url = `https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(searchQuery)}&page=${
-				page + i
-			}&language=en-US`;
-		} else {
-			url = `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${page + i}`;
-		}
-
-		requests.push({
+	try {
+		const response = await axios.request({
 			method: 'GET',
 			url,
 			headers: {
@@ -37,26 +22,18 @@ export const getTVShows = async (searchQuery = '', append = false) => {
 				Authorization: `Bearer ${ACCESS_TOKEN}`
 			}
 		});
-	}
 
-	try {
-		// Use axios.all to send all requests concurrently
-		const responses = await axios.all(requests.map((request) => axios.request(request)));
-		// Combine the results from all responses
-		fetchedShows = responses.reduce((results, response) => {
-			const englishShows = response.data.results.filter((show) => show.original_language === 'en');
-			const sortedShows = englishShows.sort((a, b) => b.vote_average - a.vote_average);
-			return results.concat(sortedShows);
-		}, []);
+		const fetchedShows = response.data.results;
 
-		if (append) {
+		if (loadMore) {
 			tvShows.update((existingShows) => [...existingShows, ...fetchedShows]);
+			tvShowPageStore.update((n) => n + 1); // Increment by 1 as we fetched 1 page
 		} else {
 			tvShows.set(fetchedShows);
+			tvShowPageStore.set(1); // Reset to the first page if a new filter is applied
 		}
-		// Incrementing the page number for the next fetch
-		tvShowPageStore.update((n) => n + 3); // Increment by 3 as we fetched 3 pages
-		totalTVShowPagesStore.set(responses[0].data.total_pages); // Assuming all pages have the same total
+
+		totalTVShowPagesStore.set(response.data.total_pages);
 	} catch (error) {
 		console.error(error);
 	}
