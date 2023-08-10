@@ -34,9 +34,30 @@ export const getPeople = async (loadMore = false) => {
 			}
 		};
 
+		// try {
+		// 	response = await axios.request(options); // Update the response variable here
+		// 	people.update((existingResults) => [...existingResults, ...response.data.results]);
+		// 	totalPopularPagesStore.set(response.data.total_pages);
+		// 	pageNumber.update((n) => n + 1);
+		// } catch (error) {
+		// 	console.error(error);
+		// }
 		try {
-			response = await axios.request(options); // Update the response variable here
-			people.update((existingResults) => [...existingResults, ...response.data.results]);
+			response = await axios.request(options);
+
+			// Create a new array containing the people with their details
+			const peopleWithDetails = await Promise.all(
+				response.data.results.map(async (person) => {
+					await getActorDetails(person.id); // Fetch actor details
+					let actorDetail;
+					actorDetails.subscribe((value) => {
+						actorDetail = value;
+					});
+					return { ...person, actorDetail };
+				})
+			);
+
+			people.update((existingResults) => [...existingResults, ...peopleWithDetails]);
 			totalPopularPagesStore.set(response.data.total_pages);
 			pageNumber.update((n) => n + 1);
 		} catch (error) {
@@ -72,6 +93,29 @@ export const searchPeople = async (query, resetPageNumber = false) => {
 		}
 		console.log(response.data.results); // This will log the data about the returned people
 		searchPageNumber++; // Increment the search page number for the next search
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+// Import svelte store to hold the actor details
+export const actorDetails = writable(null);
+
+export const getActorDetails = async (personId) => {
+	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	const url = `https://api.themoviedb.org/3/person/${personId}`;
+	const options = {
+		method: 'GET',
+		url: url,
+		headers: {
+			accept: 'application/json',
+			Authorization: `Bearer ${ACCESS_TOKEN}`
+		}
+	};
+
+	try {
+		const response = await axios.request(options);
+		actorDetails.set(response.data); // Set the actor details in the store
 	} catch (error) {
 		console.error(error);
 	}

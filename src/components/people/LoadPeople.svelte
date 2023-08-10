@@ -1,7 +1,13 @@
 <!-- LoadPeople.svelte -->
 
 <script>
-	import { getPeople, people, pageNumber, totalPopularPagesStore } from '$lib/api/popularPeople.js';
+	import {
+		getPeople,
+		people,
+		pageNumber,
+		totalPopularPagesStore,
+		actorDetails
+	} from '$lib/api/popularPeople.js';
 	import { onMount } from 'svelte';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
@@ -15,6 +21,7 @@
 
 	function handleItemClick(event) {
 		selectedItem = event.detail.item;
+		console.log(selectedItem);
 	}
 
 	let selectedItem = null;
@@ -43,6 +50,7 @@
 			datatype: 'person',
 			title: person.name,
 			popularity: person.popularity,
+			actorDetail: person.actorDetail,
 			knownFor: person.known_for.map((item) => ({
 				id: item.id,
 				title: item.title,
@@ -62,7 +70,7 @@
 <!-- Display the popular people -->
 <div class="page-header-container">
 	<h1>Explore People</h1>
-		</div>
+</div>
 <CardsContainer>
 	{#each peopleData.sort(prioritizeImages) as item}
 		<Card {item} on:itemClick={handleItemClick} />

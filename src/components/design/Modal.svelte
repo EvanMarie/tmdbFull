@@ -3,7 +3,6 @@
 <script>
 	import { formatDate, roundPopularity, findGenreName, truncateText } from '$lib/cardUtils.js';
 	import { onMount } from 'svelte';
-	import Card from './Card.svelte';
 	export let selectedItem = null;
 	export let close;
 
@@ -41,7 +40,7 @@
 		};
 	});
 
-	console.log(selectedItem)
+	console.log(selectedItem);
 </script>
 
 <dialog id="my_modal_4" class="modal" open={selectedItem !== null}>
@@ -68,6 +67,16 @@
 				{#if selectedItem}
 					{#if selectedItem.overview}
 						<p style="padding: 5px 10px;">{selectedItem.overview}</p>
+					{/if}
+					{#if selectedItem && selectedItem.actorDetail}
+					{#if selectedItem.actorDetail.birthday}
+					<p>Born on <span style="color: cyan;">{formatDate(selectedItem.actorDetail.birthday)}</span> in {selectedItem.actorDetail.place_of_birth}.</p>	
+					<div class="divider" style="margin: 5px 0px;"/>
+					{/if}
+					{#if selectedItem.actorDetail.biography}
+					<p style="padding: 5px 10px;">{selectedItem.actorDetail.biography}</p>
+					{/if}
+
 					{/if}
 				{/if}
 			</div>
