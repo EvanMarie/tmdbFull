@@ -4,6 +4,7 @@
 	import { formatDate, roundPopularity, findGenreName, truncateText } from '$lib/cardUtils.js';
 	import { onMount } from 'svelte';
 	import { getMovieOrShowDetails } from '$lib/api/movieShowDetails.js';
+	import { getCastDetails } from '$lib/api/getCastDetails.js';
 	export let selectedItem = null;
 	export let close;
 
@@ -45,6 +46,18 @@
 		const newSelectedItem = await getMovieOrShowDetails(knownForItem.id); // Replace this with your data fetching logic
 		selectedItem = newSelectedItem;
 	}
+
+	let castDetails = [];
+
+	$: {
+		if (selectedItem) {
+			const mediaType = selectedItem.datatype; // 'movie' or 'tv'
+			getCastDetails(selectedItem.id, mediaType).then((cast) => {
+				castDetails = cast.slice(0, 5); // Get the first 5 main actors
+			});
+		}
+	}
+
 	console.log(selectedItem);
 </script>
 
@@ -73,6 +86,28 @@
 					{#if selectedItem.overview}
 						<p style="padding: 5px 10px;">{selectedItem.overview}</p>
 					{/if}
+
+					{#if (selectedItem.datatype === 'movie') | (selectedItem.datatype === 'tv')}
+						<div class="cast-container">
+							<h4>Main Cast:</h4>
+							<div class="cast-list">
+								{#each castDetails as cast}
+									<div class="cast-item">
+										{#if cast.profile_path}
+											<img
+												src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+												alt={cast.name}
+											/>
+										{:else}
+											<img src={DEFAULT_IMAGE_URL} alt={cast.name} />
+										{/if}
+										<p style="font-size: 0.75rem; width: 50px;">{cast.name}</p>
+									</div>
+								{/each}
+							</div>
+						</div>
+					{/if}
+
 					{#if selectedItem && selectedItem.actorDetail}
 						{#if selectedItem.actorDetail.birthday}
 							<p>
@@ -107,27 +142,34 @@
 					</div>
 				{:else}
 					<div class="known-for-list">
-{#if selectedItem.knownFor}
-	<h3>Known For:</h3>
-	<div class="known-for-container">
-		{#each selectedItem.knownFor as knownFor}
-			{#if knownFor.title}
-				<div class="known-for-item" on:click={() => handleKnownForClick(knownFor)}> <!-- Add the click handler here -->
-					<p class="known-for-title">{truncateText(knownFor.title, 20)}</p>
-					{#if knownFor.poster_path}
-						<img
-							src={`https://image.tmdb.org/t/p/w500${knownFor.poster_path}`}
-							alt="Poster"
-							class="known-for-poster"
-						/>
-					{:else}
-						<img src={'/noimage_sm.png'} alt="Poster" class="known-for-poster" />
-					{/if}
-				</div>
-			{/if}
-		{/each}
-	</div>
-{/if}
+						{#if selectedItem.knownFor}
+							<h3>Known For:</h3>
+							<div class="known-for-container">
+								{#each selectedItem.knownFor as knownFor}
+									{#if knownFor.title}
+										<div
+											class="known-for-item"
+											on:click={() => handleKnownForClick(knownFor)}
+											tabindex="0"
+											role="button"
+											on:keydown={handleKnownForClick(knownFor)}
+										>
+											<!-- Add the click handler here -->
+											<p class="known-for-title">{truncateText(knownFor.title, 20)}</p>
+											{#if knownFor.poster_path}
+												<img
+													src={`https://image.tmdb.org/t/p/w500${knownFor.poster_path}`}
+													alt="Poster"
+													class="known-for-poster"
+												/>
+											{:else}
+												<img src={'/noimage_sm.png'} alt="Poster" class="known-for-poster" />
+											{/if}
+										</div>
+									{/if}
+								{/each}
+							</div>
+						{/if}
 					</div>
 				{/if}
 
@@ -251,6 +293,33 @@
 		display: block;
 		border-radius: 5px;
 		box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.8);
+	}
+
+	.cast-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 10px;
+		gap: 10px;
+	}
+
+	.cast-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
+		text-align: center;
+	}
+
+	.cast-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.cast-item img {
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
 	}
 
 	@media (min-width: 768px) {
