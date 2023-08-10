@@ -1,3 +1,5 @@
+// getCastDetails.js
+
 import axios from 'axios';
 
 export const getCastDetails = async (id, mediaType) => {
