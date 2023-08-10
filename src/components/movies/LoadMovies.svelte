@@ -26,13 +26,13 @@
 
 	let movieData = [];
 
-	onMount(() => {
-		getMovies();
-	});
+onMount(() => {
+	getMovies(filter); // Get movies based on the default filter when the component is mounted
+});
 
-	const handleLoadMovies = () => {
-		getMovies();
-	};
+const handleLoadMovies = () => {
+	getMovies(filter, true); // Load more movies based on the current filter
+};
 
 	// Subscribe to the movies store
 	movies.subscribe((value) => {
@@ -58,9 +58,12 @@
 	console.log(movieData[0]);
 	let filter = $filterStore;
 
-	function handleChange(event) {
-		filterStore.set(event.target.value);
-	}
+function handleChange(event) {
+	filterStore.set(event.target.value);
+	getMovies(event.target.value); // Fetch movies based on the selected filter
+}
+
+
 </script>
 
 <!-- Display the movies -->
@@ -83,5 +86,5 @@
 </CardsContainer>
 <ReturnToTop />
 {#if loadMoreVisible}
-	<LoadMoreButton onClick={() => getMovies(true)} />
+	<LoadMoreButton onClick={() => getMovies(filter, true)} />
 {/if}
