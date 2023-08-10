@@ -18,11 +18,10 @@ export const getCastDetails = async (id, mediaType) => {
 				Authorization: `Bearer ${ACCESS_TOKEN}`
 			}
 		});
-
 		// Map the cast details to only include the properties you need
 		return response.data.cast.map((actor) => ({
 			name: actor.name,
-			profilePath: actor.profile_path,
+			profile_path: actor.profile_path,
 			id: actor.id
 		}));
 	} catch (error) {

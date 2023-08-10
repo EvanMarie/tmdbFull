@@ -54,6 +54,7 @@
 			const mediaType = selectedItem.datatype; // 'movie' or 'tv'
 			getCastDetails(selectedItem.id, mediaType).then((cast) => {
 				castDetails = cast.slice(0, 5); // Get the first 5 main actors
+				console.log(castDetails);
 			});
 		}
 	}
@@ -317,9 +318,9 @@
 	}
 
 	.cast-item img {
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
+		width: 60px;
+		height: 90px;
+		border-radius: 20%;
 	}
 
 	@media (min-width: 768px) {

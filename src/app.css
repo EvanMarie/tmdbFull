@@ -224,6 +224,7 @@ body::-webkit-scrollbar {
 .header-link:hover {
 	color: var(--darkestGray);
 	background-color: var(--lightPink);
+	transform: scale(1.07) translateY(2px);
 	transition: all 0.3s ease-in-out;
 }
 
