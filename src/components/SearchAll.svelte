@@ -67,8 +67,9 @@ import {
 	totalMultiPagesStore.subscribe((value) => (totalMultiPages = value));
 
 	const handleSearch = () => {
-		searchMulti(searchQuery);
-	};
+    multiSearchData = [];  // Clear the data on new search
+    searchMulti(searchQuery);
+};
 
 	const handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
