@@ -58,6 +58,7 @@
 		}
 	}
 
+
 async function handleKnownForClick(knownForItem) {
 	const mediaType = knownForItem.media_type || 'movie'; // Set a default if media_type is not available
 	const newSelectedItem = await getMovieOrShowDetails(knownForItem.id, mediaType === 'tv'); 
@@ -94,7 +95,6 @@ async function handleKnownForClick(knownForItem) {
 
 					{#if (selectedItem.datatype === 'movie') | (selectedItem.datatype === 'tv')}
 						<div class="cast-container">
-							<h4>Main Cast:</h4>
 							<div class="cast-list">
 								{#each castDetails as cast}
 									<div class="cast-item">
