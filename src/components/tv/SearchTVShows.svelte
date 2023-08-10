@@ -5,7 +5,7 @@
 		tvShowPageStore,
 		totalTVShowPagesStore,
 		loadMoreTVShows
-	} from '$lib/api/tvShows.js';
+	} from '$lib/api/tvshows.js';
 	import { onMount } from 'svelte';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
