@@ -3,6 +3,7 @@
 <script>
 	import { formatDate, roundPopularity, findGenreName, truncateText } from '$lib/cardUtils.js';
 	import { onMount } from 'svelte';
+	import { getMovieOrShowDetails } from '$lib/api/movieShowDetails.js';
 	export let selectedItem = null;
 	export let close;
 
@@ -40,6 +41,10 @@
 		};
 	});
 
+	async function handleKnownForClick(knownForItem) {
+		const newSelectedItem = await getMovieOrShowDetails(knownForItem.id); // Replace this with your data fetching logic
+		selectedItem = newSelectedItem;
+	}
 	console.log(selectedItem);
 </script>
 
@@ -102,27 +107,27 @@
 					</div>
 				{:else}
 					<div class="known-for-list">
-						{#if selectedItem.knownFor}
-							<h3>Known For:</h3>
-							<div class="known-for-container">
-								{#each selectedItem.knownFor as knownFor}
-									{#if knownFor.title}
-										<div class="known-for-item">
-											<p class="known-for-title">{truncateText(knownFor.title, 20)}</p>
-											{#if knownFor.poster_path}
-												<img
-													src={`https://image.tmdb.org/t/p/w500${knownFor.poster_path}`}
-													alt="Poster"
-													class="known-for-poster"
-												/>
-											{:else}
-												<img src={'/noimage_sm.png'} alt="Poster" class="known-for-poster" />
-											{/if}
-										</div>
-									{/if}
-								{/each}
-							</div>
-						{/if}
+{#if selectedItem.knownFor}
+	<h3>Known For:</h3>
+	<div class="known-for-container">
+		{#each selectedItem.knownFor as knownFor}
+			{#if knownFor.title}
+				<div class="known-for-item" on:click={() => handleKnownForClick(knownFor)}> <!-- Add the click handler here -->
+					<p class="known-for-title">{truncateText(knownFor.title, 20)}</p>
+					{#if knownFor.poster_path}
+						<img
+							src={`https://image.tmdb.org/t/p/w500${knownFor.poster_path}`}
+							alt="Poster"
+							class="known-for-poster"
+						/>
+					{:else}
+						<img src={'/noimage_sm.png'} alt="Poster" class="known-for-poster" />
+					{/if}
+				</div>
+			{/if}
+		{/each}
+	</div>
+{/if}
 					</div>
 				{/if}
 
@@ -236,6 +241,7 @@
 		justify-content: center;
 		align-items: center;
 		gap: 0.5rem;
+		cursor: pointer;
 	}
 
 	.known-for-poster {
