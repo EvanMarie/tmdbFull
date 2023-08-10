@@ -36,7 +36,7 @@
 		align-items: center;
 		gap: 25px;
 		position: fixed;
-		top: 225px;
+		top: 250px;
 		right: -20px;
 		z-index: 200;
 	}

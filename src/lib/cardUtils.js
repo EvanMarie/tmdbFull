@@ -47,7 +47,7 @@ export function truncateText(text, length = 50) {
 	return text.slice(0, length) + '...';
 }
 
-let colors = ['#40163D', '#A63841', '#1D3E42', '#122640', '#200124', '#21063D'];
+let colors = ['#8E3BB8', '#0000A1', '#117E82', '#6009B8', '#7A027A', '#0852A1'];
 let colorIndex = 0; // Initialize the color index to 0
 export function getNextColor() {
 	const color = colors[colorIndex];

@@ -187,7 +187,7 @@ body::-webkit-scrollbar {
 .header-link {
 	width: 80px;
 	padding: 0.15rem 0.5rem;
-	background-color: var(--darkestGray);
+	background-color: #313442;
 	border-radius: 5px;
 	color: var(--cyan);
 	font-weight: 500;
@@ -264,7 +264,7 @@ body::-webkit-scrollbar {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding-bottom: 10px;
+	height: 65px;
 	background-color: var(--ultraDark08);
 	position: fixed;
 	top: 65px;
@@ -329,3 +329,4 @@ body::-webkit-scrollbar {
 		width: 150px;
 	}
 }
+

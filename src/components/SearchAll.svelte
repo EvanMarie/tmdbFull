@@ -21,14 +21,20 @@
 	let totalMultiPages = 1;
 	let selectedItem = null; // Add variable to hold selected item
 
+		// Subscribe to the movies store
 	multiResults.subscribe((value) => {
-		multiSearchData = value.map((result) => ({
-			// Map the results into the structure your Card component expects
-			title: result.name || result.title,
-			rating: result.vote_average,
-			backdrop_path: result.profile_path || result.poster_path,
-			overview: result.overview
-			// Add any other properties that you need
+		multiSearchData = value.map((movie) => ({
+			// Mapping the properties you need
+			id: movie.id,
+			datatype: "movie",
+			genre_ids: movie.genre_ids,
+			title: movie.title,
+			rating: movie.vote_average,
+			popularity: roundPopularity(movie.popularity), // Use appropriate rating property
+			backdrop_path: movie.poster_path,
+			overview: movie.overview,
+			release_date: formatDate(movie.release_date),
+      credits: movie.id,
 		}));
 	});
 
