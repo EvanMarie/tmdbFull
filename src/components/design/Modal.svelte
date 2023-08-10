@@ -24,6 +24,7 @@
 					);
 				})();
 			}
+			fetchCastDetails();
 		}
 	}
 
@@ -42,24 +43,23 @@
 		};
 	});
 
-	async function handleKnownForClick(knownForItem) {
-		const newSelectedItem = await getMovieOrShowDetails(knownForItem.id); // Replace this with your data fetching logic
-		selectedItem = newSelectedItem;
-	}
-
 	let castDetails = [];
+	let knownForCastDetails = [];
 
-	$: {
+	async function fetchCastDetails() {
 		if (selectedItem) {
 			const mediaType = selectedItem.datatype; // 'movie' or 'tv'
-			getCastDetails(selectedItem.id, mediaType).then((cast) => {
-				castDetails = cast.slice(0, 5); // Get the first 5 main actors
-				console.log(castDetails);
-			});
+			const cast = await getCastDetails(selectedItem.id, mediaType);
+			castDetails = cast.slice(0, 6); // Get the first 6 main actors
 		}
 	}
 
-	console.log(selectedItem);
+async function handleKnownForClick(knownForItem) {
+	const mediaType = knownForItem.media_type; // It could be 'movie' or 'tv'
+	const newSelectedItem = await getMovieOrShowDetails(knownForItem.id, mediaType === 'tv'); 
+	selectedItem = newSelectedItem;
+}
+
 </script>
 
 <dialog id="my_modal_4" class="modal" open={selectedItem !== null}>
@@ -153,7 +153,9 @@
 											on:click={() => handleKnownForClick(knownFor)}
 											tabindex="0"
 											role="button"
-											on:keydown={handleKnownForClick(knownFor)}
+											on:keydown={(event) => {
+												if (event.key === 'Enter') handleKnownForClick(knownFor);
+											}}
 										>
 											<!-- Add the click handler here -->
 											<p class="known-for-title">{truncateText(knownFor.title, 20)}</p>
