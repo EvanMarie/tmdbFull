@@ -1,13 +1,15 @@
 <!-- SearchAll.svelte -->
 
 <script>
-	import { onMount } from 'svelte';
-	import {
-		searchMulti,
-		multiResults,
-		searchMultiPageStore,
-		totalMultiPagesStore
+import { onMount } from 'svelte';
+import {
+	searchMulti,
+	movieResults, // import the movie store
+	personResults, // import the person store
+	searchMultiPageStore,
+	totalMultiPagesStore
 	} from '$lib/api/multiSearch.js';
+	import { roundPopularity, formatDate } from '$lib/cardUtils.js';
 	import { prioritizeImages } from '../lib/api/prioritizeImages';
 	import ReturnToTop from './design/ReturnToTop.svelte';
 	import Card from './design/Card.svelte'; // Import Card
@@ -16,27 +18,48 @@
 	import LoadMoreButton from './design/LoadMoreButton.svelte';
 
 	let multiSearchData = [];
-	let searchQuery = 'happiness';
+	let searchQuery = 'Tolkien';
 	let currentPage = 1;
 	let totalMultiPages = 1;
 	let selectedItem = null; // Add variable to hold selected item
 
-		// Subscribe to the movies store
-	multiResults.subscribe((value) => {
-		multiSearchData = value.map((movie) => ({
-			// Mapping the properties you need
-			id: movie.id,
-			datatype: "movie",
-			genre_ids: movie.genre_ids,
-			title: movie.title,
-			rating: movie.vote_average,
-			popularity: roundPopularity(movie.popularity), // Use appropriate rating property
-			backdrop_path: movie.poster_path,
-			overview: movie.overview,
-			release_date: formatDate(movie.release_date),
-      credits: movie.id,
+	// Subscribe to the movie results
+	movieResults.subscribe((value) => {
+		const movies = value.map((item) => ({
+			id: item.id,
+			title: item.title,
+			rating: item.vote_average,
+			popularity: roundPopularity(item.popularity),
+			backdrop_path: item.poster_path,
+			overview: item.overview,
+			release_date: formatDate(item.release_date),
+			datatype: 'movie'
 		}));
+		multiSearchData = [...movies, ...multiSearchData];
 	});
+
+	// Subscribe to the person results
+	personResults.subscribe((value) => {
+		const persons = value.map((item) => ({
+			id: item.id,
+			title: item.name,
+			popularity: item.popularity,
+			knownFor: item.known_for.map((personItem) => ({
+				id: personItem.id,
+				title: personItem.title,
+				poster_path: personItem.backdrop_path,
+				rating: personItem.vote_average,
+				release_date: personItem.release_date
+			})),
+			gender: item.gender === 1 ? 'Female' : 'Male', // replaced "person" with "item"
+			known_for_department: item.known_for_department, // replaced "person" with "item"
+			backdrop_path: item.profile_path, // replaced "person" with "item"
+			datatype: 'person'
+		}));
+		multiSearchData = [...persons, ...multiSearchData];
+	});
+
+	console.log(multiSearchData);
 
 	searchMultiPageStore.subscribe((value) => (currentPage = value));
 	totalMultiPagesStore.subscribe((value) => (totalMultiPages = value));
@@ -55,42 +78,46 @@
 		searchMulti(searchQuery, true);
 	};
 
-	const openModal = (item) => { // Function to open modal
+	const openModal = (item) => {
+		// Function to open modal
 		selectedItem = item;
 	};
 
-	const closeModal = () => { // Function to close modal
+	const closeModal = () => {
+		// Function to close modal
 		selectedItem = null;
 	};
 
 	onMount(() => {
 		handleSearch();
 	});
+
 </script>
 
-<div class="page-header-container">		<p>Search All</p>
+<div class="page-header-container">
+	<p>Search All</p>
 	<div class="input-and-button">
-<input
-	type="text"
-	bind:value={searchQuery}
-	placeholder="Search entire datab..."
-	on:keydown={handleKeyPress}
-/>
+		<input
+			type="text"
+			bind:value={searchQuery}
+			placeholder="Search entire datab..."
+			on:keydown={handleKeyPress}
+		/>
 
-<button on:click={handleSearch} class="button-styles">go</button></div></div>
+		<button on:click={handleSearch} class="button-styles">go</button>
+	</div>
+</div>
 
 {#if multiSearchData.length > 0}
+	<CardsContainer>
+		{#each multiSearchData.sort(prioritizeImages) as item}
+			<Card {item} on:itemClick={() => openModal(item)} />
+		{/each}
+	</CardsContainer>
+	<Modal {selectedItem} close={closeModal} />
+{/if}
 
-<CardsContainer>
-	{#each multiSearchData.sort(prioritizeImages) as item}
-		<Card {item} on:itemClick={() => openModal(item)} />
-	{/each}
-</CardsContainer>
-<Modal selectedItem={selectedItem} close={closeModal} />
-		{/if}
-
-	{#if currentPage <= totalMultiPages}
+{#if currentPage <= totalMultiPages}
 	<LoadMoreButton onClick={loadMore} />
-	{/if}
-	<ReturnToTop />
-
+{/if}
+<ReturnToTop />

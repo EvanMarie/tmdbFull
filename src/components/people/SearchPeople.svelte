@@ -50,6 +50,7 @@
 		await searchPeople(searchQuery); // or searchPeople(searchQuery, false);
 	};
 
+
 	searchResults.subscribe((value) => {
 		peopleData = value.map((person) => ({
 			// Mapping the properties you need
@@ -68,7 +69,10 @@
 			known_for_department: person.known_for_department,
 			backdrop_path: person.profile_path
 		}));
+		
 	});
+
+
 </script>
 
 <div class="page-header-container">

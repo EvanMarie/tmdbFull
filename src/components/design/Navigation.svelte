@@ -159,10 +159,10 @@
 		bottom: 0;
 		right: 0;
 		width: 100%;
-		max-width: 500px;
 		transform: translateY(100%);
 		background-color: var(--darkGray08);
 		padding: 20px 0px 0px 0px;
+		
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -214,9 +214,10 @@
 	.menu-main {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: flex-start;
 		flex-direction: row;
 		gap: 10px;
+		padding-left: 20px;
 	}
 
 	.menu-section .divider {
@@ -250,6 +251,8 @@
 		font-size: 1.5rem;
 		padding: 5px 10px;
 		gap: 5px;
+		text-align: left;
+		padding-left: 60px;
 	}
 
 	.close-button {
@@ -269,6 +272,10 @@
 	}
 
 	@media (min-width: 600px) {
+
+		.drawer-menu {
+			max-width: 400px;
+		}
 		.menu-container {
 			padding-top: 10px;
 		}

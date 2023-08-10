@@ -11,7 +11,7 @@
 		selectedItem = null;
 	}
 
-	export let DEFAULT_IMAGE_URL = '/noimage.png';
+	const DEFAULT_IMAGE_URL = '/noimage.png';
 	let genres = [];
 
 	$: {
@@ -40,25 +40,30 @@
 			window.removeEventListener('keydown', handleKeyDown);
 		};
 	});
+
+	console.log(selectedItem)
 </script>
 
 <dialog id="my_modal_4" class="modal" open={selectedItem !== null}>
 	<form method="dialog" class="modal-box w-11/12">
-		<button class="btn btn-md btn-circle btn-ghost absolute right-2 top-2" on:click={close} style="margin-left: 20px; margin-bottom: 20px;"
-			>✕</button
+		<button
+			class="btn btn-md btn-circle btn-ghost absolute right-2 top-2"
+			on:click={close}
+			style="margin-left: 20px; margin-bottom: 20px;">✕</button
 		>
 		<div class="modal-stack">
 			<div class="modal-image-overview">
-				<img
-					src={selectedItem
-						? `https://image.tmdb.org/t/p/w500${selectedItem.backdrop_path}`
-						: DEFAULT_IMAGE_URL}
-					alt="Poster"
-					class="movie-poster-modal"
-				/>
+				{#if selectedItem && selectedItem.backdrop_path}
+					<img
+						src={`https://image.tmdb.org/t/p/w500${selectedItem.backdrop_path}`}
+						alt="Poster"
+						class="movie-poster-modal"
+					/>
+				{:else}
+					<img src={DEFAULT_IMAGE_URL} alt="Poster" class="movie-poster-modal" />
+				{/if}
 				<h3 class="font-bold text-xl" style="color: cyan;">
 					{selectedItem ? selectedItem.title : 'Hello!'}
-			
 				</h3>
 				{#if selectedItem}
 					{#if selectedItem.overview}
@@ -166,7 +171,7 @@
 	.modal-box {
 		width: 95%;
 		max-width: 800px;
-		max-height: 90vh;
+		max-height: 85vh;
 		overflow-y: auto;
 		box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.5);
 	}
