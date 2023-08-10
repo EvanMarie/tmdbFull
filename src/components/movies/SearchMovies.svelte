@@ -69,11 +69,14 @@
 			genre_ids: movie.genre_ids,
 			rating: movie.vote_average,
 			backdrop_path: movie.poster_path,
-			overview: movie.overview
-			// Add any other properties that you need
+			overview: movie.overview,
+			release_date: movie.release_date,
 		}));
 	});
 </script>
+
+
+
 
 <div class="page-header-container">
 	<p>Search Movies</p>

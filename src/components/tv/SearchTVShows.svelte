@@ -49,6 +49,7 @@
 	};
 
 	const handleSearch = () => {
+		tvShowData = []; // Clear existing search results
 		getTVShows(searchQuery);
 	};
 
@@ -57,6 +58,11 @@
 			handleSearch();
 		}
 	};
+
+		onMount(() => {
+		console.log('Performing initial search for "dragon"');
+		handleSearch();
+	});
 </script>
 
 <div class="page-header-container">

@@ -4,7 +4,7 @@
 	import { getMovies, movies, moviePageStore, totalMoviePagesStore } from '$lib/api/movies.js'; // Verify the import path is correct
 	import { onMount } from 'svelte';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';
-	import { get } from 'svelte/store';
+	import { get, writable } from 'svelte/store';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import Card from '../design/Card.svelte';
@@ -12,10 +12,9 @@
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Modal from '../design/Modal.svelte';
 
-	
 	function handleItemClick(event) {
-    selectedItem = event.detail.item;
-}
+		selectedItem = event.detail.item;
+	}
 
 	function closeModal() {
 		selectedItem = null;
@@ -40,7 +39,7 @@
 		movieData = value.map((movie) => ({
 			// Mapping the properties you need
 			id: movie.id,
-			datatype: "movie",
+			datatype: 'movie',
 			genre_ids: movie.genre_ids,
 			title: movie.title,
 			rating: movie.vote_average,
@@ -48,24 +47,39 @@
 			backdrop_path: movie.poster_path,
 			overview: movie.overview,
 			release_date: formatDate(movie.release_date),
-      credits: movie.id,
+			credits: movie.id
 		}));
 	});
 
 	let selectedItem = null;
 
+	export const filterStore = writable('popular');
 
-  console.log(movieData[0])
+	console.log(movieData[0]);
+	let filter = $filterStore;
+
+	function handleChange(event) {
+		filterStore.set(event.target.value);
+	}
 </script>
 
 <!-- Display the movies -->
 <div class="page-header-container">
-	<h1>Explore Movies</h1></div>	
+	<h1>Explore Movies</h1>
+	<div class="select-container">
+	<select bind:value={filter} id="filter" on:change={handleChange}>
+		<option value="popular">Popular</option>
+		<option value="top_rated">Top Rated</option>
+		<option value="upcoming">Upcoming</option>
+		<option value="now_playing">Now Playing</option>
+	</select>
+</div>
+</div>
 <CardsContainer>
 	{#each movieData.sort(prioritizeImages) as item}
-		<Card {item} on:itemClick={handleItemClick}/>
+		<Card {item} on:itemClick={handleItemClick} />
 	{/each}
- <Modal {selectedItem} close={closeModal} />
+	<Modal {selectedItem} close={closeModal} />
 </CardsContainer>
 <ReturnToTop />
 {#if loadMoreVisible}

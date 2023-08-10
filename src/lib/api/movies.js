@@ -55,40 +55,33 @@ export const moviesByGenreStore = writable([]);
 export const genrePageStore = writable(1);
 export const totalGenrePagesStore = writable(1);
 
-export const searchMovies = async (searchQuery, append = false) => {
+export const searchMovies = async (searchQuery, loadMore = false) => {
 	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
-	let fetchedMovies = [];
-	const requests = [];
+	const pageToFetch = loadMore ? get(searchMoviePageStore) + 1 : 1;
 
-	for (let i = 0; i < 3; i++) {
-		requests.push({
-			method: 'GET',
-			url: `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
-				searchQuery
-			)}&language=en-US&page=${get(searchMoviePageStore) + i}`,
-			headers: {
-				accept: 'application/json',
-				Authorization: `Bearer ${ACCESS_TOKEN}`
-			}
-		});
-	}
+	const options = {
+		method: 'GET',
+		url: `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+			searchQuery
+		)}&language=en-US&page=${pageToFetch}`,
+		headers: {
+			accept: 'application/json',
+			Authorization: `Bearer ${ACCESS_TOKEN}`
+		}
+	};
 
 	try {
-		// Use axios.all to send all requests concurrently
-		const responses = await axios.all(requests.map((request) => axios.request(request)));
-		// Combine the results from all responses
-		fetchedMovies = responses.reduce(
-			(results, response) => results.concat(response.data.results),
-			[]
-		);
+		const response = await axios.request(options);
+		let fetchedMovies = response.data.results;
 
-		if (append) {
+		if (loadMore) {
 			movieResults.update((existingMovies) => [...existingMovies, ...fetchedMovies]);
 		} else {
 			movieResults.set(fetchedMovies);
 		}
-		searchMoviePageStore.update((n) => n + 3); // Increment by 3 as we fetched 3 pages
-		totalMoviePagesStore.set(responses[0].data.total_pages); // Assuming all pages have the same total
+
+		searchMoviePageStore.set(response.data.page);
+		totalMoviePagesStore.set(response.data.total_pages);
 	} catch (error) {
 		console.error(error);
 	}
