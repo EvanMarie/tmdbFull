@@ -16,7 +16,10 @@
 	let genres = [];
 
 	$: {
-		if (selectedItem) {
+	if (selectedItem) {
+		// Check if there's a release_date to determine the media type
+		selectedItem.datatype = selectedItem.release_date ? 'movie' : 'tv';
+		if (selectedItem.genre_ids) {
 			if (selectedItem.genre_ids) {
 				(async () => {
 					genres = await Promise.all(
@@ -27,6 +30,7 @@
 			fetchCastDetails();
 		}
 	}
+}
 
 	onMount(() => {
 		const handleKeyDown = (event) => {
@@ -55,7 +59,7 @@
 	}
 
 async function handleKnownForClick(knownForItem) {
-	const mediaType = knownForItem.media_type; // It could be 'movie' or 'tv'
+	const mediaType = knownForItem.media_type || 'movie'; // Set a default if media_type is not available
 	const newSelectedItem = await getMovieOrShowDetails(knownForItem.id, mediaType === 'tv'); 
 	selectedItem = newSelectedItem;
 }
