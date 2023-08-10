@@ -16,10 +16,7 @@
 	let genres = [];
 
 	$: {
-	if (selectedItem) {
-		// Check if there's a release_date to determine the media type
-		selectedItem.datatype = selectedItem.release_date ? 'movie' : 'tv';
-		if (selectedItem.genre_ids) {
+		if (selectedItem) {
 			if (selectedItem.genre_ids) {
 				(async () => {
 					genres = await Promise.all(
@@ -27,10 +24,8 @@
 					);
 				})();
 			}
-			fetchCastDetails();
 		}
 	}
-}
 
 	onMount(() => {
 		const handleKeyDown = (event) => {
@@ -47,24 +42,24 @@
 		};
 	});
 
-	let castDetails = [];
-	let knownForCastDetails = [];
+	async function handleKnownForClick(knownForItem) {
+		const newSelectedItem = await getMovieOrShowDetails(knownForItem.id); // Replace this with your data fetching logic
+		selectedItem = newSelectedItem;
+	}
 
-	async function fetchCastDetails() {
+	let castDetails = [];
+
+	$: {
 		if (selectedItem) {
 			const mediaType = selectedItem.datatype; // 'movie' or 'tv'
-			const cast = await getCastDetails(selectedItem.id, mediaType);
-			castDetails = cast.slice(0, 6); // Get the first 6 main actors
+			getCastDetails(selectedItem.id, mediaType).then((cast) => {
+				castDetails = cast.slice(0, 5); // Get the first 5 main actors
+				console.log(castDetails);
+			});
 		}
 	}
 
-
-async function handleKnownForClick(knownForItem) {
-	const mediaType = knownForItem.media_type || 'movie'; // Set a default if media_type is not available
-	const newSelectedItem = await getMovieOrShowDetails(knownForItem.id, mediaType === 'tv'); 
-	selectedItem = newSelectedItem;
-}
-
+	console.log(selectedItem);
 </script>
 
 <dialog id="my_modal_4" class="modal" open={selectedItem !== null}>
@@ -95,6 +90,7 @@ async function handleKnownForClick(knownForItem) {
 
 					{#if (selectedItem.datatype === 'movie') | (selectedItem.datatype === 'tv')}
 						<div class="cast-container">
+							<h4 style="width:100%; text-align: left;">Main Cast:</h4>
 							<div class="cast-list">
 								{#each castDetails as cast}
 									<div class="cast-item">
@@ -157,9 +153,7 @@ async function handleKnownForClick(knownForItem) {
 											on:click={() => handleKnownForClick(knownFor)}
 											tabindex="0"
 											role="button"
-											on:keydown={(event) => {
-												if (event.key === 'Enter') handleKnownForClick(knownFor);
-											}}
+											on:keydown={handleKnownForClick(knownFor)}
 										>
 											<!-- Add the click handler here -->
 											<p class="known-for-title">{truncateText(knownFor.title, 20)}</p>
