@@ -1,4 +1,4 @@
-// This is tvShows.js
+// tvShows.js
 
 import axios from 'axios';
 import { writable, get } from 'svelte/store';

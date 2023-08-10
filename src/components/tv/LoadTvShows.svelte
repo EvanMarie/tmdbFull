@@ -5,7 +5,6 @@
 		tvShowPageStore,
 		totalTVShowPagesStore,
 		getTVShows,
-		loadMoreTVShows
 	} from '$lib/api/tvShows.js';
 	import { onMount } from 'svelte';
 	import { get } from 'svelte/store';
