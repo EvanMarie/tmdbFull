@@ -6,7 +6,6 @@
 		people,
 		pageNumber,
 		totalPopularPagesStore,
-		actorDetails
 	} from '$lib/api/popularPeople.js';
 	import { onMount } from 'svelte';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';

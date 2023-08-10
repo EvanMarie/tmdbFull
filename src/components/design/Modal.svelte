@@ -69,14 +69,19 @@
 						<p style="padding: 5px 10px;">{selectedItem.overview}</p>
 					{/if}
 					{#if selectedItem && selectedItem.actorDetail}
-					{#if selectedItem.actorDetail.birthday}
-					<p>Born on <span style="color: cyan;">{formatDate(selectedItem.actorDetail.birthday)}</span> in {selectedItem.actorDetail.place_of_birth}.</p>	
-					<div class="divider" style="margin: 5px 0px;"/>
-					{/if}
-					{#if selectedItem.actorDetail.biography}
-					<p style="padding: 5px 10px;">{selectedItem.actorDetail.biography}</p>
-					{/if}
-
+						{#if selectedItem.actorDetail.birthday}
+							<p>
+								Born on <span style="color: cyan;"
+									>{formatDate(selectedItem.actorDetail.birthday)}</span
+								>
+								{#if selectedItem.actorDetail.place_of_birth}
+									in {selectedItem.actorDetail.place_of_birth}.{/if}
+							</p>
+							<div class="divider" style="margin: 5px 0px;" />
+						{/if}
+						{#if selectedItem.actorDetail.biography}
+							<p style="padding: 5px 10px;">{selectedItem.actorDetail.biography}</p>
+						{/if}
 					{/if}
 				{/if}
 			</div>
@@ -103,7 +108,7 @@
 								{#each selectedItem.knownFor as knownFor}
 									{#if knownFor.title}
 										<div class="known-for-item">
-											<p class="known-for-title">{truncateText(knownFor.title)}</p>
+											<p class="known-for-title">{truncateText(knownFor.title, 20)}</p>
 											{#if knownFor.poster_path}
 												<img
 													src={`https://image.tmdb.org/t/p/w500${knownFor.poster_path}`}
@@ -111,7 +116,7 @@
 													class="known-for-poster"
 												/>
 											{:else}
-												<img src={DEFAULT_IMAGE_URL} alt="Poster" class="known-for-poster" />
+												<img src={'/noimage_sm.png'} alt="Poster" class="known-for-poster" />
 											{/if}
 										</div>
 									{/if}
@@ -148,15 +153,9 @@
 </dialog>
 
 <style>
-	.movie-poster-modal {
-		width: 250px;
-		height: 200px;
-		border-radius: 10px;
-		box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.8);
-	}
-
 	.modal-image-overview {
 		display: flex;
+		width: 100%;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
@@ -192,12 +191,14 @@
 		display: block;
 		border-radius: 10px;
 		box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.8);
+		margin-right: 10px;
+		margin-bottom: 10px;
 	}
 
 	.modal p {
 		margin: 0;
 		padding: 0;
-		font-size: 1.1rem;
+		font-size: 0.9rem;
 	}
 
 	.type {
@@ -223,9 +224,9 @@
 		display: flex;
 		width: 100%;
 		flex-direction: column;
-		justify-content: space-evenly;
+		justify-content: center;
 		align-items: center;
-		gap: 1rem;
+		gap: 2rem;
 		color: cyan;
 	}
 
@@ -239,6 +240,7 @@
 
 	.known-for-poster {
 		width: 200px;
+		height: 120px;
 		object-fit: cover;
 		display: block;
 		border-radius: 5px;
@@ -246,9 +248,13 @@
 	}
 
 	@media (min-width: 768px) {
+		.modal p {
+			font-size: 1.1rem;
+		}
 		.modal-image-overview {
 			display: block;
 		}
+
 		.movie-poster-modal {
 			float: left;
 			margin-right: 1rem;
@@ -257,11 +263,10 @@
 		.stats {
 			font-size: 1rem;
 		}
-	}
 
-	@media (min-width: 1080px) {
 		.known-for-container {
 			flex-direction: row;
+			align-items: flex-end;
 		}
 	}
 </style>

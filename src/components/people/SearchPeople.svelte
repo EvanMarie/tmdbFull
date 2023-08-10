@@ -58,6 +58,7 @@
 			datatype: 'person',
 			title: person.name,
 			popularity: person.popularity,
+			actorDetail: person.actorDetail,
 			knownFor: person.known_for.map((item) => ({
 				id: item.id,
 				title: item.title,
@@ -69,7 +70,6 @@
 			known_for_department: person.known_for_department,
 			backdrop_path: person.profile_path
 		}));
-		
 	});
 
 

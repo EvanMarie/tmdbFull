@@ -1,5 +1,10 @@
+// multiSearch.js
+
 import { writable, get } from 'svelte/store';
 import axios from 'axios';
+import { getActorDetails } from './popularPeople';
+
+export const multiSearchDataStore = writable([]);
 
 export const multiResults = writable([]);
 export const searchMultiPageStore = writable(1);
@@ -24,9 +29,20 @@ export const searchMulti = async (query, loadMore = false) => {
 
 	try {
 		const response = await axios.request(options);
-		const results = loadMore
-			? [...get(multiResults), ...response.data.results]
-			: response.data.results;
+		let results = response.data.results;
+
+		// Include actor details for persons
+		const peopleWithDetails = await Promise.all(
+			results.map(async (result) => {
+				if (result.media_type === 'person') {
+					const actorDetail = await getActorDetails(result.id);
+					return { ...result, actorDetail };
+				}
+				return result;
+			})
+		);
+
+		results = loadMore ? [...get(multiResults), ...peopleWithDetails] : peopleWithDetails;
 
 		multiResults.set(results);
 		searchMultiPageStore.set(response.data.page);

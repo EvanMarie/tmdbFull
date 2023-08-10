@@ -48,6 +48,7 @@
 			datatype: 'person',
 			title: person.name,
 			popularity: person.popularity,
+			actorDetail: person.actorDetail,
 			knownFor: person.known_for.map((item) => ({
 				id: item.id,
 				title: item.title,

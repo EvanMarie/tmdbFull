@@ -40,21 +40,23 @@ import {
 
 	// Subscribe to the person results
 	personResults.subscribe((value) => {
-		const persons = value.map((item) => ({
-			id: item.id,
-			title: item.name,
-			popularity: item.popularity,
-			knownFor: item.known_for.map((personItem) => ({
-				id: personItem.id,
-				title: personItem.title,
-				poster_path: personItem.backdrop_path,
-				rating: personItem.vote_average,
-				release_date: personItem.release_date
+		const persons = value.map((person) => ({
+			// Mapping the properties you need
+			id: person.id,
+			datatype: 'person',
+			title: person.name,
+			popularity: person.popularity,
+			actorDetail: person.actorDetail,
+			knownFor: person.known_for.map((item) => ({
+				id: item.id,
+				title: item.title,
+				poster_path: item.backdrop_path,
+				rating: item.vote_average,
+				release_date: item.release_date
 			})),
-			gender: item.gender === 1 ? 'Female' : 'Male', // replaced "person" with "item"
-			known_for_department: item.known_for_department, // replaced "person" with "item"
-			backdrop_path: item.profile_path, // replaced "person" with "item"
-			datatype: 'person'
+			gender: person.gender === 1 ? 'Female' : 'Male',
+			known_for_department: person.known_for_department,
+			backdrop_path: person.profile_path
 		}));
 		multiSearchData = [...persons, ...multiSearchData];
 	});

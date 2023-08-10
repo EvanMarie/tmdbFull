@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import { writable } from 'svelte/store';
+import { getActorDetails } from './popularPeople.js'; // Ensure this path is correct
 
 export const trendingPeople = writable([]);
 export let trendingPageNumber = 1; // Current page number
@@ -25,7 +26,15 @@ export const getTrendingPeople = async (loadMore = false) => {
 
 		try {
 			const response = await axios.request(options);
-			trendingPeople.update((existingResults) => [...existingResults, ...response.data.results]);
+
+			const peopleWithDetails = await Promise.all(
+				response.data.results.map(async (person) => {
+					const actorDetail = await getActorDetails(person.id); // Fetch actor details
+					return { ...person, actorDetail };
+				})
+			);
+
+			trendingPeople.update((existingResults) => [...existingResults, ...peopleWithDetails]);
 			totalTrendingPages.set(response.data.total_pages); // Update the total pages using set method
 			trendingPageNumber++; // Increment the page number
 			if (trendingPageNumber >= response.data.total_pages) break; // Compare with the response data directly

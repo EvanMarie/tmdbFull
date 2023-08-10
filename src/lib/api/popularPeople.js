@@ -48,11 +48,7 @@ export const getPeople = async (loadMore = false) => {
 			// Create a new array containing the people with their details
 			const peopleWithDetails = await Promise.all(
 				response.data.results.map(async (person) => {
-					await getActorDetails(person.id); // Fetch actor details
-					let actorDetail;
-					actorDetails.subscribe((value) => {
-						actorDetail = value;
-					});
+					const actorDetail = await getActorDetails(person.id); // Fetch actor details and use directly
 					return { ...person, actorDetail };
 				})
 			);
@@ -84,14 +80,23 @@ export const searchPeople = async (query, resetPageNumber = false) => {
 
 	try {
 		const response = await axios.request(options);
+
+		// Create a new array containing the people with their details
+		const peopleWithDetails = await Promise.all(
+			response.data.results.map(async (person) => {
+				const actorDetail = await getActorDetails(person.id); // Fetch actor details
+				return { ...person, actorDetail };
+			})
+		);
+
 		// If it's the first page of search results, update the searchResults store and set the total pages
 		if (searchPageNumber === 1) {
-			searchResults.set(response.data.results);
+			searchResults.set(peopleWithDetails);
 			totalSearchPagesStore.set(response.data.total_pages); // Set the total pages for search results
 		} else {
-			searchResults.update((existingResults) => [...existingResults, ...response.data.results]);
+			searchResults.update((existingResults) => [...existingResults, ...peopleWithDetails]);
 		}
-		console.log(response.data.results); // This will log the data about the returned people
+
 		searchPageNumber++; // Increment the search page number for the next search
 	} catch (error) {
 		console.error(error);
@@ -115,8 +120,9 @@ export const getActorDetails = async (personId) => {
 
 	try {
 		const response = await axios.request(options);
-		actorDetails.set(response.data); // Set the actor details in the store
+		return response.data; // Return the actor details
 	} catch (error) {
 		console.error(error);
+		return null; // Handle the error by returning null or appropriate error object
 	}
 };
