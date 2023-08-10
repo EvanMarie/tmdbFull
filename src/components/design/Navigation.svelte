@@ -110,7 +110,15 @@
 					</a>
 				</div>
 			</li>
-			<!-- Add more links as needed -->
+			<li>
+				<a href="http://www.iheartcomponents.com" target="_blank" class="iheartcomponents"
+					>Created by <img
+						src="/iheartcomponents.png"
+						style="width:125px; border-radius: 3px;"
+						alt="iheartcomponents.com"
+					/></a
+				>
+			</li>
 		</ul>
 		<button on:click={closeMenu} class="close-button">
 			<img src="/close.png" alt="close menu" class="close-icon" />
@@ -162,7 +170,7 @@
 		transform: translateY(100%);
 		background-color: var(--darkGray08);
 		padding: 20px 0px 0px 0px;
-		
+
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -252,7 +260,10 @@
 		padding: 5px 10px;
 		gap: 5px;
 		text-align: left;
-		padding-left: 60px;
+	}
+
+	.menu-sub {
+				padding-left: 60px;
 	}
 
 	.close-button {
@@ -272,7 +283,6 @@
 	}
 
 	@media (min-width: 600px) {
-
 		.drawer-menu {
 			max-width: 400px;
 		}
@@ -303,5 +313,15 @@
 	.drawer-overlay.active {
 		opacity: 1;
 		visibility: visible;
+	}
+
+	.iheartcomponents {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+		align-items: center;
+		justify-content: center;
+		padding: 8px;
 	}
 </style>

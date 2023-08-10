@@ -96,7 +96,7 @@ select {
 	appearance: none;
 	padding-right: 30px !important;
 	/* Add some padding to make space for a custom arrow icon */
-	background: url('/arrowdown.png') no-repeat right center;
+	background: url('/arrowdown2.png') no-repeat right center;
 	/* Replace 'custom-arrow.png' with your custom arrow icon */
 }
 
