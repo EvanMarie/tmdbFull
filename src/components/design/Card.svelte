@@ -2,7 +2,7 @@
 
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import { roundPopularity, getNextColor } from '$lib/cardUtils.js';
+	import { roundPopularity, getNextColor } from '$lib/cardutils.js';
 
 	const DEFAULT_IMAGE_URL = '/noimage.png';
 

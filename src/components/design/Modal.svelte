@@ -1,10 +1,10 @@
 <!-- Modal.svelte -->
 
 <script>
-	import { formatDate, roundPopularity, findGenreName, truncateText } from '$lib/cardUtils.js';
+	import { formatDate, roundPopularity, findGenreName, truncateText } from '$lib/cardutils.js';
 	import { onMount } from 'svelte';
-	import { getMovieOrShowDetails } from '$lib/api/movieShowDetails.js';
-	import { getCastDetails } from '$lib/api/getCastDetails.js';
+	import { getMovieOrShowDetails } from '$lib/api/movieshowdetails.js';
+	import { getCastDetails } from '$lib/api/getcastdetails.js';
 	export let selectedItem = null;
 	export let close;
 
