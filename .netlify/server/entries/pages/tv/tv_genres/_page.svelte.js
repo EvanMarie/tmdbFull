@@ -1,6 +1,6 @@
 import { c as create_ssr_component, f as createEventDispatcher, e as escape, d as each, h as add_attribute, v as validate_component } from "../../../../chunks/ssr.js";
 import { C as CardsContainer, R as ReturnToTop, a as Card, L as LoadMoreButton, P as PageContainer } from "../../../../chunks/Modal.svelte_svelte_type_style_lang.js";
-import { c as getTVShowsByGenre } from "../../../../chunks/tvShows.js";
+import { g as getTVShowsByGenre } from "../../../../chunks/tvShows.js";
 import { p as prioritizeImages } from "../../../../chunks/prioritizeImages.js";
 const TVGenreSelector = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { selectedGenre = 10765 } = $$props;

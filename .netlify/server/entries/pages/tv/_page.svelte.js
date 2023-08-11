@@ -1,8 +1,37 @@
-import { c as create_ssr_component, b as get_store_value, v as validate_component, d as each } from "../../../chunks/ssr.js";
+import { b as get_store_value, c as create_ssr_component, v as validate_component, d as each } from "../../../chunks/ssr.js";
 import { r as roundPopularity, f as formatDate, C as CardsContainer, R as ReturnToTop, L as LoadMoreButton, a as Card, P as PageContainer } from "../../../chunks/Modal.svelte_svelte_type_style_lang.js";
-import { t as tvShows, a as tvShowPageStore, g as getTVShows, b as totalTVShowPagesStore } from "../../../chunks/tvShows.js";
+import axios from "axios";
+import { w as writable } from "../../../chunks/index.js";
+import { V as VITE_ACCESS_TOKEN, M as Modal } from "../../../chunks/Modal.js";
 import { p as prioritizeImages } from "../../../chunks/prioritizeImages.js";
-import { M as Modal } from "../../../chunks/Modal.js";
+const tvShows = writable([]);
+const tvShowPageStore = writable(1);
+const totalTVShowPagesStore = writable(1);
+const getTVShows = async (filter = "top_rated", loadMore = false) => {
+  const pageToFetch = loadMore ? get_store_value(tvShowPageStore) + 1 : 1;
+  const url = `https://api.themoviedb.org/3/tv/${filter}?language=en-US&page=${pageToFetch}`;
+  try {
+    const response = await axios.request({
+      method: "GET",
+      url,
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${VITE_ACCESS_TOKEN}`
+      }
+    });
+    const fetchedShows = response.data.results;
+    if (loadMore) {
+      tvShows.update((existingShows) => [...existingShows, ...fetchedShows]);
+      tvShowPageStore.update((n) => n + 1);
+    } else {
+      tvShows.set(fetchedShows);
+      tvShowPageStore.set(1);
+    }
+    totalTVShowPagesStore.set(response.data.total_pages);
+  } catch (error) {
+    console.error(error);
+  }
+};
 const LoadTvShows = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let loadMoreTVShowsVisible = true;
   let tvShowData = [];
