@@ -17,6 +17,7 @@
 	import Card from '../design/Card.svelte';
 	import Modal from '../design/Modal.svelte';
 	import { prioritizeImages } from '../lib/api/prioritizeimages.js';
+	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 	// Other code remains the same...
 
@@ -89,11 +90,12 @@
 	let selectedItem = null;
 </script>
 
-
 <div class="page-header-container">
 	<p>Movie Genres</p>
-		<div class="input-and-button">
-<MovieGenreSelector on:genreselect={handleGenreSelect} /></div>	</div>	
+	<div class="input-and-button">
+		<MovieGenreSelector on:genreselect={handleGenreSelect} />
+	</div>
+</div>
 
 <CardsContainer>
 	{#each movieData.sort(prioritizeImages) as item}
@@ -104,4 +106,6 @@
 <ReturnToTop />
 {#if moreMovies}
 	<LoadMoreButton onClick={() => loadMoviesByGenre(true)} />
+{:else}
+	<NoMoreResults />
 {/if}

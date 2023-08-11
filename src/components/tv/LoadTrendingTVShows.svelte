@@ -13,6 +13,7 @@
 	import Modal from '../design/Modal.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import { roundPopularity, formatDate } from '../lib/cardutils.js';
+	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 	let totalTrendingPages = 0;
 	let trendingTimeWindow = 'day';
@@ -100,4 +101,6 @@
 
 {#if $trendingTVShowPageNumber < totalTrendingPages}
 	<LoadMoreButton onClick={handleLoadMoreTrending} />
+	{:else}
+	<NoMoreResults />
 {/if}

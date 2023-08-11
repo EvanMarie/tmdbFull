@@ -5,13 +5,15 @@
 		tvShowPageStore,
 		totalTVShowPagesStore,
 		loadMoreSearchTVShows
-	} from "./tvshows"
+	} from './tvshows';
 	import { onMount } from 'svelte';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import Card from '../design/Card.svelte';
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Modal from '../design/Modal.svelte';
+	import NoResults from '../design/NoResults.svelte';
+	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 	let tvShowData = [];
 	let currentPage = 1;
@@ -48,7 +50,6 @@
 		selectedItem = null;
 	};
 
-	
 	const handleSearch = () => {
 		tvShowData = []; // Clear existing search results
 		searchTVShows(searchQuery); // No filter provided, so it will search all TV shows
@@ -79,15 +80,23 @@
 	</div>
 </div>
 
-<CardsContainer>
-	{#each tvShowData as item}
-		<Card {item} on:itemClick={handleItemClick} />
-	{/each}
-	{#if selectedItem}
-		<Modal {selectedItem} close={closeTVShowModal} />
-	{/if}
-</CardsContainer>
+{#if tvShowData.length > 0}
+	<CardsContainer>
+		{#each tvShowData as item}
+			<Card {item} on:itemClick={handleItemClick} />
+		{/each}
+		{#if selectedItem}
+			<Modal {selectedItem} close={closeTVShowModal} />
+		{/if}
+	</CardsContainer>
+{:else}
+	<NoResults />
+{/if}
 <ReturnToTop />
 {#if currentPage < totalTVShowPages}
-	<LoadMoreButton onClick={() => loadMoreSearchTVShows(searchQuery)} />
+	{#if tvShowData.length > 0}
+		<LoadMoreButton onClick={() => loadMoreSearchTVShows(searchQuery)} />
+	{:else}
+		<NoMoreResults />
+	{/if}
 {/if}

@@ -133,7 +133,7 @@
 	.toggle-button {
 		position: fixed;
 		bottom: 40px;
-		left: -20px;
+		left: -15px;
 		text-align: center;
 		padding: 5px 10px;
 		cursor: pointer;

@@ -11,6 +11,8 @@
 	import Card from '../design/Card.svelte';
 	import Modal from '../design/Modal.svelte';
     import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '../lib/api/tmdb.js';
+	import NoResults from '../design/NoResults.svelte';
+	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 
 	let searchQuery = 'Chaplin'; // Set the initial search query to "Chaplin"
@@ -104,7 +106,9 @@
 	<ReturnToTop />
 	{#if searchResultsData.length > 0 && searchPageNumber < totalSearchPages}
 		<LoadMoreButton onClick={handleLoadMore} />
+		{:else}
+	<NoMoreResults />
 	{/if}
 {:else}
-	<p>No search results to display.</p>
+	<NoResults/>
 {/if}

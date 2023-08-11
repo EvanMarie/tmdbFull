@@ -12,6 +12,7 @@
 	import { roundPopularity, formatDate, findGenreName } from '../lib/cardutils.js';
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Modal from '../design/Modal.svelte';
+	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 	function handleItemClick(event) {
 		selectedItem = event.detail.item;
@@ -88,4 +89,6 @@
 <ReturnToTop />
 {#if loadMoreVisible}
 	<LoadMoreButton onClick={() => getMovies(filter, true)} />
+{:else}
+	<NoMoreResults />
 {/if}

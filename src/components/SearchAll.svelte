@@ -16,6 +16,8 @@
 	import CardsContainer from './design/CardsContainer.svelte'; // Import CardsContainer
 	import Modal from './design/Modal.svelte'; // Import Modal
 	import LoadMoreButton from './design/LoadMoreButton.svelte';
+	import NoResults from './design/NoResults.svelte';
+	import NoMoreResults from './design/NoMoreResults.svelte';
 
 	let multiSearchData = [];
 	let searchQuery = 'Tolkien';
@@ -117,9 +119,15 @@
 		{/each}
 	</CardsContainer>
 	<Modal {selectedItem} close={closeModal} />
+{:else}
+	<NoResults />
 {/if}
 
 {#if currentPage <= totalMultiPages}
-	<LoadMoreButton onClick={loadMore} />
+	{#if totalMultiPages > 1}
+		<LoadMoreButton onClick={loadMore} />
+		{:else}
+	<NoMoreResults />
+	{/if}
 {/if}
 <ReturnToTop />

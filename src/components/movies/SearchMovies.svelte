@@ -14,6 +14,8 @@
 	import Card from '../design/Card.svelte';
 	import Modal from '../design/Modal.svelte';
 	import CardsContainer from '../design/CardsContainer.svelte';
+	import NoResults from '../design/NoResults.svelte';
+	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 	let movieSearchData = [];
 	let searchQuery = 'unicorn'; // Initialize search query with "unicorn"
@@ -101,12 +103,16 @@
 	</CardsContainer>
 	<Modal selectedItem={selectedMovie} close={closeMovieModal} />
 {:else}
-	<p>No search results to display. Search query: {searchQuery}</p>
-	<!-- Added search query here for debugging -->
+	<NoResults />
+
 {/if}
 
 {#if currentPage <= totalMoviePages}
-	<LoadMoreButton onClick={loadMoreMovies} />
+	{#if movieSearchData.length > 0}
+		<LoadMoreButton onClick={loadMoreMovies} />
+		{:else}
+	<NoMoreResults />
+	{/if}
 {/if}
 
 <ReturnToTop />

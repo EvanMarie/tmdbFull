@@ -37,7 +37,7 @@
 		gap: 25px;
 		position: fixed;
 		top: 250px;
-		left: -20px;
+		left: -15px;
 		z-index: 200;
 	}
 	.icon-menu-item {

@@ -7,6 +7,7 @@
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Card from '../design/Card.svelte';
 	import Modal from '../design/Modal.svelte';
+	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 	let showsByGenreData = [];
 	let genreId = 10765; // Assume this is the ID for "Sci-fi and Fantasy"
@@ -58,10 +59,13 @@
 		selectedItem = null;
 	}
 </script>
+
 <div class="page-header-container">
 	<p>TV Genres</p>
-		<div class="input-and-button">
-<TVGenreSelector {genreId} on:genreselect={handleGenreSelect} /></div>	</div>
+	<div class="input-and-button">
+		<TVGenreSelector {genreId} on:genreselect={handleGenreSelect} />
+	</div>
+</div>
 
 <CardsContainer>
 	{#each showsByGenreData.sort(prioritizeImages) as item (item.credits)}
@@ -74,4 +78,6 @@
 <ReturnToTop />
 {#if showButton && moreShows}
 	<LoadMoreButton onClick={loadShowsByGenre} />
+{:else}
+	<NoMoreResults />
 {/if}

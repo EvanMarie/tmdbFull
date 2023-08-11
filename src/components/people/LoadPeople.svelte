@@ -14,6 +14,7 @@
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Card from '../design/Card.svelte';
 	import Modal from '../design/Modal.svelte';
+	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 	let peopleData = [];
 	let totalPopularPages;
@@ -80,4 +81,6 @@
 <ReturnToTop />
 {#if $pageNumber < totalPopularPages}
 	<LoadMoreButton onClick={getPeople} />
+	{:else}
+	<NoMoreResults />
 {/if}

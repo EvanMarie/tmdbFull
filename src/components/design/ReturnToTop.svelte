@@ -14,7 +14,7 @@
 		/* Add styling here to position and style the button */
 		position: fixed;
 		bottom: 120px;
-		left: -20px;
+		left: -15px;
 		font-weight: bold;
 		border-top-right-radius: 30%;
 		border-bottom-right-radius: 30%;

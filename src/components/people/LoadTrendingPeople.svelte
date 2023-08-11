@@ -13,6 +13,7 @@
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Card from '../design/Card.svelte';
 	import Modal from '../design/Modal.svelte';
+	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 	let trendingPeopleData = [];
   let peopleData = []; 
@@ -74,4 +75,6 @@
 <ReturnToTop />
 {#if trendingPageNumber < $totalTrendingPages}
 	<LoadMoreButton onClick={handleLoadMoreTrending} />
+	{:else}
+	<NoMoreResults />
 {/if}

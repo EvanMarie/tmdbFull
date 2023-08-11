@@ -16,6 +16,7 @@
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Modal from '../design/Modal.svelte';
 	import { roundPopularity, formatDate } from '../lib/cardutils.js';
+	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 	let loadMoreTVShowsVisible = true;
 
@@ -82,4 +83,6 @@
 <ReturnToTop />
 {#if loadMoreTVShowsVisible}
 	<LoadMoreButton onClick={() => getTVShows(selectedFilter, true)} />
+		{:else}
+	<NoMoreResults />
 {/if}

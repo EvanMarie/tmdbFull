@@ -14,6 +14,7 @@
 	import Modal from '../design/Modal.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import { roundPopularity, formatDate } from '../lib/cardutils.js';
+	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 	let trendingMovieData = [];
 	let trendingTimeWindow = 'day'; // Initialize the trendingTimeWindow variable with 'day'
@@ -91,25 +92,26 @@
 <!-- The rest of your component's markup goes here -->
 <div class="page-header-container">
 	<h1>Trending Movies</h1>
-		
-<div style="display: flex; gap: 20px;">
-	<input
-		type="radio"
-		bind:group={trendingTimeWindow}
-		value="day"
-		id="day"
-		on:change={handleTimeWindowChange}
-	/>
-	<label for="day">Today</label>
-	<input
-		type="radio"
-		bind:group={trendingTimeWindow}
-		value="week"
-		id="week"
-		on:change={handleTimeWindowChange}
-	/>
-	<label for="week">This Week</label>
-</div></div>
+
+	<div style="display: flex; gap: 20px;">
+		<input
+			type="radio"
+			bind:group={trendingTimeWindow}
+			value="day"
+			id="day"
+			on:change={handleTimeWindowChange}
+		/>
+		<label for="day">Today</label>
+		<input
+			type="radio"
+			bind:group={trendingTimeWindow}
+			value="week"
+			id="week"
+			on:change={handleTimeWindowChange}
+		/>
+		<label for="week">This Week</label>
+	</div>
+</div>
 
 <!-- Display the trending movies -->
 <CardsContainer>
@@ -123,4 +125,6 @@
 {#if currentPage <= 5}
 	<!-- Condition to check if more pages are available -->
 	<LoadMoreButton onClick={handleLoadMore} />
+{:else}
+	<NoMoreResults />
 {/if}
