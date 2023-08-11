@@ -8,15 +8,16 @@ const PageContainer = create_ssr_component(($$result, $$props, $$bindings, slots
   $$result.css.add(css$4);
   return `<div class="page-container svelte-1eb3ltp">${slots.default ? slots.default({}) : ``} </div>`;
 });
+const VITE_API_KEY = "31eb33083cb6b5f3c9e5c3b980247eb9";
 const VITE_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMWViMzMwODNjYjZiNWYzYzllNWMzYjk4MDI0N2ViOSIsInN1YiI6IjYzOTNlMGRmYTBmMWEyMDA4NzM3ZTFmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t05hQyBl-PzrZPdgqQawnxWb0AIR40aBagYNIywe6ao";
 const ReturnToTop_svelte_svelte_type_style_lang = "";
 const css$3 = {
-  code: ".return-to-top.svelte-b7667f{position:fixed;bottom:120px;right:-20px;font-weight:bold;border-top-left-radius:30%;border-bottom-left-radius:30%;border-top-right-radius:0px;border-bottom-right-radius:0px;border-right:none;cursor:pointer;padding:10px 22px 10px 8px;background-color:var(--cyan);border-top-left-radius:20px;border-bottom-left-radius:20px}.return-to-top.svelte-b7667f:hover{background-color:var(--lightPink);transform:translateX(-20px) translateY(5px) scale(1.06);transition:all 0.3s ease-in-out}.icon.svelte-b7667f{width:30px}@media(min-width: 600px){.icon.svelte-b7667f{width:40px}}",
+  code: ".return-to-top.svelte-10fcnz{position:fixed;bottom:120px;left:-20px;font-weight:bold;border-top-right-radius:30%;border-bottom-right-radius:30%;border-top-left-radius:0px;border-bottom-left-radius:0px;border-left:none;cursor:pointer;padding:10px 10px 10px 22px;background-color:var(--cyan)}.return-to-top.svelte-10fcnz:hover{background-color:var(--lightPink);transform:translateX(20px) translateY(5px) scale(1.06);transition:all 0.3s ease-in-out}.icon.svelte-10fcnz{width:30px}@media(min-width: 600px){.icon.svelte-10fcnz{width:40px}}",
   map: null
 };
 const ReturnToTop = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css$3);
-  return `  <button class="button-styles return-to-top svelte-b7667f" data-svelte-h="svelte-1du3j27"><img src="/arrowUp.png" alt="return to top" class="icon svelte-b7667f"></button>`;
+  return `  <button class="button-styles return-to-top svelte-10fcnz" data-svelte-h="svelte-ugn3bz"><img src="/arrowup.png" alt="return to top" class="icon svelte-10fcnz"></button>`;
 });
 const LoadMoreButton_svelte_svelte_type_style_lang = "";
 const css$2 = {
@@ -30,7 +31,6 @@ const LoadMoreButton = create_ssr_component(($$result, $$props, $$bindings, slot
   $$result.css.add(css$2);
   return `<button class="button-styles load-more-button svelte-3i5eev" data-svelte-h="svelte-1h5kusd">Get More</button>`;
 });
-const API_KEY = "31eb33083cb6b5f3c9e5c3b980247eb9";
 function formatDate(dateString) {
   if (!dateString)
     return "";
@@ -48,7 +48,7 @@ function roundPopularity(popularity) {
 const BASE_URL = "https://api.themoviedb.org/3";
 async function fetchGenres(datatype) {
   try {
-    const url = `${BASE_URL}/genre/${datatype}/list?api_key=${API_KEY}&language=en-US`;
+    const url = `${BASE_URL}/genre/${datatype}/list?api_key=${VITE_API_KEY}&language=en-US`;
     const response = await axios.get(url);
     return response.data.genres || [];
   } catch (error) {
@@ -99,12 +99,12 @@ const Card = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 });
 const CardsContainer_svelte_svelte_type_style_lang = "";
 const css = {
-  code: ".cards-container.svelte-1ugq9qa{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2rem;padding:2rem 5rem 2rem 2rem}@media(min-width: 800px){.cards-container.svelte-1ugq9qa{flex-direction:row;flex-wrap:wrap;column-gap:3rem;align-items:stretch;padding:2rem 4rem}}",
+  code: ".cards-container.svelte-1m6hc2i{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2rem;padding:2rem 2rem 2rem 5rem}@media(min-width: 800px){.cards-container.svelte-1m6hc2i{flex-direction:row;flex-wrap:wrap;column-gap:3rem;align-items:stretch;padding:2rem 4rem}}",
   map: null
 };
 const CardsContainer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
-  return `<div class="cards-container svelte-1ugq9qa">${slots.default ? slots.default({}) : ``} </div>`;
+  return `<div class="cards-container svelte-1m6hc2i">${slots.default ? slots.default({}) : ``} </div>`;
 });
 const Modal_svelte_svelte_type_style_lang = "";
 export {
