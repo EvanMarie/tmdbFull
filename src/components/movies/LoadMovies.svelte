@@ -3,7 +3,7 @@
 <script>
 	import { getMovies, movies, moviePageStore, totalMoviePagesStore } from '$lib/api/movies.js';
 	import { onMount } from 'svelte';
-	import { prioritizeImages } from '$lib/api/prioritizeimages';
+	import { prioritizeImages } from '$lib/api/prioritizeimages.js';
 	import { get, writable } from 'svelte/store';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
