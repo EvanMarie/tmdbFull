@@ -6,16 +6,16 @@
 		tvShowPageStore,
 		totalTVShowPagesStore,
 		getTVShows,
-	} from './tvShows.js';
+	} from '$lib/api/tvshows.js';
 	import { onMount } from 'svelte';
 	import { get } from 'svelte/store';
-	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import { prioritizeImages } from '../../lib/api/prioritizeimages.js';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import Card from '../design/Card.svelte';
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Modal from '../design/Modal.svelte';
-	import { roundPopularity, formatDate } from '$lib/cardUtils.js';
+	import { roundPopularity, formatDate } from '$lib/cardutils.js';
 
 	let loadMoreTVShowsVisible = true;
 

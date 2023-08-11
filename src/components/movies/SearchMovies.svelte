@@ -8,7 +8,7 @@
 		searchMoviePageStore,
 		totalMoviePagesStore
 	} from '$lib/api/movies.js';
-	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import { prioritizeImages } from '$lib/api/prioritizeimages';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import Card from '../design/Card.svelte';

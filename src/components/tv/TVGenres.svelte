@@ -1,6 +1,6 @@
 <script>
-	import { getTVShowsByGenre } from './tvShows.js';
-	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import { getTVShowsByGenre } from '$lib/app/tvshows.js';
+	import { prioritizeImages } from '../../lib/api/prioritizeimages.js';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import TVGenreSelector from './TVGenreSelector.svelte';

@@ -8,7 +8,7 @@
 		genrePageStore,
 		totalGenrePagesStore
 	} from '$lib/api/movies.js';
-	import { roundPopularity, formatDate } from '$lib/cardUtils.js';
+	import { roundPopularity, formatDate } from '$lib/cardutils.js';
 	import { onMount } from 'svelte';
 	import { get } from 'svelte/store';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
@@ -16,7 +16,7 @@
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Card from '../design/Card.svelte';
 	import Modal from '../design/Modal.svelte';
-	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import { prioritizeImages } from '$lib/api/prioritizeimages';
 
 	// Other code remains the same...
 

@@ -1,14 +1,14 @@
 <!-- LoadMovies.svelte -->
 
 <script>
-	import { getMovies, movies, moviePageStore, totalMoviePagesStore } from '$lib/api/movies.js'; // Verify the import path is correct
+	import { getMovies, movies, moviePageStore, totalMoviePagesStore } from '$lib/api/movies.js';
 	import { onMount } from 'svelte';
-	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import { prioritizeImages } from '$lib/api/prioritizeimages';
 	import { get, writable } from 'svelte/store';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import Card from '../design/Card.svelte';
-	import { roundPopularity, formatDate, findGenreName } from '$lib/cardUtils.js';
+	import { roundPopularity, formatDate, findGenreName } from '$lib/cardutils.js';
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Modal from '../design/Modal.svelte';
 

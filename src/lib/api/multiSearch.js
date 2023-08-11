@@ -2,7 +2,7 @@
 
 import { writable, get } from 'svelte/store';
 import axios from 'axios';
-import { getActorDetails } from './popularPeople';
+import { getActorDetails } from './popularpeople';
 
 export const multiSearchDataStore = writable([]);
 

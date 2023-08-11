@@ -1,9 +1,9 @@
 <!-- SearchPeople.svelte -->
 
 <script>
-	import { searchPeople, searchResults, totalSearchPagesStore } from '$lib/api/popularPeople.js';
+	import { searchPeople, searchResults, totalSearchPagesStore } from '$lib/api/popularpeople.js';
 	import { onMount } from 'svelte';
-	import { prioritizeImages } from '../../lib/api/prioritizeImages';
+	import { prioritizeImages } from '$lib/api/prioritizeimages';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import SearchButton from '../design/SearchButton.svelte';
