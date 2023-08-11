@@ -46,13 +46,12 @@ const searchPeople = async (query, resetPageNumber = false) => {
   if (resetPageNumber) {
     searchPageNumber = 1;
   }
-  const ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMWViMzMwODNjYjZiNWYzYzllNWMzYjk4MDI0N2ViOSIsInN1YiI6IjYzOTNlMGRmYTBmMWEyMDA4NzM3ZTFmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t05hQyBl-PzrZPdgqQawnxWb0AIR40aBagYNIywe6ao";
   const options = {
     method: "GET",
     url: `https://api.themoviedb.org/3/search/person?language=en-US&query=${query}&page=${searchPageNumber}`,
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${ACCESS_TOKEN}`
+      Authorization: `Bearer ${VITE_ACCESS_TOKEN}`
     }
   };
   try {
@@ -75,14 +74,13 @@ const searchPeople = async (query, resetPageNumber = false) => {
   }
 };
 const getActorDetails = async (personId) => {
-  const ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMWViMzMwODNjYjZiNWYzYzllNWMzYjk4MDI0N2ViOSIsInN1YiI6IjYzOTNlMGRmYTBmMWEyMDA4NzM3ZTFmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t05hQyBl-PzrZPdgqQawnxWb0AIR40aBagYNIywe6ao";
   const url = `https://api.themoviedb.org/3/person/${personId}`;
   const options = {
     method: "GET",
     url,
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${ACCESS_TOKEN}`
+      Authorization: `Bearer ${VITE_ACCESS_TOKEN}`
     }
   };
   try {

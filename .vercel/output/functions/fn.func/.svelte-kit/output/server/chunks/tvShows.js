@@ -31,7 +31,6 @@ const getTVShows = async (filter = "top_rated", loadMore = false) => {
   }
 };
 const getTVShowsByGenre = async (genreId, page = 1) => {
-  const ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMWViMzMwODNjYjZiNWYzYzllNWMzYjk4MDI0N2ViOSIsInN1YiI6IjYzOTNlMGRmYTBmMWEyMDA4NzM3ZTFmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t05hQyBl-PzrZPdgqQawnxWb0AIR40aBagYNIywe6ao";
   const requests = [];
   for (let i = 0; i < 3; i++) {
     requests.push({
@@ -39,7 +38,7 @@ const getTVShowsByGenre = async (genreId, page = 1) => {
       url: `https://api.themoviedb.org/3/discover/tv?with_genres=${genreId}&language=en-US&page=${page + i}&with_original_language=en`,
       headers: {
         accept: "application/json",
-        Authorization: `Bearer ${ACCESS_TOKEN}`
+        Authorization: `Bearer ${VITE_ACCESS_TOKEN}`
       }
     });
   }
@@ -53,14 +52,13 @@ const getTVShowsByGenre = async (genreId, page = 1) => {
 };
 async function searchTVShows(searchQuery, page = 1, append = false) {
   try {
-    const ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMWViMzMwODNjYjZiNWYzYzllNWMzYjk4MDI0N2ViOSIsInN1YiI6IjYzOTNlMGRmYTBmMWEyMDA4NzM3ZTFmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t05hQyBl-PzrZPdgqQawnxWb0AIR40aBagYNIywe6ao";
     const url = `https://api.themoviedb.org/3/search/tv?query=${searchQuery}&language=en-US&page=${page}`;
     const response = await axios.request({
       method: "GET",
       url,
       headers: {
         accept: "application/json",
-        Authorization: `Bearer ${ACCESS_TOKEN}`
+        Authorization: `Bearer ${VITE_ACCESS_TOKEN}`
       }
     });
     const fetchedShows = response.data.results;

@@ -34,7 +34,6 @@ const getMovies = async (filter = "popular", loadMore = false) => {
 const genrePageStore = writable(1);
 const totalGenrePagesStore = writable(1);
 const searchMovies = async (searchQuery, loadMore = false) => {
-  const ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMWViMzMwODNjYjZiNWYzYzllNWMzYjk4MDI0N2ViOSIsInN1YiI6IjYzOTNlMGRmYTBmMWEyMDA4NzM3ZTFmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t05hQyBl-PzrZPdgqQawnxWb0AIR40aBagYNIywe6ao";
   const pageToFetch = loadMore ? get_store_value(searchMoviePageStore) + 1 : 1;
   const options = {
     method: "GET",
@@ -43,7 +42,7 @@ const searchMovies = async (searchQuery, loadMore = false) => {
     )}&language=en-US&page=${pageToFetch}`,
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${ACCESS_TOKEN}`
+      Authorization: `Bearer ${VITE_ACCESS_TOKEN}`
     }
   };
   try {
@@ -61,7 +60,6 @@ const searchMovies = async (searchQuery, loadMore = false) => {
   }
 };
 const getMoviesByGenre = async (genreId, page = 1) => {
-  const ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMWViMzMwODNjYjZiNWYzYzllNWMzYjk4MDI0N2ViOSIsInN1YiI6IjYzOTNlMGRmYTBmMWEyMDA4NzM3ZTFmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t05hQyBl-PzrZPdgqQawnxWb0AIR40aBagYNIywe6ao";
   const requests = [];
   for (let i = 0; i < 3; i++) {
     requests.push({
@@ -69,7 +67,7 @@ const getMoviesByGenre = async (genreId, page = 1) => {
       url: `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&language=en-US&page=${page + i}&with_original_language=en`,
       headers: {
         accept: "application/json",
-        Authorization: `Bearer ${ACCESS_TOKEN}`
+        Authorization: `Bearer ${VITE_ACCESS_TOKEN}`
       }
     });
   }

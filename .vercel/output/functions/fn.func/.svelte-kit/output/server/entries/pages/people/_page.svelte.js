@@ -1,7 +1,7 @@
 import { c as create_ssr_component, a as subscribe, v as validate_component, d as each } from "../../../chunks/ssr.js";
 import { C as CardsContainer, R as ReturnToTop, L as LoadMoreButton, a as Card, P as PageContainer } from "../../../chunks/Modal.svelte_svelte_type_style_lang.js";
-import { p as pageNumber, t as totalPopularPagesStore, a as people, g as getPeople } from "../../../chunks/popularPeople.js";
-import { p as prioritizeImages } from "../../../chunks/prioritizeImages.js";
+import { p as pageNumber, t as totalPopularPagesStore, a as people, g as getPeople } from "../../../chunks/popularpeople.js";
+import { p as prioritizeImages } from "../../../chunks/prioritizeimages.js";
 import { M as Modal } from "../../../chunks/Modal.js";
 const LoadPeople = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $pageNumber, $$unsubscribe_pageNumber;
