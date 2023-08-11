@@ -1,7 +1,6 @@
 import { c as create_ssr_component, h as add_attribute, e as escape, d as each } from "./ssr.js";
-import { b as findGenreName, f as formatDate, t as truncateText, r as roundPopularity } from "./Modal.svelte_svelte_type_style_lang.js";
+import { V as VITE_ACCESS_TOKEN, b as findGenreName, f as formatDate, t as truncateText, r as roundPopularity } from "./Modal.svelte_svelte_type_style_lang.js";
 import axios from "axios";
-const VITE_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMWViMzMwODNjYjZiNWYzYzllNWMzYjk4MDI0N2ViOSIsInN1YiI6IjYzOTNlMGRmYTBmMWEyMDA4NzM3ZTFmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t05hQyBl-PzrZPdgqQawnxWb0AIR40aBagYNIywe6ao";
 const getCastDetails = async (id, mediaType) => {
   const url = mediaType === "movie" ? `https://api.themoviedb.org/3/movie/${id}/credits` : `https://api.themoviedb.org/3/tv/${id}/credits`;
   try {
@@ -70,6 +69,5 @@ const Modal = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   })}</div>` : ``}</div>`} ${selectedItem.release_date ? `<div class="stats svelte-1h7ycxs"><div class="stat"><div class="type svelte-1h7ycxs" data-svelte-h="svelte-wmwx1e">Rating</div> <div class="value">${escape(selectedItem ? selectedItem.rating : "")} / 10</div></div> <div class="stat"><div class="type svelte-1h7ycxs" data-svelte-h="svelte-rnd83a">Release</div> <div class="value">${escape(selectedItem ? formatDate(selectedItem.release_date) : "")}</div></div> <div class="stat"><div class="type svelte-1h7ycxs" data-svelte-h="svelte-1mc3nfw">Popularity</div> <div class="value">${escape(selectedItem ? roundPopularity(selectedItem.popularity) : "")}</div></div></div>` : ``}` : ``}</div></form> <div class="modal-backdrop svelte-1h7ycxs"><button data-svelte-h="svelte-1b5dwhd">close</button></div> </dialog>`;
 });
 export {
-  Modal as M,
-  VITE_ACCESS_TOKEN as V
+  Modal as M
 };

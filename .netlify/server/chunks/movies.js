@@ -1,6 +1,6 @@
 import { w as writable } from "./index.js";
 import axios from "axios";
-import { V as VITE_ACCESS_TOKEN } from "./Modal.js";
+import { V as VITE_ACCESS_TOKEN } from "./Modal.svelte_svelte_type_style_lang.js";
 import { b as get_store_value } from "./ssr.js";
 const movies = writable([]);
 const moviePageStore = writable(1);

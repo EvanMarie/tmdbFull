@@ -8,6 +8,7 @@ const PageContainer = create_ssr_component(($$result, $$props, $$bindings, slots
   $$result.css.add(css$4);
   return `<div class="page-container svelte-1eb3ltp">${slots.default ? slots.default({}) : ``} </div>`;
 });
+const VITE_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMWViMzMwODNjYjZiNWYzYzllNWMzYjk4MDI0N2ViOSIsInN1YiI6IjYzOTNlMGRmYTBmMWEyMDA4NzM3ZTFmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t05hQyBl-PzrZPdgqQawnxWb0AIR40aBagYNIywe6ao";
 const ReturnToTop_svelte_svelte_type_style_lang = "";
 const css$3 = {
   code: ".return-to-top.svelte-b7667f{position:fixed;bottom:120px;right:-20px;font-weight:bold;border-top-left-radius:30%;border-bottom-left-radius:30%;border-top-right-radius:0px;border-bottom-right-radius:0px;border-right:none;cursor:pointer;padding:10px 22px 10px 8px;background-color:var(--cyan);border-top-left-radius:20px;border-bottom-left-radius:20px}.return-to-top.svelte-b7667f:hover{background-color:var(--lightPink);transform:translateX(-20px) translateY(5px) scale(1.06);transition:all 0.3s ease-in-out}.icon.svelte-b7667f{width:30px}@media(min-width: 600px){.icon.svelte-b7667f{width:40px}}",
@@ -111,6 +112,7 @@ export {
   LoadMoreButton as L,
   PageContainer as P,
   ReturnToTop as R,
+  VITE_ACCESS_TOKEN as V,
   Card as a,
   findGenreName as b,
   formatDate as f,

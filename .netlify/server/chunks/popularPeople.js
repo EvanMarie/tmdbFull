@@ -1,6 +1,6 @@
 import axios from "axios";
 import { w as writable } from "./index.js";
-import { V as VITE_ACCESS_TOKEN } from "./Modal.js";
+import { V as VITE_ACCESS_TOKEN } from "./Modal.svelte_svelte_type_style_lang.js";
 const searchResults = writable([]);
 let searchPageNumber = 1;
 const totalSearchPagesStore = writable(1);
