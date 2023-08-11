@@ -1,9 +1,10 @@
 // getMovieOrShowDetails.js
 
 import axios from 'axios';
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
 
 export const getMovieOrShowDetails = async (id, isShow = false) => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const mediaType = isShow ? 'tv' : 'movie';
 	const url = `https://api.themoviedb.org/3/${mediaType}/${id}?language=en-US`;
 

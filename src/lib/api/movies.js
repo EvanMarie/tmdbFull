@@ -2,7 +2,7 @@
 
 import { writable, get } from 'svelte/store';
 import axios from 'axios';
-
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
 export const movies = writable([]);
 export const moviePageStore = writable(1);
 
@@ -12,7 +12,7 @@ export const searchMoviePageStore = writable(1);
 export const totalMoviePagesStore = writable(1);
 
 export const getMovies = async (filter = 'popular', loadMore = false) => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const pageToFetch = loadMore ? get(moviePageStore) + 1 : 1;
 
 	const url = `https://api.themoviedb.org/3/movie/${filter}?language=en-US&page=${pageToFetch}`;

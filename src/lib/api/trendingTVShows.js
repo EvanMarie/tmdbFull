@@ -2,10 +2,12 @@
 
 import axios from 'axios';
 import { writable } from 'svelte/store';
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
 
 export const trendingTVShows = writable([]);
 export let trendingTVShowPageNumber = writable(1); // Change to a writable store
 export let totalTrendingTVShowPages = writable(1);
+// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 
 export const getTrendingTVShows = async (trendingTimeWindow) => {
 	let currentPage;
@@ -15,7 +17,6 @@ export const getTrendingTVShows = async (trendingTimeWindow) => {
 
 	if (currentPage > 5) return; // Skip if we already have 100 TV shows
 
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const options = {
 		method: 'GET',
 		url: `https://api.themoviedb.org/3/trending/tv/${trendingTimeWindow}?language=en-US&page=${currentPage}`, // use currentPage here

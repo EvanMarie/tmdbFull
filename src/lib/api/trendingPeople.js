@@ -3,14 +3,13 @@
 import axios from 'axios';
 import { writable } from 'svelte/store';
 import { getActorDetails } from './popularPeople.js'; // Ensure this path is correct
-
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
 export const trendingPeople = writable([]);
 export let trendingPageNumber = 1; // Current page number
 export const totalTrendingPages = writable(1); // Total pages available for trending people
+// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 
 export const getTrendingPeople = async (loadMore = false) => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
-
 	if (!loadMore && trendingPageNumber > 1) return;
 
 	// Loop to fetch 3 pages

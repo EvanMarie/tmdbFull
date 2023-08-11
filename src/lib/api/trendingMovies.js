@@ -2,11 +2,12 @@
 
 import axios from 'axios';
 import { writable } from 'svelte/store';
-
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
 export const trendingMovies = writable([]);
 export let trendingMoviePageNumber = writable(1); // Change to a writable store
 
 export const getTrendingMovies = async (trendingTimeWindow) => {
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	let currentPage;
 	trendingMoviePageNumber.subscribe((value) => {
 		currentPage = value;
@@ -14,7 +15,6 @@ export const getTrendingMovies = async (trendingTimeWindow) => {
 
 	if (currentPage > 5) return; // Skip if we already have 100 movies
 
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const options = {
 		method: 'GET',
 		url: `https://api.themoviedb.org/3/trending/movie/${trendingTimeWindow}?language=en-US&page=${currentPage}`, // use currentPage here

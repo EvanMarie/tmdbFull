@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { writable } from 'svelte/store';
-
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
 export const searchResults = writable([]);
 export let searchPageNumber = 1; // Maintain the state of the search page number
 export const totalSearchPagesStore = writable(1); // Total pages available for search results
@@ -12,8 +12,7 @@ export let pageNumber = writable(1); // Change this to a writable store
 export const totalPopularPagesStore = writable(1);
 
 export const getPeople = async (loadMore = false) => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
-
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	let currentPage;
 	pageNumber.subscribe((value) => {
 		currentPage = value;

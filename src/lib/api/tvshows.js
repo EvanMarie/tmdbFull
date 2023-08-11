@@ -6,9 +6,10 @@ import { writable, get } from 'svelte/store';
 export const tvShows = writable([]);
 export const tvShowPageStore = writable(1); // Current page number
 export const totalTVShowPagesStore = writable(1); // Total pages available
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
 
+// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 export const getTVShows = async (filter = 'top_rated', loadMore = false) => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const pageToFetch = loadMore ? get(tvShowPageStore) + 1 : 1;
 
 	const url = `https://api.themoviedb.org/3/tv/${filter}?language=en-US&page=${pageToFetch}`;

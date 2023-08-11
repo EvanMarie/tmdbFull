@@ -1,9 +1,9 @@
 // getCastDetails.js
 
 import axios from 'axios';
-
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
 export const getCastDetails = async (id, mediaType) => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 
 	// Determine the correct endpoint based on the mediaType
 	const url =
