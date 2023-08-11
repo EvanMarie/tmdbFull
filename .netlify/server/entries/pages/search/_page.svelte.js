@@ -1,9 +1,9 @@
 import { b as get_store_value, c as create_ssr_component, h as add_attribute, v as validate_component, d as each } from "../../../chunks/ssr.js";
 import { w as writable } from "../../../chunks/index.js";
 import axios from "axios";
-import { d as getActorDetails } from "../../../chunks/popularPeople.js";
+import { d as getActorDetails } from "../../../chunks/popularpeople.js";
 import { r as roundPopularity, f as formatDate, C as CardsContainer, L as LoadMoreButton, R as ReturnToTop, a as Card, P as PageContainer } from "../../../chunks/Modal.svelte_svelte_type_style_lang.js";
-import { p as prioritizeImages } from "../../../chunks/prioritizeImages.js";
+import { p as prioritizeImages } from "../../../chunks/prioritizeimages.js";
 import { M as Modal } from "../../../chunks/Modal.js";
 const multiResults = writable([]);
 const searchMultiPageStore = writable(1);

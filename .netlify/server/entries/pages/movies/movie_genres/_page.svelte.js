@@ -2,7 +2,7 @@ import { c as create_ssr_component, f as createEventDispatcher, e as escape, d a
 import { C as CardsContainer, R as ReturnToTop, L as LoadMoreButton, r as roundPopularity, f as formatDate, a as Card, P as PageContainer } from "../../../../chunks/Modal.svelte_svelte_type_style_lang.js";
 import { b as getMoviesByGenre, c as genrePageStore, d as totalGenrePagesStore } from "../../../../chunks/movies.js";
 import { M as Modal } from "../../../../chunks/Modal.js";
-import { p as prioritizeImages } from "../../../../chunks/prioritizeImages.js";
+import { p as prioritizeImages } from "../../../../chunks/prioritizeimages.js";
 const MovieGenreSelector = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { selectedGenre = 10402 } = $$props;
   let genres = [];

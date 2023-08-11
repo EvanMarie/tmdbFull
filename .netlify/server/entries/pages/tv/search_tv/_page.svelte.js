@@ -1,6 +1,6 @@
 import { c as create_ssr_component, h as add_attribute, v as validate_component, d as each } from "../../../../chunks/ssr.js";
 import { C as CardsContainer, R as ReturnToTop, L as LoadMoreButton, a as Card, P as PageContainer } from "../../../../chunks/Modal.svelte_svelte_type_style_lang.js";
-import { t as tvShows, a as tvShowPageStore, b as totalTVShowPagesStore, l as loadMoreSearchTVShows } from "../../../../chunks/tvShows.js";
+import { t as tvShows, a as tvShowPageStore, b as totalTVShowPagesStore, l as loadMoreSearchTVShows } from "../../../../chunks/tvshows.js";
 const SearchTVShows = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let tvShowData = [];
   let currentPage = 1;

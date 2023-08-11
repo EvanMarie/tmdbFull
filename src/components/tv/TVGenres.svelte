@@ -1,5 +1,5 @@
 <script>
-	import { getTVShowsByGenre } from '$lib/app/tvshows.js';
+	import { getTVShowsByGenre } from './tvshows';
 	import { prioritizeImages } from '../../lib/api/prioritizeimages.js';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import ReturnToTop from '../design/ReturnToTop.svelte';

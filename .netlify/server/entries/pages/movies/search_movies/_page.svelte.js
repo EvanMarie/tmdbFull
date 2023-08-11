@@ -1,7 +1,7 @@
 import { c as create_ssr_component, h as add_attribute, v as validate_component, d as each, e as escape } from "../../../../chunks/ssr.js";
 import { C as CardsContainer, L as LoadMoreButton, R as ReturnToTop, a as Card, P as PageContainer } from "../../../../chunks/Modal.svelte_svelte_type_style_lang.js";
 import { e as movieResults, s as searchMoviePageStore, t as totalMoviePagesStore, f as searchMovies } from "../../../../chunks/movies.js";
-import { p as prioritizeImages } from "../../../../chunks/prioritizeImages.js";
+import { p as prioritizeImages } from "../../../../chunks/prioritizeimages.js";
 import { M as Modal } from "../../../../chunks/Modal.js";
 const SearchMovies = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let movieSearchData = [];

@@ -2,8 +2,8 @@ import { c as create_ssr_component, a as subscribe, v as validate_component, d a
 import { V as VITE_ACCESS_TOKEN, C as CardsContainer, R as ReturnToTop, L as LoadMoreButton, a as Card, P as PageContainer } from "../../../../chunks/Modal.svelte_svelte_type_style_lang.js";
 import axios from "axios";
 import { w as writable } from "../../../../chunks/index.js";
-import { d as getActorDetails } from "../../../../chunks/popularPeople.js";
-import { p as prioritizeImages } from "../../../../chunks/prioritizeImages.js";
+import { d as getActorDetails } from "../../../../chunks/popularpeople.js";
+import { p as prioritizeImages } from "../../../../chunks/prioritizeimages.js";
 import { M as Modal } from "../../../../chunks/Modal.js";
 const trendingPeople = writable([]);
 let trendingPageNumber = 1;
