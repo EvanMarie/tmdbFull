@@ -91,3 +91,40 @@ export const getTVShowsByGenre = async (genreId, page = 1) => {
 		return [];
 	}
 };
+
+export async function searchTVShows(searchQuery, page = 1, append = false) {
+	try {
+		const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+		const url = `https://api.themoviedb.org/3/search/tv?query=${searchQuery}&language=en-US&page=${page}`;
+
+		const response = await axios.request({
+			method: 'GET',
+			url,
+			headers: {
+				accept: 'application/json',
+				Authorization: `Bearer ${ACCESS_TOKEN}`
+			}
+		});
+
+		const fetchedShows = response.data.results;
+
+		if (append) {
+			tvShows.update((existingShows) => existingShows.concat(fetchedShows));
+		} else {
+			tvShows.set(fetchedShows);
+		}
+
+		totalTVShowPagesStore.set(response.data.total_pages);
+		tvShowPageStore.set(page); // Update the current page
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export const loadMoreSearchTVShows = (searchQuery) => {
+	tvShowPageStore.update((currentPage) => {
+		const nextPage = currentPage + 1;
+		searchTVShows(searchQuery, nextPage, true); // true here indicates that we want to append results
+		return nextPage;
+	});
+};

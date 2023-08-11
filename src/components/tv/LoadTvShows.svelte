@@ -5,7 +5,7 @@
 		tvShowPageStore,
 		totalTVShowPagesStore,
 		getTVShows,
-	} from '$lib/api/tvshows.js';
+	} from '$lib/api/tvShows.js';
 	import { onMount } from 'svelte';
 	import { get } from 'svelte/store';
 	import { prioritizeImages } from '../../lib/api/prioritizeImages';

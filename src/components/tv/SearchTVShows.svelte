@@ -1,11 +1,11 @@
 <script>
 	import {
-		getTVShows,
+		searchTVShows,
 		tvShows,
 		tvShowPageStore,
 		totalTVShowPagesStore,
-		loadMoreTVShows
-	} from '$lib/api/tvshows.js';
+		loadMoreSearchTVShows
+	} from '$lib/api/tvShows.js';
 	import { onMount } from 'svelte';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
@@ -50,7 +50,7 @@
 
 	const handleSearch = () => {
 		tvShowData = []; // Clear existing search results
-		getTVShows(searchQuery);
+		searchTVShows(searchQuery); // No filter provided, so it will search all TV shows
 	};
 
 	const handleKeyPress = (event) => {
@@ -59,7 +59,7 @@
 		}
 	};
 
-		onMount(() => {
+	onMount(() => {
 		console.log('Performing initial search for "dragon"');
 		handleSearch();
 	});
@@ -88,5 +88,5 @@
 </CardsContainer>
 <ReturnToTop />
 {#if currentPage < totalTVShowPages}
-	<LoadMoreButton onClick={() => loadMoreTVShows(searchQuery)} />
+	<LoadMoreButton onClick={() => loadMoreSearchTVShows(searchQuery)} />
 {/if}
