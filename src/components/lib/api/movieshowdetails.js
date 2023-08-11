@@ -1,7 +1,7 @@
 // getMovieOrShowDetails.js
 
 import axios from 'axios';
-import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from './tmdb.js';
 
 export const getMovieOrShowDetails = async (id, isShow = false) => {
 	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;

@@ -5,9 +5,9 @@
 		trendingPeople,
 		trendingPageNumber,
 		totalTrendingPages
-	} from '$lib/api/trendingpeople.js';
+	} from '../lib/api/trendingpeople.js';
 	import { onMount } from 'svelte';
-	import { prioritizeImages } from '$lib/api/prioritizeimages';
+	import { prioritizeImages } from '../lib/api/prioritizeimages.js';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
 	import CardsContainer from '../design/CardsContainer.svelte';

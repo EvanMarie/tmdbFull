@@ -5,15 +5,15 @@
 		getTrendingMovies,
 		trendingMovies,
 		trendingMoviePageNumber
-	} from '$lib/api/trendingmovies.js';
+	} from '../lib/api/trendingmovies.js';
 	import { onMount, afterUpdate } from 'svelte';
-	import { prioritizeImages } from '$lib/api/prioritizeimages';
+	import { prioritizeImages } from '../lib/api/prioritizeimages';
 	import ReturnToTop from '../design/ReturnToTop.svelte';
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Card from '../design/Card.svelte';
 	import Modal from '../design/Modal.svelte';
 	import LoadMoreButton from '../design/LoadMoreButton.svelte';
-	import { roundPopularity, formatDate } from '$lib/cardutils.js';
+	import { roundPopularity, formatDate } from '../lib/cardutils.js';
 
 	let trendingMovieData = [];
 	let trendingTimeWindow = 'day'; // Initialize the trendingTimeWindow variable with 'day'

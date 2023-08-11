@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { writable } from 'svelte/store';
-import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from './tmdb.js';
 export const trendingMovies = writable([]);
 export let trendingMoviePageNumber = writable(1); // Change to a writable store
 

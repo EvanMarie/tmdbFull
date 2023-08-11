@@ -8,9 +8,9 @@ import {
 	personResults, // import the person store
 	searchMultiPageStore,
 	totalMultiPagesStore
-	} from '$lib/api/multisearch.js';
-	import { roundPopularity, formatDate } from '$lib/cardutils.js';
-	import { prioritizeImages } from '$lib/api/prioritizeimages.js';
+	} from './lib/api/multisearch.js';
+	import { roundPopularity, formatDate } from './lib/cardutils.js';
+	import { prioritizeImages } from './lib/api/prioritizeimages.js';
 	import ReturnToTop from './design/ReturnToTop.svelte';
 	import Card from './design/Card.svelte'; // Import Card
 	import CardsContainer from './design/CardsContainer.svelte'; // Import CardsContainer

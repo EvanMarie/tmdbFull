@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { writable } from 'svelte/store';
-import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from './tmdb.js';
 export const searchResults = writable([]);
 export let searchPageNumber = 1; // Maintain the state of the search page number
 export const totalSearchPagesStore = writable(1); // Total pages available for search results

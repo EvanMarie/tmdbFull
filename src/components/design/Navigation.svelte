@@ -1,6 +1,5 @@
 <script>
 	import { onMount } from 'svelte';
-	import { writable } from 'svelte/store';
 
 	let menuOpen = false;
 	const closeMenu = () => {

@@ -2,7 +2,7 @@
 
 import { writable, get } from 'svelte/store';
 import axios from 'axios';
-import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '$lib/api/tmdb.js';
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from './tmdb.js';
 export const movies = writable([]);
 export const moviePageStore = writable(1);
 
