@@ -6,7 +6,7 @@
 </script>
 
 <button on:click={scrollToTop} class="button-styles return-to-top"
-	><img src="/arrowUp.png" alt="return to top" class="icon" /></button
+	><img src="/arrowup.png" alt="return to top" class="icon" /></button
 >
 
 <style>
@@ -14,24 +14,23 @@
 		/* Add styling here to position and style the button */
 		position: fixed;
 		bottom: 120px;
-		right: -20px;
+		left: -20px;
 		font-weight: bold;
-		border-top-left-radius: 30%;
-		border-bottom-left-radius: 30%;
-		border-top-right-radius: 0px;
-		border-bottom-right-radius: 0px;
-		border-right: none;
+		border-top-right-radius: 30%;
+		border-bottom-right-radius: 30%;
+		border-top-left-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border-left: none;
 		cursor: pointer;
-		padding: 10px 22px 10px 8px;
+		padding: 10px 10px 10px 22px;
 		background-color: var(--cyan);
-		border-top-left-radius: 20px;
-		border-bottom-left-radius: 20px;
+
 	}
 
 	.return-to-top:hover {
 		background-color: var(--lightPink);
 		/* move left 35px and down 10px while scaling to 1.06 */
-		transform: translateX(-20px) translateY(5px) scale(1.06);
+		transform: translateX(20px) translateY(5px) scale(1.06);
 		transition: all 0.3s ease-in-out;
 	}
 

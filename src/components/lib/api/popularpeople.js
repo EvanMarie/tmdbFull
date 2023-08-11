@@ -67,7 +67,7 @@ export const searchPeople = async (query, resetPageNumber = false) => {
 	if (resetPageNumber) {
 		searchPageNumber = 1;
 	}
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const options = {
 		method: 'GET',
 		url: `https://api.themoviedb.org/3/search/person?language=en-US&query=${query}&page=${searchPageNumber}`,
@@ -106,7 +106,7 @@ export const searchPeople = async (query, resetPageNumber = false) => {
 export const actorDetails = writable(null);
 
 export const getActorDetails = async (personId) => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const url = `https://api.themoviedb.org/3/person/${personId}`;
 	const options = {
 		method: 'GET',

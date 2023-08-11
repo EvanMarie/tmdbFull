@@ -133,7 +133,7 @@
 	.toggle-button {
 		position: fixed;
 		bottom: 40px;
-		right: -20px;
+		left: -20px;
 		text-align: center;
 		padding: 5px 10px;
 		cursor: pointer;
@@ -144,16 +144,16 @@
 		font-size: 1.25rem;
 		display: flex;
 		justify-content: center;
-		padding: 10px 22px 10px 8px;
+		padding: 10px 8px 10px 22px;
 		background-color: var(--cyan);
-		border-top-left-radius: 20px;
-		border-bottom-left-radius: 20px;
+		border-top-right-radius: 20px;
+		border-bottom-right-radius: 20px;
 	}
 
 	.toggle-button:hover {
 		background-color: var(--lightPink);
 		/* move left 35px and down 10px while scaling to 1.06 */
-		transform: translateX(-20px) translateY(5px) scale(1.06);
+		transform: translateX(20px) translateY(5px) scale(1.06);
 		transition: all 0.3s ease-in-out;
 	}
 
@@ -164,7 +164,7 @@
 
 	.drawer-menu {
 		bottom: 0;
-		right: 0;
+		left: 0;
 		width: 100%;
 		transform: translateY(100%);
 		background-color: var(--darkGray08);

@@ -48,6 +48,7 @@
 		selectedItem = null;
 	};
 
+	
 	const handleSearch = () => {
 		tvShowData = []; // Clear existing search results
 		searchTVShows(searchQuery); // No filter provided, so it will search all TV shows

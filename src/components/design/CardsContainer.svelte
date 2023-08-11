@@ -9,7 +9,7 @@
 		justify-content: center;
 		align-items: center;
 		gap: 2rem;
-		padding: 2rem 5rem 2rem 2rem;
+		padding: 2rem 2rem 2rem 5rem;
 	}
 
 	@media (min-width: 800px) {

@@ -2,7 +2,7 @@
 </script>
 
 <div class="icon-menu">
-    <a href="/"
+	<a href="/"
 		><div class="icon-menu-item">
 			<img src="/home.png" alt="home" class="icon" />
 		</div></a
@@ -37,21 +37,21 @@
 		gap: 25px;
 		position: fixed;
 		top: 250px;
-		right: -20px;
+		left: -20px;
 		z-index: 200;
 	}
 	.icon-menu-item {
-		padding: 10px 22px 10px 8px;
+		padding: 10px 10px 10px 22px;
 		background-color: var(--cyan);
-		border-top-left-radius: 20px;
-		border-bottom-left-radius: 20px;
+		border-top-right-radius: 20px;
+		border-bottom-right-radius: 20px;
 		box-shadow: 2px -3px 3px rgba(0, 0, 0, 0.8);
 	}
 
 	.icon-menu-item:hover {
 		background-color: var(--lightPink);
-				box-shadow: 2px -3px 3px rgba(0, 0, 0, 0.9);
-		transform: translateX(-20px) translateY(5px) scale(1.06);
+		box-shadow: 2px -3px 3px rgba(0, 0, 0, 0.9);
+		transform: translateX(20px) translateY(5px) scale(1.06);
 		transition: all 0.3s ease-in-out;
 	}
 
@@ -59,9 +59,9 @@
 		width: 30px;
 	}
 
-@media (min-width: 600px) {
-    .icon {
-		width: 40px;
-}
-}
+	@media (min-width: 600px) {
+		.icon {
+			width: 40px;
+		}
+	}
 </style>

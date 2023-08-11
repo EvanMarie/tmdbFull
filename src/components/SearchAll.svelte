@@ -1,13 +1,13 @@
 <!-- SearchAll.svelte -->
 
 <script>
-import { onMount } from 'svelte';
-import {
-	searchMulti,
-	movieResults, // import the movie store
-	personResults, // import the person store
-	searchMultiPageStore,
-	totalMultiPagesStore
+	import { onMount } from 'svelte';
+	import {
+		searchMulti,
+		movieResults, // import the movie store
+		personResults, // import the person store
+		searchMultiPageStore,
+		totalMultiPagesStore
 	} from './lib/api/multisearch.js';
 	import { roundPopularity, formatDate } from './lib/cardutils.js';
 	import { prioritizeImages } from './lib/api/prioritizeimages.js';
@@ -67,9 +67,9 @@ import {
 	totalMultiPagesStore.subscribe((value) => (totalMultiPages = value));
 
 	const handleSearch = () => {
-    multiSearchData = [];  // Clear the data on new search
-    searchMulti(searchQuery);
-};
+		multiSearchData = []; // Clear the data on new search
+		searchMulti(searchQuery);
+	};
 
 	const handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
@@ -94,7 +94,6 @@ import {
 	onMount(() => {
 		handleSearch();
 	});
-
 </script>
 
 <div class="page-header-container">

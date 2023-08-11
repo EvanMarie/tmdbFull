@@ -1,6 +1,7 @@
 <!--TVGenreSelector.svelte -->
 
 <script>
+    import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '../lib/api/tmdb.js';
     import { onMount, createEventDispatcher } from 'svelte';
     import axios from 'axios';
 
@@ -24,7 +25,7 @@
     };
 
     onMount(async () => {
-        const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+        // const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
         const options = {
             method: 'GET',
             url: 'https://api.themoviedb.org/3/genre/tv/list?language=en-US',

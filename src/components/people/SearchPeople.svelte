@@ -10,6 +10,8 @@
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Card from '../design/Card.svelte';
 	import Modal from '../design/Modal.svelte';
+    import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '../lib/api/tmdb.js';
+
 
 	let searchQuery = 'Chaplin'; // Set the initial search query to "Chaplin"
 	let searchPageNumber = 1;
@@ -40,14 +42,19 @@
 
 	totalSearchPagesStore.subscribe((value) => (totalSearchPages = value));
 
+	let isLoading = false;
 	const handleSearch = async () => {
+		isLoading = true;
 		searchResultsData = []; // Clear existing search results
 		await searchPeople(searchQuery, true);
+		isLoading = false;
 	};
 
 	const handleLoadMore = async () => {
+		isLoading = true;
 		searchPageNumber++; // Increment the search page number
 		await searchPeople(searchQuery); // or searchPeople(searchQuery, false);
+		isLoading = false;
 	};
 
 

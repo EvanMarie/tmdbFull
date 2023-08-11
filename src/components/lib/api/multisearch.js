@@ -3,7 +3,7 @@
 import { writable, get } from 'svelte/store';
 import axios from 'axios';
 import { getActorDetails } from './popularpeople';
-
+import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from './tmdb.js';
 export const multiSearchDataStore = writable([]);
 
 export const multiResults = writable([]);
@@ -13,7 +13,7 @@ export const movieResults = writable([]);
 export const personResults = writable([]);
 
 export const searchMulti = async (query, loadMore = false) => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const pageToFetch = loadMore ? get(searchMultiPageStore) + 1 : 1;
 
 	const options = {

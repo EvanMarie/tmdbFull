@@ -15,7 +15,6 @@
 	import { roundPopularity, formatDate } from '../lib/cardutils.js';
 
 	let totalTrendingPages = 0;
-	let trendingTVShowData = [];
 	let trendingTimeWindow = 'day';
 	let initialized = false;
 	let tvShowData = [];

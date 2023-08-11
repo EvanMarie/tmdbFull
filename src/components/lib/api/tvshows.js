@@ -46,7 +46,7 @@ export const loadMoreTVShows = (searchQuery) => () => {
 };
 
 export const getTVGenres = async () => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const options = {
 		method: 'GET',
 		url: 'https://api.themoviedb.org/3/genre/tv/list?language=en-US',
@@ -65,7 +65,7 @@ export const getTVGenres = async () => {
 };
 
 export const getTVShowsByGenre = async (genreId, page = 1) => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const requests = [];
 
 	// Create three requests
@@ -95,7 +95,7 @@ export const getTVShowsByGenre = async (genreId, page = 1) => {
 
 export async function searchTVShows(searchQuery, page = 1, append = false) {
 	try {
-		const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+		// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 		const url = `https://api.themoviedb.org/3/search/tv?query=${searchQuery}&language=en-US&page=${page}`;
 
 		const response = await axios.request({

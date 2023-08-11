@@ -46,7 +46,7 @@ export const genrePageStore = writable(1);
 export const totalGenrePagesStore = writable(1);
 
 export const searchMovies = async (searchQuery, loadMore = false) => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const pageToFetch = loadMore ? get(searchMoviePageStore) + 1 : 1;
 
 	const options = {
@@ -78,7 +78,7 @@ export const searchMovies = async (searchQuery, loadMore = false) => {
 };
 
 export const getMoviesByGenre = async (genreId, page = 1) => {
-	const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+	// const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 	const requests = [];
 
 	// Create three requests
