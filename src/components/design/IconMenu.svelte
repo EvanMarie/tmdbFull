@@ -37,11 +37,11 @@
 		gap: 25px;
 		position: fixed;
 		top: 250px;
-		left: -15px;
+		left: -18px;
 		z-index: 200;
 	}
 	.icon-menu-item {
-		padding: 10px 10px 10px 22px;
+		padding: 10px 8px 10px 22px;
 		background-color: var(--cyan);
 		border-top-right-radius: 20px;
 		border-bottom-right-radius: 20px;

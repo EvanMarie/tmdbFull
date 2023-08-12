@@ -14,7 +14,7 @@
 		/* Add styling here to position and style the button */
 		position: fixed;
 		bottom: 120px;
-		left: -15px;
+		left: -18px;
 		font-weight: bold;
 		border-top-right-radius: 30%;
 		border-bottom-right-radius: 30%;
@@ -22,7 +22,7 @@
 		border-bottom-left-radius: 0px;
 		border-left: none;
 		cursor: pointer;
-		padding: 10px 10px 10px 22px;
+		padding: 10px 8px 10px 22px;
 		background-color: var(--cyan);
 
 	}
