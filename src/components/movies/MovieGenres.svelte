@@ -106,6 +106,4 @@
 <ReturnToTop />
 {#if moreMovies}
 	<LoadMoreButton onClick={() => loadMoviesByGenre(true)} />
-{:else}
-	<NoMoreResults />
 {/if}

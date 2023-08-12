@@ -16,7 +16,7 @@
 	import NoMoreResults from '../design/NoMoreResults.svelte';
 
 	let trendingPeopleData = [];
-  let peopleData = []; 
+	let peopleData = [];
 
 	// Subscribe to the trending people store
 	trendingPeople.subscribe((value) => {
@@ -63,8 +63,10 @@
 		}));
 	});
 </script>
+
 <div class="page-header-container">
-	<h1>Trending People</h1></div>
+	<h1>Trending People</h1>
+</div>
 <CardsContainer>
 	{#each peopleData.sort(prioritizeImages) as item}
 		<Card {item} on:itemClick={handleItemClick} />
@@ -75,6 +77,5 @@
 <ReturnToTop />
 {#if trendingPageNumber < $totalTrendingPages}
 	<LoadMoreButton onClick={handleLoadMoreTrending} />
-	{:else}
-	<NoMoreResults />
+
 {/if}

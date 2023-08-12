@@ -125,6 +125,5 @@
 {#if currentPage <= 5}
 	<!-- Condition to check if more pages are available -->
 	<LoadMoreButton onClick={handleLoadMore} />
-{:else}
-	<NoMoreResults />
+
 {/if}

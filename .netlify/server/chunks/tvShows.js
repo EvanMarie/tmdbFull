@@ -1,6 +1,6 @@
 import axios from "axios";
 import { w as writable } from "./index.js";
-import { V as VITE_ACCESS_TOKEN } from "./Modal.svelte_svelte_type_style_lang.js";
+import { V as VITE_ACCESS_TOKEN } from "./NoMoreResults.svelte_svelte_type_style_lang.js";
 import { b as get_store_value } from "./ssr.js";
 const tvShows = writable([]);
 const tvShowPageStore = writable(1);

@@ -83,6 +83,5 @@
 <ReturnToTop />
 {#if loadMoreTVShowsVisible}
 	<LoadMoreButton onClick={() => getTVShows(selectedFilter, true)} />
-		{:else}
-	<NoMoreResults />
+	
 {/if}

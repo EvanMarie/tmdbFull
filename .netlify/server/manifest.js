@@ -10,7 +10,7 @@ return {
 	assets: new Set(["acting.png","arrowdown.png","arrowdown2.png","arrowup.png","close.png","confused.png","directing.png","editing.png","favicon.ico","favicon.png","hero-logo.png","hero-logo.psd","hero.png","hero.psd","home.png","iheartcomponents.png","logo.png","menu.png","menu_hover.png","movieMd.png","movieSm.png","movieSm_hover.png","noimage.png","noimage.psd","noimage_sm.png","person.png","person_hover.png","producing.png","search.png","search_hover.png","tv.png","tv_hover.png","visual.png","writing.png"]),
 	mimeTypes: {".png":"image/png",".ico":"image/vnd.microsoft.icon",".psd":"image/vnd.adobe.photoshop"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.52d0575e.js","app":"_app/immutable/entry/app.e2840b7d.js","imports":["_app/immutable/entry/start.52d0575e.js","_app/immutable/chunks/scheduler.c4785dc3.js","_app/immutable/chunks/singletons.d0f49801.js","_app/immutable/chunks/index.09294a58.js","_app/immutable/entry/app.e2840b7d.js","_app/immutable/chunks/scheduler.c4785dc3.js","_app/immutable/chunks/index.42f95a44.js"],"stylesheets":[],"fonts":[]},
+		client: {"start":"_app/immutable/entry/start.d3589621.js","app":"_app/immutable/entry/app.64d72360.js","imports":["_app/immutable/entry/start.d3589621.js","_app/immutable/chunks/scheduler.c4785dc3.js","_app/immutable/chunks/singletons.c06bd494.js","_app/immutable/chunks/index.09294a58.js","_app/immutable/entry/app.64d72360.js","_app/immutable/chunks/scheduler.c4785dc3.js","_app/immutable/chunks/index.42f95a44.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),

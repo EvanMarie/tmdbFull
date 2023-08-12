@@ -16,6 +16,8 @@
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import NoResults from '../design/NoResults.svelte';
 	import NoMoreResults from '../design/NoMoreResults.svelte';
+	import { searchPageNumber } from '../lib/api/popularpeople.js';
+	import { loadMoreSearchTVShows } from '../tv/tvshows.js';
 
 	let movieSearchData = [];
 	let searchQuery = 'unicorn'; // Initialize search query with "unicorn"
@@ -72,13 +74,10 @@
 			rating: movie.vote_average,
 			backdrop_path: movie.poster_path,
 			overview: movie.overview,
-			release_date: movie.release_date,
+			release_date: movie.release_date
 		}));
 	});
 </script>
-
-
-
 
 <div class="page-header-container">
 	<p>Search Movies</p>
@@ -104,15 +103,10 @@
 	<Modal selectedItem={selectedMovie} close={closeMovieModal} />
 {:else}
 	<NoResults />
-
 {/if}
 
-{#if currentPage <= totalMoviePages}
-	{#if movieSearchData.length > 0}
-		<LoadMoreButton onClick={loadMoreMovies} />
-		{:else}
-	<NoMoreResults />
-	{/if}
+{#if currentPage < totalMoviePages && movieSearchData.length > 0}
+	<LoadMoreButton onClick={loadMoreMovies} />
 {/if}
 
 <ReturnToTop />

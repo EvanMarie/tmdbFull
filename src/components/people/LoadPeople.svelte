@@ -81,6 +81,5 @@
 <ReturnToTop />
 {#if $pageNumber < totalPopularPages}
 	<LoadMoreButton onClick={getPeople} />
-	{:else}
-	<NoMoreResults />
+
 {/if}

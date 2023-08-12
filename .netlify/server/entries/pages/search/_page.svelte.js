@@ -2,9 +2,10 @@ import { b as get_store_value, c as create_ssr_component, h as add_attribute, v 
 import { w as writable } from "../../../chunks/index.js";
 import axios from "axios";
 import { d as getActorDetails } from "../../../chunks/popularpeople.js";
-import { V as VITE_ACCESS_TOKEN, r as roundPopularity, f as formatDate, C as CardsContainer, L as LoadMoreButton, R as ReturnToTop, a as Card, P as PageContainer } from "../../../chunks/Modal.svelte_svelte_type_style_lang.js";
+import { V as VITE_ACCESS_TOKEN, r as roundPopularity, f as formatDate, C as CardsContainer, L as LoadMoreButton, R as ReturnToTop, a as Card, P as PageContainer } from "../../../chunks/NoMoreResults.svelte_svelte_type_style_lang.js";
 import { p as prioritizeImages } from "../../../chunks/prioritizeimages.js";
 import { M as Modal } from "../../../chunks/Modal.js";
+import { N as NoResults } from "../../../chunks/NoResults.js";
 const multiResults = writable([]);
 const searchMultiPageStore = writable(1);
 const totalMultiPagesStore = writable(1);
@@ -101,7 +102,7 @@ const SearchAll = create_ssr_component(($$result, $$props, $$bindings, slots) =>
         return `${validate_component(Card, "Card").$$render($$result, { item }, {}, {})}`;
       })}`;
     }
-  })} ${validate_component(Modal, "Modal").$$render($$result, { selectedItem, close: closeModal }, {}, {})}` : ``} ${currentPage <= totalMultiPages ? `${validate_component(LoadMoreButton, "LoadMoreButton").$$render($$result, { onClick: loadMore }, {}, {})}` : ``} ${validate_component(ReturnToTop, "ReturnToTop").$$render($$result, {}, {}, {})}`;
+  })} ${validate_component(Modal, "Modal").$$render($$result, { selectedItem, close: closeModal }, {}, {})}` : `${validate_component(NoResults, "NoResults").$$render($$result, {}, {}, {})}`} ${currentPage <= totalMultiPages ? `${totalMultiPages > 1 ? `${validate_component(LoadMoreButton, "LoadMoreButton").$$render($$result, { onClick: loadMore }, {}, {})}` : ``}` : ``} ${validate_component(ReturnToTop, "ReturnToTop").$$render($$result, {}, {}, {})}`;
 });
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `${validate_component(PageContainer, "PageContainer").$$render($$result, {}, {}, {

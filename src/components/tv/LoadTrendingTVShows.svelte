@@ -101,6 +101,5 @@
 
 {#if $trendingTVShowPageNumber < totalTrendingPages}
 	<LoadMoreButton onClick={handleLoadMoreTrending} />
-	{:else}
-	<NoMoreResults />
+
 {/if}

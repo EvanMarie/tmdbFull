@@ -96,7 +96,6 @@
 {#if currentPage < totalTVShowPages}
 	{#if tvShowData.length > 0}
 		<LoadMoreButton onClick={() => loadMoreSearchTVShows(searchQuery)} />
-	{:else}
-		<NoMoreResults />
+	
 	{/if}
 {/if}

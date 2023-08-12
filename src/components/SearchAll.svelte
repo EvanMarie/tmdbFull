@@ -126,8 +126,6 @@
 {#if currentPage <= totalMultiPages}
 	{#if totalMultiPages > 1}
 		<LoadMoreButton onClick={loadMore} />
-		{:else}
-	<NoMoreResults />
 	{/if}
 {/if}
 <ReturnToTop />

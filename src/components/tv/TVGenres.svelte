@@ -78,6 +78,5 @@
 <ReturnToTop />
 {#if showButton && moreShows}
 	<LoadMoreButton onClick={loadShowsByGenre} />
-{:else}
-	<NoMoreResults />
+
 {/if}

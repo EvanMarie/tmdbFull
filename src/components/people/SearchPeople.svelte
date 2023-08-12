@@ -10,10 +10,9 @@
 	import CardsContainer from '../design/CardsContainer.svelte';
 	import Card from '../design/Card.svelte';
 	import Modal from '../design/Modal.svelte';
-    import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '../lib/api/tmdb.js';
+	import { VITE_ACCESS_TOKEN as ACCESS_TOKEN } from '../lib/api/tmdb.js';
 	import NoResults from '../design/NoResults.svelte';
 	import NoMoreResults from '../design/NoMoreResults.svelte';
-
 
 	let searchQuery = 'Chaplin'; // Set the initial search query to "Chaplin"
 	let searchPageNumber = 1;
@@ -59,7 +58,6 @@
 		isLoading = false;
 	};
 
-
 	searchResults.subscribe((value) => {
 		peopleData = value.map((person) => ({
 			// Mapping the properties you need
@@ -80,8 +78,6 @@
 			backdrop_path: person.profile_path
 		}));
 	});
-
-
 </script>
 
 <div class="page-header-container">
@@ -106,9 +102,10 @@
 	<ReturnToTop />
 	{#if searchResultsData.length > 0 && searchPageNumber < totalSearchPages}
 		<LoadMoreButton onClick={handleLoadMore} />
-		{:else}
-	<NoMoreResults />
+	{:else if searchResultsData.length > 0 && searchPageNumber >= totalSearchPages}
+		<NoMoreResults />
 	{/if}
-{:else}
-	<NoResults/>
+	{#if totalSearchPages === 0}
+		<NoResults />
+	{/if}
 {/if}

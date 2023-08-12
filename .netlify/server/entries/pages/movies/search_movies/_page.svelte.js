@@ -1,8 +1,9 @@
-import { c as create_ssr_component, h as add_attribute, v as validate_component, d as each, e as escape } from "../../../../chunks/ssr.js";
-import { C as CardsContainer, L as LoadMoreButton, R as ReturnToTop, a as Card, P as PageContainer } from "../../../../chunks/Modal.svelte_svelte_type_style_lang.js";
+import { c as create_ssr_component, h as add_attribute, v as validate_component, d as each } from "../../../../chunks/ssr.js";
+import { C as CardsContainer, L as LoadMoreButton, R as ReturnToTop, a as Card, P as PageContainer } from "../../../../chunks/NoMoreResults.svelte_svelte_type_style_lang.js";
 import { e as movieResults, s as searchMoviePageStore, t as totalMoviePagesStore, f as searchMovies } from "../../../../chunks/movies.js";
 import { p as prioritizeImages } from "../../../../chunks/prioritizeimages.js";
 import { M as Modal } from "../../../../chunks/Modal.js";
+import { N as NoResults } from "../../../../chunks/NoResults.js";
 const SearchMovies = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let movieSearchData = [];
   let searchQuery = "unicorn";
@@ -47,7 +48,7 @@ const SearchMovies = create_ssr_component(($$result, $$props, $$bindings, slots)
     },
     {},
     {}
-  )}` : `<p>No search results to display. Search query: ${escape(searchQuery)}</p> `} ${currentPage <= totalMoviePages ? `${validate_component(LoadMoreButton, "LoadMoreButton").$$render($$result, { onClick: loadMoreMovies }, {}, {})}` : ``} ${validate_component(ReturnToTop, "ReturnToTop").$$render($$result, {}, {}, {})}`;
+  )}` : `${validate_component(NoResults, "NoResults").$$render($$result, {}, {}, {})}`} ${currentPage < totalMoviePages && movieSearchData.length > 0 ? `${validate_component(LoadMoreButton, "LoadMoreButton").$$render($$result, { onClick: loadMoreMovies }, {}, {})}` : ``} ${validate_component(ReturnToTop, "ReturnToTop").$$render($$result, {}, {}, {})}`;
 });
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `${validate_component(PageContainer, "PageContainer").$$render($$result, {}, {}, {

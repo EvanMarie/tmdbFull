@@ -89,6 +89,4 @@
 <ReturnToTop />
 {#if loadMoreVisible}
 	<LoadMoreButton onClick={() => getMovies(filter, true)} />
-{:else}
-	<NoMoreResults />
 {/if}

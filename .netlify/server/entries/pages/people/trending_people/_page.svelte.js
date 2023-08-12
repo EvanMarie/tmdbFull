@@ -1,5 +1,5 @@
 import { c as create_ssr_component, a as subscribe, v as validate_component, d as each } from "../../../../chunks/ssr.js";
-import { V as VITE_ACCESS_TOKEN, C as CardsContainer, R as ReturnToTop, L as LoadMoreButton, a as Card, P as PageContainer } from "../../../../chunks/Modal.svelte_svelte_type_style_lang.js";
+import { V as VITE_ACCESS_TOKEN, C as CardsContainer, R as ReturnToTop, L as LoadMoreButton, a as Card, P as PageContainer } from "../../../../chunks/NoMoreResults.svelte_svelte_type_style_lang.js";
 import axios from "axios";
 import { w as writable } from "../../../../chunks/index.js";
 import { d as getActorDetails } from "../../../../chunks/popularpeople.js";
@@ -72,7 +72,7 @@ const LoadTrendingPeople = create_ssr_component(($$result, $$props, $$bindings, 
     }));
   });
   $$unsubscribe_totalTrendingPages();
-  return `  <div class="page-header-container" data-svelte-h="svelte-1ldpgsk"><h1>Trending People</h1></div> ${validate_component(CardsContainer, "CardsContainer").$$render($$result, {}, {}, {
+  return `  <div class="page-header-container" data-svelte-h="svelte-1nifw3s"><h1>Trending People</h1></div> ${validate_component(CardsContainer, "CardsContainer").$$render($$result, {}, {}, {
     default: () => {
       return `${each(peopleData.sort(prioritizeImages), (item) => {
         return `${validate_component(Card, "Card").$$render($$result, { item }, {}, {})}`;
