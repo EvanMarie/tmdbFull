@@ -20,6 +20,8 @@
 	let totalTVShowPages = 1;
 	let searchQuery = 'dragon'; // Set the initial search query to "dragon"
 	let selectedItem = null;
+		let hasSearched = false;
+	let isLoading = false; 
 
 	onMount(() => {
 		handleSearch();
@@ -37,6 +39,7 @@
 			overview: show.overview,
 			release_date: show.first_air_date
 		}));
+				isLoading = false; 
 	});
 
 	tvShowPageStore.subscribe((value) => (currentPage = value));
@@ -53,6 +56,7 @@
 	const handleSearch = () => {
 		tvShowData = []; // Clear existing search results
 		searchTVShows(searchQuery); // No filter provided, so it will search all TV shows
+				isLoading = true;
 	};
 
 	const handleKeyPress = (event) => {
@@ -64,6 +68,7 @@
 	onMount(() => {
 		console.log('Performing initial search for "dragon"');
 		handleSearch();
+				hasSearched = false;
 	});
 </script>
 
@@ -89,12 +94,12 @@
 			<Modal {selectedItem} close={closeTVShowModal} />
 		{/if}
 	</CardsContainer>
-{:else}
+{:else if hasSearched}
 	<NoResults />
 {/if}
 <ReturnToTop />
 {#if currentPage < totalTVShowPages}
-	{#if tvShowData.length > 0}
+	{#if hasSearched}
 		<LoadMoreButton onClick={() => loadMoreSearchTVShows(searchQuery)} />
 	
 	{/if}

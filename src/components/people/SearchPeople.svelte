@@ -19,6 +19,8 @@
 	let searchResultsData = [];
 	let totalSearchPages = 1;
 	let peopleData = [];
+		let hasSearched = false;
+	let isLoading = false; 
 
 	function handleItemClick(event) {
 		selectedItem = event.detail.item;
@@ -39,16 +41,17 @@
 	onMount(async () => {
 		// Perform the initial search when the component mounts
 		await handleSearch();
+		hasSearched=false;
 	});
 
 	totalSearchPagesStore.subscribe((value) => (totalSearchPages = value));
 
-	let isLoading = false;
+
 	const handleSearch = async () => {
 		isLoading = true;
 		searchResultsData = []; // Clear existing search results
 		await searchPeople(searchQuery, true);
-		isLoading = false;
+		isLoading = true;
 	};
 
 	const handleLoadMore = async () => {
@@ -77,6 +80,7 @@
 			known_for_department: person.known_for_department,
 			backdrop_path: person.profile_path
 		}));
+				isLoading = false; 
 	});
 </script>
 
@@ -104,8 +108,8 @@
 		<LoadMoreButton onClick={handleLoadMore} />
 	{:else if searchResultsData.length > 0 && searchPageNumber >= totalSearchPages}
 		<NoMoreResults />
-	{/if}
-	{#if totalSearchPages === 0}
+
+{:else if hasSearched}
 		<NoResults />
 	{/if}
 {/if}

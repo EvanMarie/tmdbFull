@@ -24,9 +24,12 @@
 	let currentPage = 1;
 	let totalMultiPages = 1;
 	let selectedItem = null; // Add variable to hold selected item
+	let hasSearched = false;
+	let isLoading = false; 
 
 	// Subscribe to the movie results
 	movieResults.subscribe((value) => {
+		
 		const movies = value.map((item) => ({
 			id: item.id,
 			title: item.title,
@@ -38,6 +41,7 @@
 			datatype: 'movie'
 		}));
 		multiSearchData = [...movies, ...multiSearchData];
+		isLoading = false; 
 	});
 
 	// Subscribe to the person results
@@ -61,6 +65,7 @@
 			backdrop_path: person.profile_path
 		}));
 		multiSearchData = [...persons, ...multiSearchData];
+		isLoading = false;
 	});
 
 	console.log(multiSearchData);
@@ -71,6 +76,8 @@
 	const handleSearch = () => {
 		multiSearchData = []; // Clear the data on new search
 		searchMulti(searchQuery);
+		hasSearched = true; 
+		isLoading = true;
 	};
 
 	const handleKeyPress = (event) => {
@@ -81,6 +88,7 @@
 
 	const loadMore = () => {
 		searchMulti(searchQuery, true);
+				isLoading = true; 
 	};
 
 	const openModal = (item) => {
@@ -95,6 +103,7 @@
 
 	onMount(() => {
 		handleSearch();
+		hasSearched=false;
 	});
 </script>
 
@@ -119,7 +128,7 @@
 		{/each}
 	</CardsContainer>
 	<Modal {selectedItem} close={closeModal} />
-{:else}
+{:else if hasSearched}
 	<NoResults />
 {/if}
 

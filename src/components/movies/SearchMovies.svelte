@@ -23,6 +23,8 @@
 	let searchQuery = 'unicorn'; // Initialize search query with "unicorn"
 	let currentPage = 1;
 	let totalMoviePages = 1;
+	let hasSearched = false;
+	let isLoading = false;
 
 	let selectedMovie = null; // Variable to hold the selected movie
 
@@ -49,18 +51,21 @@
 	};
 
 	const loadMoreMovies = () => {
+		isLoading = true;
 		searchMovies(searchQuery, true);
 	};
 
 	onMount(() => {
 		console.log('Performing initial search for "unicorn"');
 		handleSearch();
+				hasSearched=false;
 	});
 
 	const handleSearch = () => {
 		console.log('Handling search for:', searchQuery);
 		movieSearchData = [];
 		searchMovies(searchQuery);
+		isLoading = true;
 	};
 
 	// Subscribe to the movieResults store
@@ -76,6 +81,7 @@
 			overview: movie.overview,
 			release_date: movie.release_date
 		}));
+		isLoading = false;
 	});
 </script>
 
@@ -101,7 +107,7 @@
 		{/each}
 	</CardsContainer>
 	<Modal selectedItem={selectedMovie} close={closeMovieModal} />
-{:else}
+{:else if hasSearched}
 	<NoResults />
 {/if}
 
