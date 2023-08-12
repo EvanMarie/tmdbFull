@@ -1,38 +1,64 @@
-# create-svelte
+# Not Just Another TMDB
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Discover "Not Just Another TMDB," a dynamic movie database application that brings movies, TV shows, and celebrities to your fingertips.
 
-## Creating a project
+![Screenshot of the Application](https://iheartcomponents.com/images/team/evanProjects/njatmdbMain.png) <!-- Replace with an actual screenshot -->
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Features
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- **Explore Entertainment:** Dive into detailed information about movies, TV shows, and celebrities with ease.
+- **Search & Discover:** Effortlessly explore genres, categories, trending content, and more.
+- **Modern Design:** Experience a sleek interface with a modern, colorful design balanced by dark tones.
+- **Fully Responsive:** Built to perform seamlessly across all devices, ensuring an engaging browsing experience.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Built With
 
-## Developing
+- **SvelteKit:** For a smooth and efficient UI development.
+- **Vite:** For lightning-fast build and reload times.
+- **TMDB API:** Empowering the app to fetch the latest and most accurate movie data.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Getting Started
 
-```bash
-npm run dev
+### Prerequisites
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+Ensure you have the following installed:
 
-## Building
+- Node.js
+- npm or yarn
 
-To create a production version of your app:
+### Installation
 
-```bash
-npm run build
-```
+1. Clone the repository:
+   git clone https://github.com/yourusername/NotJustAnotherTMDB.git
 
-You can preview the production build with `npm run preview`.
+2. Navigate to the project directory:
+   cd NotJustAnotherTMDB
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+3. Install dependencies:
+   npm install
+
+4. Start the development server:
+   npm run dev
+
+Now the app should be running at `http://localhost:5173/`.
+
+## Live Version
+
+Experience entertainment like never before by visiting the [NJATMDB](https://njatmdb.netlify.app/) of this intuitive and vibrant platform.
+
+## Contributing
+
+If you'd like to contribute, please fork the repository and make changes as you'd like. Pull requests are warmly welcome.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Acknowledgments
+
+- The TMDB API for providing the movie data.
+- The Svelte community for their invaluable tools and support.
+
+## Contact
+
+Evan Marie Carr - [IHeartComponents.com](https://www.iheartcomponents.com) - evanmariecarr@gmail.com
